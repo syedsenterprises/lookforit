@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Tools</title>
+  <style>
+    :root {
+      font-family: Arial, sans-serif;
+      color: #111;
+      background: #f7f7f7;
+    }
+    body { margin: 0; padding: 0; }
+    .page { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { margin: 0 0 8px; font-size: 32px; }
+    header p { margin: 0; color: #4b5563; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 20px 0 24px; }
+    .controls input, .controls select { padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 10px; font-size: 14px; min-width: 220px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.04); display: flex; flex-direction: column; }
+    .card-thumb { display: flex; justify-content: center; padding: 20px; background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%); }
+    .card-thumb img { width: 120px; height: 120px; object-fit: contain; border-radius: 16px; background: #fff; border: 1px solid #e5e7eb; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 16px; }
+    .card-body { padding: 16px 16px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .category { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #eef2ff; color: #4338ca; font-size: 13px; }
+    h2 { margin: 0; font-size: 20px; }
+    h2 a { color: inherit; text-decoration: none; }
+    h2 a:hover { text-decoration: underline; }
+    p { margin: 0; line-height: 1.5; color: #374151; }
+    .cta a { display: inline-flex; align-items: center; gap: 6px; background: #111827; color: #fff; padding: 10px 12px; border-radius: 10px; text-decoration: none; font-weight: 600; width: fit-content; }
+    .cta a:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    @media (max-width: 720px) {
+      header h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>AI Tools</h1>
+      <p>20 tools</p>
+    </header>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Search tools by name" aria-label="Search tools by name" />
+      <select id="category" aria-label="Filter by category">
+        <option value="">All categories</option><option value="AI Assistant">AI Assistant</option><option value="AI Chatbot">AI Chatbot</option><option value="AI Search">AI Search</option><option value="Audio/Video">Audio/Video</option><option value="Content">Content</option><option value="Design">Design</option><option value="Developer Tools">Developer Tools</option><option value="Image Generation">Image Generation</option><option value="LLM">LLM</option><option value="Platform">Platform</option><option value="Productivity">Productivity</option><option value="Video">Video</option><option value="Voice">Voice</option>
+      </select>
+    </div>
+    <section class="grid" id="grid">
+      
+      <article class="card" data-name="chatgpt" data-category="AI Chatbot">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/chatgpt.com" alt="ChatGPT" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/ai-chatbot.html">AI Chatbot</a></div>
+          <h2><a href="chatgpt.html">ChatGPT</a></h2>
+          <p>Conversational AI for drafting, answering questions, coding help, and more.</p>
+          <div class="cta"><a href="chatgpt.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="claude" data-category="AI Assistant">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/claude.ai" alt="Claude" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/ai-assistant.html">AI Assistant</a></div>
+          <h2><a href="claude.html">Claude</a></h2>
+          <p>AI assistant for analysis, writing, reasoning, and safer code help.</p>
+          <div class="cta"><a href="claude.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="midjourney" data-category="Image Generation">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/midjourney.com" alt="Midjourney" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/image-generation.html">Image Generation</a></div>
+          <h2><a href="midjourney.html">Midjourney</a></h2>
+          <p>Text-to-image generation with high-quality artistic outputs.</p>
+          <div class="cta"><a href="midjourney.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="dall·e" data-category="Image Generation">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/openai.com" alt="DALL·E" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/image-generation.html">Image Generation</a></div>
+          <h2><a href="dall-e.html">DALL·E</a></h2>
+          <p>OpenAI's text-to-image generator for creative visuals and edits.</p>
+          <div class="cta"><a href="dall-e.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="stable diffusion" data-category="Image Generation">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/stability.ai" alt="Stable Diffusion" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/image-generation.html">Image Generation</a></div>
+          <h2><a href="stable-diffusion.html">Stable Diffusion</a></h2>
+          <p>Open-source text-to-image model for flexible, local, and hosted use.</p>
+          <div class="cta"><a href="stable-diffusion.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="perplexity" data-category="AI Search">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/perplexity.ai" alt="Perplexity" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/ai-search.html">AI Search</a></div>
+          <h2><a href="perplexity.html">Perplexity</a></h2>
+          <p>Answer-focused AI search engine with cited sources.</p>
+          <div class="cta"><a href="perplexity.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="github copilot" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/github.com" alt="GitHub Copilot" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/developer-tools.html">Developer Tools</a></div>
+          <h2><a href="github-copilot.html">GitHub Copilot</a></h2>
+          <p>AI pair programmer for code completion and suggestions.</p>
+          <div class="cta"><a href="github-copilot.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="replit ghostwriter" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/replit.com" alt="Replit Ghostwriter" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/developer-tools.html">Developer Tools</a></div>
+          <h2><a href="replit-ghostwriter.html">Replit Ghostwriter</a></h2>
+          <p>AI coding assistant built into Replit for faster development.</p>
+          <div class="cta"><a href="replit-ghostwriter.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="notion ai" data-category="Productivity">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/notion.so" alt="Notion AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/productivity.html">Productivity</a></div>
+          <h2><a href="notion-ai.html">Notion AI</a></h2>
+          <p>Embedded AI in Notion for writing, summarizing, and tasking.</p>
+          <div class="cta"><a href="notion-ai.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="jasper" data-category="Content">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/jasper.ai" alt="Jasper" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/content.html">Content</a></div>
+          <h2><a href="jasper.html">Jasper</a></h2>
+          <p>AI writing assistant for marketing copy and content creation.</p>
+          <div class="cta"><a href="jasper.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="canva ai" data-category="Design">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/canva.com" alt="Canva AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/design.html">Design</a></div>
+          <h2><a href="canva-ai.html">Canva AI</a></h2>
+          <p>AI-powered design tools including Magic Design and text-to-image.</p>
+          <div class="cta"><a href="canva-ai.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="runway" data-category="Video">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/runwayml.com" alt="Runway" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/video.html">Video</a></div>
+          <h2><a href="runway.html">Runway</a></h2>
+          <p>AI video and image tools, including text-to-video and inpainting.</p>
+          <div class="cta"><a href="runway.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="descript" data-category="Audio/Video">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/descript.com" alt="Descript" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/audio-video.html">Audio/Video</a></div>
+          <h2><a href="descript.html">Descript</a></h2>
+          <p>Audio/video editing with AI transcription, overdub, and cleanup.</p>
+          <div class="cta"><a href="descript.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="elevenlabs" data-category="Voice">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/elevenlabs.io" alt="ElevenLabs" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/voice.html">Voice</a></div>
+          <h2><a href="elevenlabs.html">ElevenLabs</a></h2>
+          <p>High-quality AI voice synthesis and cloning.</p>
+          <div class="cta"><a href="elevenlabs.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="synthesia" data-category="Video">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/synthesia.io" alt="Synthesia" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/video.html">Video</a></div>
+          <h2><a href="synthesia.html">Synthesia</a></h2>
+          <p>AI-generated presenter videos from text scripts.</p>
+          <div class="cta"><a href="synthesia.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="llama 3" data-category="LLM">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/meta.com" alt="Llama 3" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/llm.html">LLM</a></div>
+          <h2><a href="llama-3.html">Llama 3</a></h2>
+          <p>Open large language model series for chat and reasoning tasks.</p>
+          <div class="cta"><a href="llama-3.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="gemini" data-category="AI Assistant">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/google.com" alt="Gemini" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/ai-assistant.html">AI Assistant</a></div>
+          <h2><a href="gemini.html">Gemini</a></h2>
+          <p>Google's multimodal AI for text, vision, and code assistance.</p>
+          <div class="cta"><a href="gemini.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="mistral ai" data-category="LLM">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/mistral.ai" alt="Mistral AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/llm.html">LLM</a></div>
+          <h2><a href="mistral-ai.html">Mistral AI</a></h2>
+          <p>Open and efficient language models for chat and coding.</p>
+          <div class="cta"><a href="mistral-ai.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="hugging face" data-category="Platform">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/huggingface.co" alt="Hugging Face" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/platform.html">Platform</a></div>
+          <h2><a href="hugging-face.html">Hugging Face</a></h2>
+          <p>Hub for models, datasets, and Spaces to build and deploy AI.</p>
+          <div class="cta"><a href="hugging-face.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="langchain" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/langchain.com" alt="LangChain" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category"><a href="category/developer-tools.html">Developer Tools</a></div>
+          <h2><a href="langchain.html">LangChain</a></h2>
+          <p>Framework for building LLM-powered apps with chaining and tooling.</p>
+          <div class="cta"><a href="langchain.html">View →</a></div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script>
+    const searchInput = document.getElementById('search');
+    const categorySelect = document.getElementById('category');
+    const cards = Array.from(document.querySelectorAll('.card'));
+
+    function applyFilter() {
+      const q = searchInput.value.trim().toLowerCase();
+      const cat = categorySelect.value;
+
+      cards.forEach(card => {
+        const name = card.dataset.name;
+        const category = card.dataset.category;
+        const matchName = !q || name.includes(q);
+        const matchCat = !cat || category === cat;
+        card.style.display = (matchName && matchCat) ? '' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+    categorySelect.addEventListener('change', applyFilter);
+  </script>
+</body>
+</html>

@@ -1,32 +1,109 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>ChatGPT - AI Tool</title>
-
-<meta name="description" content="AI Orbit is an advanced platform designed to empower users with tools for creating content, analyzing data, automating tasks, and designing unique visuals. Whether you're a solo creator or a business enterprise, AI Orbit is your partner in innovation.">
-
-<meta charset="UTF-8">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatGPT | AI Tool</title>
+  <style>
+    :root {
+      font-family: Arial, sans-serif;
+      color: #111;
+      background: #f7f7f7;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    }
+    .hero-img {
+      display: flex;
+      justify-content: center;
+      padding: 32px 32px 0;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .hero-img img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 24px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 24px 32px 32px;
+    }
+    .meta {
+      padding: 0;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+    .category {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    p {
+      margin: 0 0 16px;
+      line-height: 1.6;
+    }
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #111827;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .cta a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .meta { padding: 0 24px 24px; }
+    }
+  </style>
 </head>
-
 <body>
-
-<h1>ChatGPT</h1>
-
-<p>AI Orbit is an advanced platform designed to empower users with tools for creating content, analyzing data, automating tasks, and designing unique visuals. Whether you're a solo creator or a business enterprise, AI Orbit is your partner in innovation.</p>
-
-<p><strong>Category:</strong> AI Tool</p>
-
-<p><strong>Tags:</strong> </p>
-
-<p>
-<a href="https://chatgpt.com/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia" target="_blank">
-Visit Tool
-</a>
-</p>
-
+  <main class="page">
+    <div class="hero-img">
+      <img src="https://logo.clearbit.com/chatgpt.com" alt="ChatGPT" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+    </div>
+    <section class="hero">
+      <div class="meta">
+        <div class="category"><a href="category/ai-chatbot.html">AI Chatbot</a></div>
+        <h1>ChatGPT</h1>
+        <p>Conversational AI for drafting, answering questions, coding help, and more.</p>
+        <div class="cta">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Visit Tool →</a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
-
 </html>

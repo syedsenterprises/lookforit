@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Tools | AI Tools</title>
+  <style>
+    :root {
+      font-family: Arial, sans-serif;
+      color: #111;
+      background: #f7f7f7;
+    }
+    body { margin: 0; padding: 0; }
+    .page { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { margin: 0 0 8px; font-size: 32px; }
+    header p { margin: 0; color: #4b5563; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.04); display: flex; flex-direction: column; }
+    .card-thumb { display: flex; justify-content: center; padding: 20px; background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%); }
+    .card-thumb img { width: 120px; height: 120px; object-fit: contain; border-radius: 16px; background: #fff; border: 1px solid #e5e7eb; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 16px; }
+    .card-body { padding: 16px 16px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .category { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #eef2ff; color: #4338ca; font-size: 13px; }
+    h2 { margin: 0; font-size: 20px; }
+    h2 a { color: inherit; text-decoration: none; }
+    h2 a:hover { text-decoration: underline; }
+    p { margin: 0; line-height: 1.5; color: #374151; }
+    .cta a { display: inline-flex; align-items: center; gap: 6px; background: #111827; color: #fff; padding: 10px 12px; border-radius: 10px; text-decoration: none; font-weight: 600; width: fit-content; }
+    .cta a:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    @media (max-width: 720px) {
+      header h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Developer Tools</h1>
+      <p>3 tools</p>
+      <p><a href="../index.html">← Back to all tools</a></p>
+    </header>
+    <section class="grid">
+      
+      <article class="card" data-name="github copilot" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/github.com" alt="GitHub Copilot" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category">Developer Tools</div>
+          <h2><a href="../github-copilot.html">GitHub Copilot</a></h2>
+          <p>AI pair programmer for code completion and suggestions.</p>
+          <div class="cta"><a href="../github-copilot.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="replit ghostwriter" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/replit.com" alt="Replit Ghostwriter" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category">Developer Tools</div>
+          <h2><a href="../replit-ghostwriter.html">Replit Ghostwriter</a></h2>
+          <p>AI coding assistant built into Replit for faster development.</p>
+          <div class="cta"><a href="../replit-ghostwriter.html">View →</a></div>
+        </div>
+      </article>
+
+      <article class="card" data-name="langchain" data-category="Developer Tools">
+        <div class="card-thumb">
+          <img src="https://logo.clearbit.com/langchain.com" alt="LangChain" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" />
+        </div>
+        <div class="card-body">
+          <div class="category">Developer Tools</div>
+          <h2><a href="../langchain.html">LangChain</a></h2>
+          <p>Framework for building LLM-powered apps with chaining and tooling.</p>
+          <div class="cta"><a href="../langchain.html">View →</a></div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
