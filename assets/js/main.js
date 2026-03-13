@@ -259,4 +259,23 @@
 
 			});
 
+	// Back to Top button (global).
+		(function() {
+			var $btn = $('<button id="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>');
+			$body.append($btn);
+
+			$window.on('scroll.backToTop', function() {
+				if ($window.scrollTop() > 400)
+					$btn.addClass('visible');
+				else
+					$btn.removeClass('visible');
+			});
+
+			$btn.on('click', function() {
+				$('html, body').animate({ scrollTop: 0 }, 350);
+			});
+
+			$window.trigger('scroll.backToTop');
+		})();
+
 })(jQuery);

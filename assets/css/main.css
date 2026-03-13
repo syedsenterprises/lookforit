@@ -1596,6 +1596,34 @@ button,
     margin-top: 0;
     padding-top: 0; }
 
+#sidebar .mini-posts article {
+  display: flex;
+  gap: 0.9em;
+  align-items: flex-start;
+}
+
+#sidebar .mini-posts article .image {
+  flex: 0 0 56px;
+  width: 56px;
+  margin: 0;
+}
+
+#sidebar .mini-posts article .image img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid rgba(210, 215, 217, 0.75);
+  border-radius: 0.5em;
+  padding: 0.35em;
+}
+
+#sidebar .mini-posts article p {
+  margin: 0;
+  font-size: 0.86em;
+  line-height: 1.45;
+}
+
 /* Features */
 .features {
   display: -moz-flex;
@@ -2271,3 +2299,423 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+
+/* ===================================================
+   Lookforit – AI Tools Card Grid + Controls
+   =================================================== */
+
+/* Search/filter controls bar */
+.controls {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 2em;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.controls input[type="search"],
+.controls select {
+  padding: 0.6em 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9em;
+  flex: 1;
+  min-width: 160px;
+  background: #fff;
+  color: #444;
+}
+
+.controls input[type="search"]:focus,
+.controls select:focus {
+  outline: none;
+  border-color: #f56a6a;
+}
+
+/* Card: wraps inside any .posts grid */
+article.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em 1em;
+  background: #f8f9fb;
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 100px;
+}
+
+.card-thumb {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  min-height: 138px;
+}
+
+.card-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(29, 36, 42, 0.58) 100%);
+}
+
+.posts .card:nth-child(6n + 1) .card-thumb {
+  background-image: url("../../Images/pic01.svg");
+}
+
+.posts .card:nth-child(6n + 2) .card-thumb {
+  background-image: url("../../Images/pic02.svg");
+}
+
+.posts .card:nth-child(6n + 3) .card-thumb {
+  background-image: url("../../Images/pic03.svg");
+}
+
+.posts .card:nth-child(6n + 4) .card-thumb {
+  background-image: url("../../Images/pic04.svg");
+}
+
+.posts .card:nth-child(6n + 5) .card-thumb {
+  background-image: url("../../Images/pic05.svg");
+}
+
+.posts .card:nth-child(6n + 6) .card-thumb {
+  background-image: url("../../Images/pic06.svg");
+}
+
+.card-thumb img {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 0.7em;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.card-body {
+  padding: 1em 1.2em 1.4em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.card-body .category {
+  font-size: 0.72em;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #f56a6a;
+  margin-bottom: 0.25em;
+}
+
+.card-body .category a {
+  color: inherit;
+  border: none;
+}
+
+.card-body h2 {
+  font-size: 1em;
+  margin: 0;
+}
+
+.card-body h2 a {
+  color: #3d4449;
+  border: none;
+  text-decoration: none;
+}
+
+.card-body h2 a:hover {
+  color: #f56a6a;
+}
+
+.card-body p {
+  font-size: 0.85em;
+  color: #7f888f;
+  margin: 0;
+  flex: 1;
+}
+
+.card-body .cta {
+  margin-top: 0.75em;
+}
+
+.card-body .cta a {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #f56a6a;
+  border-bottom: 1px dotted #f56a6a;
+  text-decoration: none;
+}
+
+/* Global Back To Top */
+#back-to-top {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 10000;
+  width: 2.85rem;
+  height: 2.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: #f56a6a;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  background: #f45252;
+}
+
+/* Article author box */
+.author-box {
+  margin-top: 2rem;
+  padding: 1.1rem;
+  border: 1px solid rgba(210, 210, 210, 0.85);
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.author-box-inner {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.author-box img {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-box h3 {
+  margin: 0 0 0.4rem 0;
+}
+
+.author-box p {
+  margin: 0;
+}
+
+.article-author-chip {
+  display: inline-block;
+  margin: 0.45rem 0 0;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(245, 106, 106, 0.12);
+  color: #b94f4f;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.author-box .author-social {
+  margin-top: 0.6rem;
+}
+
+.author-box .author-social .icons {
+  margin: 0;
+}
+
+.author-box .author-social .icons li {
+  margin-right: 0.35rem;
+}
+
+.author-box .author-social .icons a {
+  border-bottom: 0;
+}
+
+@media screen and (max-width: 736px) {
+  .author-box-inner {
+    flex-direction: column;
+  }
+}
+
+.card-body .cta a:hover {
+  border-bottom-style: solid;
+}
+
+/* Card CSS added */
+
+/* ════════════════════════════════════════════════════════════
+   AD UNIT CONTAINERS — AdSense Ready
+   Replace inner content with real ad units from Google AdSense
+   ════════════════════════════════════════════════════════════ */
+.ad-unit {
+  display: block;
+  width: 100%;
+  margin: 2em 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.ad-unit--leaderboard {
+  min-height: 90px;
+  background: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+}
+
+.ad-unit--sidebar {
+  min-height: 250px;
+  background: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+}
+
+.ad-unit--responsive {
+  background: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  min-height: 100px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TABLE STYLES
+   ════════════════════════════════════════════════════════════ */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5em 0;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+.table-wrapper table thead tr {
+  background: #f56a6a;
+  color: #fff;
+}
+
+.table-wrapper table th {
+  padding: 0.75em 1em;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9em;
+  border: none;
+}
+
+.table-wrapper table td {
+  padding: 0.7em 1em;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 0.9em;
+  vertical-align: middle;
+}
+
+.table-wrapper table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.table-wrapper table tbody tr:hover {
+  background: #fff5f5;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ARTICLE CONTENT — Better Typography
+   ════════════════════════════════════════════════════════════ */
+#main section dl dt {
+  font-weight: 700;
+  color: #3d4449;
+  margin-top: 1.25em;
+}
+
+#main section dl dd {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+  color: #7f888f;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE IMPROVEMENTS
+   ════════════════════════════════════════════════════════════ */
+@media screen and (max-width: 736px) {
+  #banner {
+    flex-direction: column;
+  }
+
+  #banner .image {
+    margin: 1.5em 0 0 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #banner .image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .posts article {
+    width: 100%;
+  }
+
+  .table-wrapper table {
+    font-size: 0.82em;
+  }
+
+  .ad-unit--leaderboard {
+    min-height: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #main .inner {
+    padding: 0 1em;
+  }
+
+  .features article {
+    padding: 0.5em 0;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER NAV — policy links strip
+   ════════════════════════════════════════════════════════════ */
+.footer-policy-links {
+  text-align: center;
+  padding: 0.75em 0;
+  font-size: 0.78em;
+  color: #aaa;
+  border-top: 1px solid #efefef;
+  margin-top: 2em;
+}
+
+.footer-policy-links a {
+  color: #aaa;
+  margin: 0 0.5em;
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.footer-policy-links a:hover {
+  color: #f56a6a;
+}
