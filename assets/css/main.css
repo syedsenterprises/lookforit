@@ -2505,7 +2505,7 @@ article.card {
 /* Article author box */
 .author-box {
   margin-top: 2rem;
-  padding: 1.1rem;
+  padding: 1.35rem;
   border: 1px solid rgba(210, 210, 210, 0.85);
   border-radius: 8px;
   background: #fafbfc;
@@ -2513,7 +2513,7 @@ article.card {
 
 .author-box-inner {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   align-items: flex-start;
 }
 
@@ -2525,11 +2525,15 @@ article.card {
 }
 
 .author-box h3 {
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.65rem 0;
 }
 
 .author-box p {
-  margin: 0;
+  margin: 0 0 0.55rem;
+}
+
+.author-box p:last-of-type {
+  margin-bottom: 0;
 }
 
 .article-author-chip {
@@ -2546,7 +2550,7 @@ article.card {
 }
 
 .author-box .author-social {
-  margin-top: 0.6rem;
+  margin-top: 0.9rem;
 }
 
 .author-box .author-social .icons {
@@ -2554,7 +2558,22 @@ article.card {
 }
 
 .author-box .author-social .icons li {
-  margin-right: 0.35rem;
+  margin-right: 0.45rem;
+}
+
+.founder-profile-image {
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto 1.25rem;
+}
+
+.founder-profile-image img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 10px;
 }
 
 .author-box .author-social .icons a {
@@ -2676,6 +2695,10 @@ article.card {
 @media screen and (max-width: 736px) {
   .author-box-inner {
     flex-direction: column;
+  }
+
+  .founder-profile-image {
+    max-width: 280px;
   }
 
   .feedback-grid {
