@@ -259,9 +259,249 @@
 
 			});
 
+	// Comments, reviews, and rating widget (articles/tools detail pages).
+		(function() {
+			var path = (window.location.pathname || '').toLowerCase();
+
+			var isArticleDetail =
+				path.indexOf('/articles/') !== -1 &&
+				path.indexOf('/articles/index.html') === -1;
+
+			var isToolDetail =
+				path.indexOf('/tools/') !== -1 &&
+				path.indexOf('/tools/index.html') === -1 &&
+				path.indexOf('/tools/category/') === -1;
+
+			if (!isArticleDetail && !isToolDetail)
+				return;
+
+			var $mainInner = $('#main .inner').first();
+			if ($mainInner.length === 0 || $('#feedback-hub').length > 0)
+				return;
+
+			var pageKey = (window.location.pathname || 'unknown-page')
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, '-');
+
+			var storageKeys = {
+				reviews: 'lookforit-feedback-reviews:' + pageKey,
+				comments: 'lookforit-feedback-comments:' + pageKey
+			};
+
+			var $targetSection = $mainInner.children('section').last();
+			if ($targetSection.length === 0)
+				$targetSection = $mainInner;
+
+			$targetSection.append(
+				'<section id="feedback-hub" class="feedback-hub">'
+				+ '<header class="major"><h2>Comments, Reviews and Ratings</h2></header>'
+				+ '<div class="feedback-grid">'
+				+ '<div class="feedback-card">'
+				+ '<h3>Rate and Review</h3>'
+				+ '<p class="feedback-meta">Average rating: <strong id="feedback-average">0.0</strong> / 5 (<span id="feedback-review-count">0</span> reviews)</p>'
+				+ '<form id="feedback-review-form" class="feedback-form" novalidate>'
+				+ '<div class="field"><label for="reviewer-name">Name</label><input type="text" id="reviewer-name" maxlength="60" placeholder="Your name" /></div>'
+				+ '<div class="field"><label>Your rating</label>'
+				+ '<div class="rating-stars" id="rating-stars">'
+				+ '<button type="button" data-value="1" aria-label="Rate 1 star">★</button>'
+				+ '<button type="button" data-value="2" aria-label="Rate 2 stars">★</button>'
+				+ '<button type="button" data-value="3" aria-label="Rate 3 stars">★</button>'
+				+ '<button type="button" data-value="4" aria-label="Rate 4 stars">★</button>'
+				+ '<button type="button" data-value="5" aria-label="Rate 5 stars">★</button>'
+				+ '</div>'
+				+ '<input type="hidden" id="review-rating" value="0" />'
+				+ '</div>'
+				+ '<div class="field"><label for="review-text">Review</label><textarea id="review-text" rows="4" maxlength="800" placeholder="Share your experience..."></textarea></div>'
+				+ '<ul class="actions"><li><button type="submit" class="button primary">Submit Review</button></li></ul>'
+				+ '</form>'
+				+ '<div id="feedback-review-list" class="feedback-list" aria-live="polite"></div>'
+				+ '</div>'
+				+ '<div class="feedback-card">'
+				+ '<h3>Comments</h3>'
+				+ '<form id="feedback-comment-form" class="feedback-form" novalidate>'
+				+ '<div class="field"><label for="commenter-name">Name</label><input type="text" id="commenter-name" maxlength="60" placeholder="Your name" /></div>'
+				+ '<div class="field"><label for="comment-text">Comment</label><textarea id="comment-text" rows="4" maxlength="800" placeholder="Write a comment..."></textarea></div>'
+				+ '<ul class="actions"><li><button type="submit" class="button">Post Comment</button></li></ul>'
+				+ '</form>'
+				+ '<div id="feedback-comment-list" class="feedback-list" aria-live="polite"></div>'
+				+ '<p class="feedback-note">Note: feedback is stored in your browser on this device.</p>'
+				+ '</div>'
+				+ '</div>'
+				+ '</section>'
+			);
+
+			function escapeHtml(value) {
+				return String(value)
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;')
+					.replace(/\"/g, '&quot;')
+					.replace(/'/g, '&#39;');
+			}
+
+			function readStore(key) {
+				try {
+					var parsed = JSON.parse(localStorage.getItem(key) || '[]');
+					return Array.isArray(parsed) ? parsed : [];
+				}
+				catch (e) {
+					return [];
+				}
+			}
+
+			function writeStore(key, value) {
+				localStorage.setItem(key, JSON.stringify(value));
+			}
+
+			function formatDate(isoDate) {
+				var d = new Date(isoDate);
+				if (isNaN(d.getTime()))
+					return 'Recently';
+
+				return d.toLocaleDateString(undefined, {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric'
+				});
+			}
+
+			function syncStars(ratingValue) {
+				$('#rating-stars button').each(function() {
+					var v = parseInt($(this).attr('data-value'), 10) || 0;
+					$(this).toggleClass('active', v <= ratingValue);
+				});
+			}
+
+			function renderReviews() {
+				var reviews = readStore(storageKeys.reviews);
+				var $list = $('#feedback-review-list');
+
+				if (reviews.length === 0) {
+					$('#feedback-average').text('0.0');
+					$('#feedback-review-count').text('0');
+					$list.html('<p class="feedback-empty">No reviews yet. Be the first to rate this page.</p>');
+					return;
+				}
+
+				var total = 0;
+				for (var i = 0; i < reviews.length; i++)
+					total += (parseInt(reviews[i].rating, 10) || 0);
+
+				var avg = (total / reviews.length).toFixed(1);
+				$('#feedback-average').text(avg);
+				$('#feedback-review-count').text(String(reviews.length));
+
+				var html = '';
+				for (var j = 0; j < reviews.length; j++) {
+					var review = reviews[j];
+					var rating = Math.max(1, Math.min(5, parseInt(review.rating, 10) || 1));
+					html += '<article class="feedback-item">'
+						+ '<div class="feedback-item-head">'
+						+ '<strong>' + escapeHtml(review.name) + '</strong>'
+						+ '<span class="feedback-date">' + formatDate(review.createdAt) + '</span>'
+						+ '</div>'
+						+ '<div class="feedback-stars-readonly">' + '★'.repeat(rating) + '<span>' + '★'.repeat(5 - rating) + '</span></div>'
+						+ '<p>' + escapeHtml(review.text) + '</p>'
+						+ '</article>';
+				}
+
+				$list.html(html);
+			}
+
+			function renderComments() {
+				var comments = readStore(storageKeys.comments);
+				var $list = $('#feedback-comment-list');
+
+				if (comments.length === 0) {
+					$list.html('<p class="feedback-empty">No comments yet. Start the discussion.</p>');
+					return;
+				}
+
+				var html = '';
+				for (var i = 0; i < comments.length; i++) {
+					var comment = comments[i];
+					html += '<article class="feedback-item">'
+						+ '<div class="feedback-item-head">'
+						+ '<strong>' + escapeHtml(comment.name) + '</strong>'
+						+ '<span class="feedback-date">' + formatDate(comment.createdAt) + '</span>'
+						+ '</div>'
+						+ '<p>' + escapeHtml(comment.text) + '</p>'
+						+ '</article>';
+				}
+
+				$list.html(html);
+			}
+
+			$('#rating-stars').on('click', 'button', function() {
+				var rating = parseInt($(this).attr('data-value'), 10) || 0;
+				$('#review-rating').val(String(rating));
+				syncStars(rating);
+			});
+
+			$('#feedback-review-form').on('submit', function(event) {
+				event.preventDefault();
+
+				var name = ($('#reviewer-name').val() || '').trim() || 'Anonymous';
+				var text = ($('#review-text').val() || '').trim();
+				var rating = parseInt($('#review-rating').val(), 10) || 0;
+
+				if (rating < 1 || rating > 5) {
+					window.alert('Please select a rating from 1 to 5 stars.');
+					return;
+				}
+
+				if (!text) {
+					window.alert('Please write a short review.');
+					return;
+				}
+
+				var reviews = readStore(storageKeys.reviews);
+				reviews.unshift({
+					name: name,
+					text: text,
+					rating: rating,
+					createdAt: new Date().toISOString()
+				});
+
+				writeStore(storageKeys.reviews, reviews.slice(0, 50));
+				$('#reviewer-name').val('');
+				$('#review-text').val('');
+				$('#review-rating').val('0');
+				syncStars(0);
+				renderReviews();
+			});
+
+			$('#feedback-comment-form').on('submit', function(event) {
+				event.preventDefault();
+
+				var name = ($('#commenter-name').val() || '').trim() || 'Anonymous';
+				var text = ($('#comment-text').val() || '').trim();
+
+				if (!text) {
+					window.alert('Please write a comment before posting.');
+					return;
+				}
+
+				var comments = readStore(storageKeys.comments);
+				comments.unshift({
+					name: name,
+					text: text,
+					createdAt: new Date().toISOString()
+				});
+
+				writeStore(storageKeys.comments, comments.slice(0, 100));
+				$('#commenter-name').val('');
+				$('#comment-text').val('');
+				renderComments();
+			});
+
+			renderReviews();
+			renderComments();
+		})();
+
 	// Back to Top button (global).
 		(function() {
-			var $btn = $('<button id="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>');
+			var $btn = $('<button id="back-to-top" type="button" aria-label="Back to top" title="Click here to back to top">Back to top</button>');
 			$body.append($btn);
 
 			$window.on('scroll.backToTop', function() {

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B5E20"/>
+      <stop offset="100%" stop-color="#004D40"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B5E20" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#004D40" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="1080" cy="80" r="320" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="120" cy="580" r="220" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="600" cy="315" r="550" fill="url(#g2)"/>
+  <rect x="455" y="210" rx="16" ry="16" width="290" height="200" fill="rgba(0,0,0,0.25)"/>
+  <text x="480" y="268" font-family="monospace" font-size="34" fill="rgba(100,255,180,0.9)">&lt;code&gt;</text>
+  <text x="480" y="310" font-family="monospace" font-size="28" fill="rgba(255,255,255,0.6)">  AI.build()</text>
+  <text x="480" y="352" font-family="monospace" font-size="28" fill="rgba(255,255,255,0.6)">  await run()</text>
+  <text x="480" y="390" font-family="monospace" font-size="34" fill="rgba(100,255,180,0.9)">&lt;/code&gt;</text>
+  <text x="600" y="480" font-family="ui-sans-serif,system-ui,-apple-system,Arial,sans-serif" font-size="52" font-weight="700" fill="rgba(255,255,255,0.95)" text-anchor="middle" letter-spacing="-1">Developer Tools</text>
+  <text x="600" y="540" font-family="ui-sans-serif,system-ui,-apple-system,Arial,sans-serif" font-size="26" fill="rgba(255,255,255,0.60)" text-anchor="middle">lookforit.xyz</text>
+</svg>

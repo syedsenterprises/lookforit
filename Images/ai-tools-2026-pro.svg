@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lookforit AI Tools 2026 cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="55%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="220" cy="90" r="210" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="1050" cy="560" r="280" fill="rgba(255,255,255,0.08)"/>
+  <ellipse cx="600" cy="315" rx="520" ry="300" fill="url(#glow)"/>
+
+  <g fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2">
+    <path d="M280 205 L410 150 L540 205 L540 315 L410 370 L280 315 Z"/>
+    <path d="M500 190 L625 135 L750 190 L750 300 L625 355 L500 300 Z"/>
+    <path d="M720 205 L845 150 L970 205 L970 315 L845 370 L720 315 Z"/>
+  </g>
+
+  <text x="600" y="450" text-anchor="middle" fill="#ffffff" font-size="62" font-family="Verdana, Geneva, sans-serif" font-weight="700">AI Tools 2026</text>
+  <text x="600" y="505" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="34" font-family="Verdana, Geneva, sans-serif">lookforit.xyz</text>
+</svg>

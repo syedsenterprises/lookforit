@@ -1,0 +1,8 @@
+Tool pages updated with unique hero intro: 100
+Non-tool pages updated with breadcrumb + article schema: 22
+Internal links checked: 6191
+Internal links auto-fixed: 0
+External URLs checked: 354
+HTTP->HTTPS external fixes: 0
+Potentially broken internal links: 0
+Potentially broken external URLs: 68

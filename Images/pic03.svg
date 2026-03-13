@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BF360C"/>
+      <stop offset="100%" stop-color="#880E4F"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#BF360C" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#880E4F" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="1080" cy="80" r="320" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="120" cy="580" r="220" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="600" cy="315" r="550" fill="url(#g2)"/>
+  <rect x="455" y="195" rx="16" ry="16" width="290" height="200" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+  <circle cx="515" cy="255" r="25" fill="rgba(255,220,50,0.75)"/>
+  <polygon points="456,330 570,255 630,310 700,240 745,330" fill="rgba(100,200,255,0.55)"/>
+  <polygon points="456,330 570,255 560,330" fill="rgba(60,160,210,0.65)"/>
+  <text x="600" y="480" font-family="ui-sans-serif,system-ui,-apple-system,Arial,sans-serif" font-size="52" font-weight="700" fill="rgba(255,255,255,0.95)" text-anchor="middle" letter-spacing="-1">Image Generation</text>
+  <text x="600" y="540" font-family="ui-sans-serif,system-ui,-apple-system,Arial,sans-serif" font-size="26" fill="rgba(255,255,255,0.60)" text-anchor="middle">lookforit.xyz</text>
+</svg>
