@@ -49,8 +49,8 @@
 
 
 <div class="controls">
-<input type="search" id="search" placeholder="Search tools">
-<select id="category">
+<input type="search" id="tools-search" placeholder="Search tools" aria-label="Search tools by name or description">
+<select id="tools-category" aria-label="Filter tools by category">
 <option value="">All</option>
 <option value="AI Chatbot">AI Chatbot</option>
 <option value="AI Assistant">AI Assistant</option>
@@ -72,6 +72,10 @@
 <option value="MLOps">MLOps</option>
 <option value="Data Labeling">Data Labeling</option>
 <option value="Evaluation">Evaluation</option>
+</select>
+<select id="tools-sort" aria-label="Sort tools">
+<option value="az">Sort: A-Z</option>
+<option value="za">Sort: Z-A</option>
 </select>
 </div>
 
@@ -107,7 +111,7 @@
 
       <article class="card" data-name="leonardo ai" data-category="Image Generation">
         <div class="card-thumb">
-          <img src="https://www.google.com/s2/favicons?domain=app.leonardo.ai&sz=128" alt="Leonardo AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
+          <img src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=128" alt="Leonardo AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
         </div>
         <div class="card-body">
           <div class="category"><a href="category/image-generation.html">Image Generation</a></div>
@@ -491,7 +495,7 @@
 
       <article class="card" data-name="tome" data-category="Productivity">
         <div class="card-thumb">
-          <img src="https://www.google.com/s2/favicons?domain=tome.app&sz=128" alt="Tome" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
+          <img src="../Images/pic10.svg" alt="Tome" decoding="async" loading="lazy" />
         </div>
         <div class="card-body">
           <div class="category"><a href="category/productivity.html">Productivity</a></div>
@@ -1031,7 +1035,7 @@
 
       <article class="card" data-name="phind" data-category="AI Search">
         <div class="card-thumb">
-          <img src="https://www.google.com/s2/favicons?domain=phind.com&sz=128" alt="Phind" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
+          <img src="https://www.google.com/s2/favicons?domain=www.phind.com&sz=128" alt="Phind" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
         </div>
         <div class="card-body">
           <div class="category"><a href="category/ai-search.html">AI Search</a></div>
@@ -1271,7 +1275,7 @@
 
       <article class="card" data-name="rewind ai" data-category="Productivity">
         <div class="card-thumb">
-          <img src="https://www.google.com/s2/favicons?domain=rewind.ai&sz=128" alt="Rewind AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
+          <img src="https://www.google.com/s2/favicons?domain=rewind.com&sz=128" alt="Rewind AI" onerror="this.onerror=null;this.src='https://via.placeholder.com/128?text=AI';" decoding="async" loading="lazy" />
         </div>
         <div class="card-body">
           <div class="category"><a href="category/productivity.html">Productivity</a></div>
@@ -1293,7 +1297,7 @@
 <div class="inner">
 
 <section id="search" class="alt">
-<form method="get" action="/">
+<form method="get" action="/tools/">
 <input type="text" name="query" id="query" placeholder="Search AI tools..." />
 </form>
 </section>
@@ -1387,6 +1391,101 @@
 <script src="../assets/js/breakpoints.min.js"></script>
 <script src="../assets/js/util.js"></script>
 <script src="../assets/js/main.js"></script>
+<script>
+(function () {
+  var searchInput = document.getElementById('tools-search');
+  var categorySelect = document.getElementById('tools-category');
+  var sortSelect = document.getElementById('tools-sort');
+  var grid = document.getElementById('grid');
+  if (!searchInput || !categorySelect || !sortSelect || !grid) return;
+
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var noResults = document.createElement('p');
+  noResults.id = 'tools-no-results';
+  noResults.style.display = 'none';
+  noResults.textContent = 'No tools match your current search/filter.';
+  grid.insertAdjacentElement('afterend', noResults);
+
+  function normalize(s) {
+    return (s || '').toLowerCase().trim();
+  }
+
+  function getCardText(card) {
+    var title = card.querySelector('h2') ? card.querySelector('h2').textContent : '';
+    var desc = card.querySelector('p') ? card.querySelector('p').textContent : '';
+    var dataName = card.getAttribute('data-name') || '';
+    var dataCategory = card.getAttribute('data-category') || '';
+    return normalize(dataName + ' ' + title + ' ' + desc + ' ' + dataCategory);
+  }
+
+  function updateUrl(query, category, sort) {
+    var url = new URL(window.location.href);
+    if (query) url.searchParams.set('query', query);
+    else url.searchParams.delete('query');
+
+    if (category) url.searchParams.set('category', category);
+    else url.searchParams.delete('category');
+
+    if (sort && sort !== 'az') url.searchParams.set('sort', sort);
+    else url.searchParams.delete('sort');
+
+    history.replaceState(null, '', url.toString());
+  }
+
+  function applyFilters() {
+    var query = normalize(searchInput.value);
+    var category = categorySelect.value;
+    var sort = sortSelect.value;
+    var visibleCount = 0;
+
+    cards.forEach(function (card) {
+      var text = getCardText(card);
+      var cardCategory = card.getAttribute('data-category') || '';
+      var queryOk = !query || text.indexOf(query) !== -1;
+      var categoryOk = !category || cardCategory === category;
+      var show = queryOk && categoryOk;
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    var visibleCards = cards.filter(function (card) {
+      return card.style.display !== 'none';
+    });
+
+    visibleCards.sort(function (a, b) {
+      var aName = normalize(a.getAttribute('data-name') || a.textContent);
+      var bName = normalize(b.getAttribute('data-name') || b.textContent);
+      return sort === 'za' ? bName.localeCompare(aName) : aName.localeCompare(bName);
+    });
+
+    visibleCards.forEach(function (card) {
+      grid.appendChild(card);
+    });
+
+    noResults.style.display = visibleCount === 0 ? '' : 'none';
+    updateUrl(query, category, sort);
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('query') || '';
+  var c = params.get('category') || '';
+  var s = params.get('sort') || 'az';
+
+  searchInput.value = q;
+  if (c && Array.prototype.some.call(categorySelect.options, function (opt) { return opt.value === c; })) {
+    categorySelect.value = c;
+  }
+  if (s === 'za' || s === 'az') {
+    sortSelect.value = s;
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  categorySelect.addEventListener('change', applyFilters);
+  sortSelect.addEventListener('change', applyFilters);
+
+  applyFilters();
+})();
+</script>
 
 </body>
 </html>
