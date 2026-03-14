@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <location path="admin">
+    <system.webServer>
+      <security>
+        <authorization>
+          <add accessType="Deny" users="?" />
+          <add accessType="Allow" users="*" />
+        </authorization>
+      </security>
+    </system.webServer>
+  </location>
+</configuration>

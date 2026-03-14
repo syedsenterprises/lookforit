@@ -1,0 +1,322 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Content Dashboard - Lookforit.xyz</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="description" content="Internal dashboard for generating article drafts and preparing script payloads." />
+<link rel="canonical" href="https://lookforit.xyz/admin/dashboard.html" />
+<meta property="og:title" content="Content Dashboard - Lookforit.xyz" />
+<meta property="og:description" content="Internal dashboard for generating article drafts and preparing script payloads." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/admin/dashboard.html" />
+<meta property="og:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Content Dashboard - Lookforit.xyz" />
+<meta name="twitter:description" content="Internal dashboard for generating article drafts and preparing script payloads." />
+<meta name="twitter:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body class="is-preload">
+<div id="wrapper">
+<div id="main">
+<div class="inner">
+<header id="header"><a href="/" class="logo"><strong>Lookforit</strong> Content Dashboard</a></header>
+<section>
+<header class="major">
+<h1>Publishing Dashboard</h1>
+<p>Generate clean article draft text and script-ready payloads from one place.</p>
+<ul class="actions" style="margin-top:0.75rem;"><li><button type="button" id="adminLogout">Log Out</button></li></ul>
+</header>
+<div class="row">
+<div class="col-7 col-12-medium">
+<form id="draft-form">
+<div class="row gtr-uniform">
+<div class="col-12"><input type="text" id="title" placeholder="Article title" required /></div>
+<div class="col-6 col-12-small"><input type="text" id="slug" placeholder="Slug (auto-generated if blank)" /></div>
+<div class="col-6 col-12-small"><input type="text" id="publishedText" placeholder="Published March 2026" value="Published March 2026" /></div>
+<div class="col-12"><input type="text" id="description" placeholder="Meta description" required /></div>
+<div class="col-6 col-12-small"><input type="text" id="category" placeholder="Category (example: AI Productivity)" /></div>
+<div class="col-6 col-12-small"><input type="text" id="tags" placeholder="Tags / keywords (comma separated)" /></div>
+<div class="col-6 col-12-small"><input type="text" id="imageFilename" placeholder="Image filename (example: pic07.svg)" /></div>
+<div class="col-6 col-12-small"><input type="text" id="imageAlt" placeholder="Image alt text" /></div>
+<div class="col-12"><textarea id="intro" rows="3" placeholder="Intro paragraph"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Section 1</h3></div>
+<div class="col-12"><input type="text" id="s1Heading" placeholder="Section 1 heading" /></div>
+<div class="col-12"><textarea id="s1Body" rows="3" placeholder="Section 1 body paragraph"></textarea></div>
+<div class="col-12"><textarea id="s1Bullets" rows="3" placeholder="Section 1 bullets (one line per bullet)"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Section 2</h3></div>
+<div class="col-12"><input type="text" id="s2Heading" placeholder="Section 2 heading" /></div>
+<div class="col-12"><textarea id="s2Body" rows="3" placeholder="Section 2 body paragraph"></textarea></div>
+<div class="col-12"><textarea id="s2Bullets" rows="3" placeholder="Section 2 bullets (one line per bullet)"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Section 3</h3></div>
+<div class="col-12"><input type="text" id="s3Heading" placeholder="Section 3 heading" /></div>
+<div class="col-12"><textarea id="s3Body" rows="3" placeholder="Section 3 body paragraph"></textarea></div>
+<div class="col-12"><textarea id="s3Bullets" rows="3" placeholder="Section 3 bullets (one line per bullet)"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Section 4</h3></div>
+<div class="col-12"><input type="text" id="s4Heading" placeholder="Section 4 heading" /></div>
+<div class="col-12"><textarea id="s4Body" rows="3" placeholder="Section 4 body paragraph"></textarea></div>
+<div class="col-12"><textarea id="s4Bullets" rows="3" placeholder="Section 4 bullets (one line per bullet)"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Section 5</h3></div>
+<div class="col-12"><input type="text" id="s5Heading" placeholder="Section 5 heading" /></div>
+<div class="col-12"><textarea id="s5Body" rows="3" placeholder="Section 5 body paragraph"></textarea></div>
+<div class="col-12"><textarea id="s5Bullets" rows="3" placeholder="Section 5 bullets (one line per bullet)"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Tool Links</h3></div>
+<div class="col-12"><textarea id="toolLinks" rows="4" placeholder="One line per link. Format: Label|../tools/slug.html"></textarea></div>
+<div class="col-12"><h3>Internal Article Links</h3></div>
+<div class="col-12"><textarea id="internalArticleLinks" rows="4" placeholder="One line per link. Format: Label|../articles/slug.html"></textarea></div>
+<div class="col-12"><h3>External Links</h3></div>
+<div class="col-12"><textarea id="externalLinks" rows="4" placeholder="One line per link. Format: Label|https://example.com"></textarea></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>FAQ</h3></div>
+<div class="col-6 col-12-small"><input type="text" id="faq1q" placeholder="FAQ 1 question" /></div>
+<div class="col-6 col-12-small"><input type="text" id="faq1a" placeholder="FAQ 1 answer" /></div>
+<div class="col-6 col-12-small"><input type="text" id="faq2q" placeholder="FAQ 2 question" /></div>
+<div class="col-6 col-12-small"><input type="text" id="faq2a" placeholder="FAQ 2 answer" /></div>
+<div class="col-6 col-12-small"><input type="text" id="faq3q" placeholder="FAQ 3 question" /></div>
+<div class="col-6 col-12-small"><input type="text" id="faq3a" placeholder="FAQ 3 answer" /></div>
+<div class="col-12"><hr /></div>
+<div class="col-12"><h3>Related Article Links</h3></div>
+<div class="col-12"><textarea id="relatedLinks" rows="4" placeholder="One line per link. Format: Label|../articles/slug.html"></textarea></div>
+<div class="col-12">
+<ul class="actions">
+<li><button type="button" id="generateDraft" class="primary">Generate Draft Text</button></li>
+<li><button type="button" id="generatePayload">Build Script Payload</button></li>
+<li><button type="button" id="downloadDraft">Download Draft</button></li>
+<li><button type="button" id="exportAll">Export All</button></li>
+<li><button type="button" id="publishNow">Publish Now (Bridge)</button></li>
+</ul>
+</div>
+</div>
+</form>
+</div>
+<div class="col-5 col-12-medium">
+<h2>Draft Output</h2>
+<textarea id="draftOutput" rows="20" placeholder="Generated draft text will appear here."></textarea>
+<ul class="actions" style="margin-top:0.75rem;">
+<li><button type="button" id="copyDraft">Copy Draft</button></li>
+</ul>
+<h2>Payload Output</h2>
+<textarea id="payloadOutput" rows="14" placeholder="Script payload JSON will appear here."></textarea>
+<h2>Script Command</h2>
+<textarea id="commandOutput" rows="6" placeholder="Ready-to-run script command will appear here."></textarea>
+<h2>Live Preview</h2>
+<div id="draftPreview" class="box" style="min-height:14rem; max-height:24rem; overflow:auto;"></div>
+<h2>Publish Checklist</h2>
+<div class="row gtr-uniform" style="margin-bottom:0.5rem;">
+<div class="col-12">
+<label for="checklistThreshold">Export Threshold (8-12)</label>
+<input type="number" id="checklistThreshold" min="8" max="12" step="1" value="10" />
+<p id="qualityModeLabel" style="margin-top:0.5rem;"><strong>Current Mode:</strong> Balanced</p>
+</div>
+<div class="col-12">
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="presetEasy">Easy (8)</button></li>
+<li><button type="button" id="presetBalanced">Balanced (10)</button></li>
+<li><button type="button" id="presetStrict">Strict (12)</button></li>
+</ul>
+</div>
+</div>
+<div id="validationChecklist" class="box" style="max-height:20rem; overflow:auto;"></div>
+<ul class="actions" style="margin-top:0.75rem;">
+<li><button type="button" id="clearDashboard">Clear Form</button></li>
+</ul>
+<h2>Integration Notes</h2>
+<p>This dashboard emits browser events and exposes a script adapter API. You can connect local automation later without changing the UI layer.</p>
+
+<hr />
+<h2 style="margin-bottom:0.5rem;">Change Admin Password</h2>
+<p style="margin-bottom:0.75rem;">Type a new password to generate its SHA-256 hash. Copy the hash and paste it into <code>assets/js/admin-access.js</code> as <code>passwordHash</code>. The current password is never stored or sent anywhere.</p>
+<div class="row gtr-uniform" id="passwordChangeSection">
+<div class="col-8 col-12-small">
+<input type="password" id="newAdminPassword" placeholder="New password (min 12 characters)" autocomplete="new-password" />
+</div>
+<div class="col-4 col-12-small">
+<ul class="actions" style="margin:0;">
+<li><button type="button" id="generateHashBtn" class="primary">Generate Hash</button></li>
+</ul>
+</div>
+<div class="col-12" id="hashResultBox" style="display:none;">
+<label style="display:block;margin-bottom:0.3rem;font-weight:bold;">SHA-256 Hash (copy this into admin-access.js):</label>
+<textarea id="hashOutput" rows="2" readonly style="font-family:monospace;font-size:0.8rem;word-break:break-all;background:#1a1a2e;color:#a8d8a8;border:none;width:100%;padding:0.6rem;"></textarea>
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="copyHashBtn">Copy Hash</button></li>
+<li><span id="copyHashStatus" style="line-height:2.5rem;margin-left:0.5rem;font-size:0.85rem;color:#22c55e;display:none;">Copied!</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row" style="margin-top:2.5rem;">
+<div class="col-12">
+<hr />
+<h2 style="margin-bottom:0.5rem;">Activity Audit Log</h2>
+<p style="margin-bottom:1rem;">Recent auth events, dashboard actions, and content snapshots stored in this browser session.</p>
+<div class="row gtr-uniform">
+<div class="col-6 col-12-medium">
+<h3>Auth Events</h3>
+<div id="authAuditLog" class="box" style="min-height:8rem;max-height:16rem;overflow:auto;font-size:0.8rem;font-family:monospace;white-space:pre-wrap;background:#1a1a2e;color:#a8d8a8;"></div>
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="refreshAuthLog">Refresh</button></li>
+<li><button type="button" id="clearAuthLog">Clear Auth Log</button></li>
+</ul>
+</div>
+<div class="col-6 col-12-medium">
+<h3>Dashboard Events</h3>
+<div id="dashAuditLog" class="box" style="min-height:8rem;max-height:16rem;overflow:auto;font-size:0.8rem;font-family:monospace;white-space:pre-wrap;background:#1a1a2e;color:#a8d8a8;"></div>
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="refreshDashLog">Refresh</button></li>
+<li><button type="button" id="clearDashLog">Clear Dashboard Log</button></li>
+</ul>
+</div>
+<div class="col-12">
+<h3>Content Snapshots</h3>
+<div id="snapshotsLog" class="box" style="min-height:6rem;max-height:12rem;overflow:auto;font-size:0.8rem;font-family:monospace;white-space:pre-wrap;background:#1a1a2e;color:#d4a8e8;"></div>
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="refreshSnapshots">Refresh Snapshots</button></li>
+<li><button type="button" id="clearSnapshots">Clear Snapshots</button></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+</div>
+</div>
+<div id="sidebar"><div class="inner"><section id="search" class="alt"><form method="get" action="/tools/"><input type="text" name="query" id="query" placeholder="Search AI tools..." /></form></section><nav id="menu"><header class="major"><h2>Menu</h2></header><ul><li><span class="opener">Home</span><ul><li><a href="/">Homepage</a></li><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms &amp; Conditions</a></li><li><a href="../refund.html">Refund Policy</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></li><li><a href="/tools/">AI Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Your Tool</a></li></ul></nav><footer id="footer"><div class="footer-policy-links">
+<a href="../privacy-policy.html">Privacy Policy</a>
+<a href="../terms.html">Terms</a>
+<a href="../refund.html">Refund Policy</a>
+<a href="../disclaimer.html">Disclaimer</a>
+<a href="../faq.html">FAQ</a>
+<a href="../contact.html">Contact</a>
+</div>
+<p class="copyright">&copy; 2026 <a href="/">Lookforit.xyz</a>. All rights reserved.</p></footer></div></div></div>
+<script src="../assets/js/jquery.min.js"></script><script src="../assets/js/browser.min.js"></script><script src="../assets/js/breakpoints.min.js"></script><script src="../assets/js/util.js"></script><script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-access.js"></script>
+<script src="../assets/js/publish-bridge.js"></script>
+<script src="../assets/js/content-dashboard.js"></script>
+<script>
+(function () {
+  function fmtEvents(events) {
+    if (!events || !events.length) return '(no events)';
+    return events.slice().reverse().map(function (e) {
+      var raw = e.at || e.timestamp || null;
+      var t = raw ? new Date(raw).toLocaleTimeString() : '--:--';
+      var label = e.event || e.eventName || 'event';
+      var extra = e.path ? ' ' + e.path : '';
+      var detail = e.detail && Object.keys(e.detail).length ? ' \u2014 ' + JSON.stringify(e.detail) : '';
+      return '[' + t + '] ' + label + extra + detail;
+    }).join('\n');
+  }
+  function fmtSnaps(snaps) {
+    if (!snaps || !snaps.length) return '(no snapshots)';
+    return snaps.slice().reverse().map(function (s) {
+      var t = s.savedAt ? new Date(s.savedAt).toLocaleTimeString() : '--:--';
+      var slug = s.slug || '(no slug)';
+      var cmd = s.command ? ' [' + s.command + ']' : '';
+      return '[' + t + '] ' + slug + cmd;
+    }).join('\n');
+  }
+  function render(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+  function renderAuth() {
+    try { render('authAuditLog', fmtEvents(window.LookforitAdminAccess && window.LookforitAdminAccess.getAnalyticsEvents())); }
+    catch (e) { render('authAuditLog', '(unavailable)'); }
+  }
+  function renderDash() {
+    try { render('dashAuditLog', fmtEvents(window.LookforitDashboard && window.LookforitDashboard.getAnalyticsEvents())); }
+    catch (e) { render('dashAuditLog', '(unavailable)'); }
+  }
+  function renderSnaps() {
+    try { render('snapshotsLog', fmtSnaps(window.LookforitDashboard && window.LookforitDashboard.getSnapshots())); }
+    catch (e) { render('snapshotsLog', '(unavailable)'); }
+  }
+  function renderAll() { renderAuth(); renderDash(); renderSnaps(); }
+  document.addEventListener('DOMContentLoaded', function () {
+    renderAll();
+    document.getElementById('refreshAuthLog').addEventListener('click', renderAuth);
+    document.getElementById('clearAuthLog').addEventListener('click', function () {
+      if (window.LookforitAdminAccess) window.LookforitAdminAccess.clearAnalyticsEvents();
+      renderAuth();
+    });
+    document.getElementById('refreshDashLog').addEventListener('click', renderDash);
+    document.getElementById('clearDashLog').addEventListener('click', function () {
+      if (window.LookforitDashboard) window.LookforitDashboard.clearAnalyticsEvents();
+      renderDash();
+    });
+    document.getElementById('refreshSnapshots').addEventListener('click', renderSnaps);
+    document.getElementById('clearSnapshots').addEventListener('click', function () {
+      if (window.LookforitDashboard) window.LookforitDashboard.clearSnapshots();
+      renderSnaps();
+    });
+    /* Live auto-refresh: content-dashboard.js dispatches on window with "lookforit:" prefix */
+    window.addEventListener('lookforit:generate_draft', function () { renderDash(); renderSnaps(); });
+    window.addEventListener('lookforit:build_payload', renderDash);
+    window.addEventListener('lookforit:export_all', function () { renderDash(); renderSnaps(); });
+    window.addEventListener('lookforit:publish_now', function () { renderDash(); renderSnaps(); });
+  });
+})();
+</script>
+<script>
+/* Password hash generator — runs entirely in-browser, nothing is sent anywhere */
+(function () {
+  var btn = document.getElementById('generateHashBtn');
+  var copyBtn = document.getElementById('copyHashBtn');
+  var statusEl = document.getElementById('copyHashStatus');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var pw = (document.getElementById('newAdminPassword').value || '').trim();
+    if (pw.length < 12) {
+      alert('Password must be at least 12 characters.');
+      return;
+    }
+    if (!window.crypto || !window.crypto.subtle) {
+      alert('Web Crypto API not available in this browser.');
+      return;
+    }
+    var enc = new TextEncoder();
+    window.crypto.subtle.digest('SHA-256', enc.encode(pw)).then(function (buf) {
+      var hex = Array.from(new Uint8Array(buf)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+      document.getElementById('hashOutput').value = hex;
+      document.getElementById('hashResultBox').style.display = '';
+    }).catch(function () {
+      alert('Failed to generate hash. Check browser console.');
+    });
+  });
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var val = document.getElementById('hashOutput').value;
+      if (!val) return;
+      navigator.clipboard.writeText(val).then(function () {
+        statusEl.style.display = '';
+        setTimeout(function () { statusEl.style.display = 'none'; }, 2000);
+      }).catch(function () {
+        document.getElementById('hashOutput').select();
+        document.execCommand('copy');
+        statusEl.style.display = '';
+        setTimeout(function () { statusEl.style.display = 'none'; }, 2000);
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
+
+
+

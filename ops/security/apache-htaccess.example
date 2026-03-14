@@ -1,0 +1,5 @@
+# Place in your /admin/ directory as .htaccess (Apache)
+AuthType Basic
+AuthName "Restricted Admin"
+AuthUserFile /absolute/path/to/.htpasswd
+Require valid-user

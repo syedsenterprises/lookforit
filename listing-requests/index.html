@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>Submit Your Tool - Lookforit.xyz</title>
@@ -9,6 +9,9 @@
 <meta name="theme-color" content="#0f172a" />
 <meta name="description" content="Submit your AI tool for editorial review and paid listing on Lookforit.xyz." />
 <link rel="canonical" href="https://lookforit.xyz/listing-requests/" />
+<meta name="twitter:title" content="Submit Your Tool - Lookforit.xyz" />
+<meta name="twitter:description" content="Submit your AI tool for editorial review and paid listing on Lookforit.xyz." />
+<meta name="twitter:image" content="https://lookforit.xyz/Images/pic11.svg" />
 <meta property="og:title" content="Submit Your Tool - Lookforit.xyz" />
 <meta property="og:description" content="Submit your AI tool for editorial review and paid listing on Lookforit.xyz." />
 <meta property="og:type" content="website" />
@@ -16,6 +19,8 @@
 <meta property="og:image" content="https://lookforit.xyz/Images/pic11.svg" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="stylesheet" href="../assets/css/main.css" />
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script type="application/ld+json" data-ai="breadcrumb">
 {
@@ -101,7 +106,11 @@
 <div class="col-12"><input type="text" name="category" placeholder="Suggested category" /></div>
 <div class="col-12"><textarea name="description" placeholder="Describe what your tool does, its audience, and why it should be listed" rows="6" required></textarea></div>
 <div class="col-12"><input type="hidden" name="submission_type" value="tool-listing-request" /></div>
-<div class="col-12"><ul class="actions"><li><input type="submit" value="Submit Listing Request" class="primary" /></li></ul></div>
+<div class="col-12">
+<!-- Replace SITE_KEY with your Cloudflare Turnstile site key from the Cloudflare dashboard -->
+<div class="cf-turnstile" data-sitekey="REPLACE_WITH_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+</div>
+<div class="col-12"><ul class="actions" style="margin-top:0.75rem;"><li><input type="submit" value="Submit Listing Request" class="primary" /></li></ul></div>
 </div>
 </form>
 </div>
@@ -127,5 +136,8 @@
 </div>
 <p class="copyright">&copy; 2026 <a href="/">Lookforit.xyz</a>. All rights reserved.</p></footer></div></div></div>
 <script src="../assets/js/jquery.min.js"></script><script src="../assets/js/browser.min.js"></script><script src="../assets/js/breakpoints.min.js"></script><script src="../assets/js/util.js"></script><script src="../assets/js/main.js"></script>
+<script src="/assets/js/tools-data.js"></script><script src="/assets/js/sidebar-search.js"></script>
 </body>
 </html>
+
+
