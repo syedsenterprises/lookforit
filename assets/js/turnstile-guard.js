@@ -1,22 +1,75 @@
 (function () {
   'use strict';
 
+  var proxyHealth = {
+    checked: false,
+    healthy: true
+  };
+
   function getProxyConfig() {
     return window.LookforitFormProxy || null;
+  }
+
+  function isProxyUsable(config) {
+    if (!config || !config.enabled) {
+      return false;
+    }
+
+    if (!config.enforceHealthCheck) {
+      return true;
+    }
+
+    return proxyHealth.checked && proxyHealth.healthy;
+  }
+
+  function runProxyHealthCheck(done) {
+    var config = getProxyConfig();
+
+    if (!config || !config.enabled || !config.enforceHealthCheck) {
+      proxyHealth.checked = true;
+      proxyHealth.healthy = true;
+      done();
+      return;
+    }
+
+    fetch(config.endpoint, {
+      method: 'GET',
+      credentials: 'same-origin'
+    }).then(function (res) {
+      return res.text().then(function (txt) {
+        var blockText = (config.healthBlockText || '').toLowerCase();
+        var body = (txt || '').toLowerCase();
+        var blockedByText = blockText && body.indexOf(blockText) !== -1;
+        proxyHealth.checked = true;
+        proxyHealth.healthy = !blockedByText;
+        done();
+      });
+    }).catch(function () {
+      proxyHealth.checked = true;
+      proxyHealth.healthy = false;
+      done();
+    });
   }
 
   function applyProxyAction(form) {
     var config = getProxyConfig();
     var directAction = form.getAttribute('data-direct-action');
     var workerAction = form.getAttribute('data-worker-action');
+    var resolvedWorkerAction = workerAction;
 
     if (!directAction) {
       directAction = form.getAttribute('action') || '';
       form.setAttribute('data-direct-action', directAction);
     }
 
-    if (config && config.enabled && workerAction && workerAction !== config.placeholder) {
-      form.setAttribute('action', workerAction);
+    if (config && config.endpoint) {
+      if (!resolvedWorkerAction || resolvedWorkerAction === config.placeholder) {
+        resolvedWorkerAction = config.endpoint;
+      }
+    }
+
+    if (config && isProxyUsable(config) && resolvedWorkerAction) {
+      form.setAttribute('action', resolvedWorkerAction);
       form.setAttribute('data-active-endpoint', 'worker');
       return;
     }
@@ -91,6 +144,14 @@
       if (form.querySelector('.cf-turnstile')) {
         attachGuard(form);
       }
+    });
+
+    runProxyHealthCheck(function () {
+      Array.prototype.forEach.call(forms, function (form) {
+        if (form.querySelector('.cf-turnstile')) {
+          applyProxyAction(form);
+        }
+      });
     });
   }
 
