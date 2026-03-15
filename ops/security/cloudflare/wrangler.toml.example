@@ -1,0 +1,10 @@
+name = "lookforit-turnstile-proxy"
+main = "turnstile-form-proxy-worker.js"
+compatibility_date = "2026-03-15"
+workers_dev = true
+
+[vars]
+FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwzdkgz"
+
+# Set secrets with:
+# wrangler secret put TURNSTILE_SECRET_KEY

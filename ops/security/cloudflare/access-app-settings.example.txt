@@ -1,0 +1,34 @@
+Lookforit Zero Trust Access app example
+======================================
+
+Application type:
+Self-hosted
+
+Application name:
+Lookforit Admin
+
+Session duration:
+12 hours
+
+Protected paths:
+- https://lookforit.xyz/admin/*
+- https://lookforit.xyz/dashboard.html
+- https://lookforit.xyz/admin-login.html
+
+Allow policy:
+- Emails contains syedsinterprises@gmail.com
+
+Deny policy:
+- Everyone
+
+Recommended settings:
+- HttpOnly cookies: enabled
+- SameSite: Lax
+- Identity provider: One-time PIN or Google
+- App launcher visibility: hidden
+- Auto redirect to identity provider: enabled
+
+Validation checks:
+- Logged-out incognito request to /admin/dashboard.html should be intercepted before HTML is served
+- Direct request to /dashboard.html should also be intercepted
+- Successful login should issue Cloudflare Access cookies and then allow page load

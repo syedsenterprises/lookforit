@@ -89,7 +89,7 @@
 </div>
 <div class="col-6 col-12-small">
 <h2>Submission Form</h2>
-<form method="post" action="https://formspree.io/f/xpwzdkgz">
+<form method="post" action="https://formspree.io/f/xpwzdkgz" data-direct-action="https://formspree.io/f/xpwzdkgz" data-worker-action="/form-proxy">
 <div class="row gtr-uniform">
 <div class="col-12"><input type="text" name="tool_name" placeholder="Tool name" required /></div>
 <div class="col-12"><input type="url" name="tool_url" placeholder="Official website URL" required /></div>
@@ -108,7 +108,7 @@
 <div class="col-12"><input type="hidden" name="submission_type" value="tool-listing-request" /></div>
 <div class="col-12">
 <!-- Replace SITE_KEY with your Cloudflare Turnstile site key from the Cloudflare dashboard -->
-<div class="cf-turnstile" data-sitekey="REPLACE_WITH_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACrNm5GsRnWsWuFt" data-theme="dark"></div>
 </div>
 <div class="col-12"><ul class="actions" style="margin-top:0.75rem;"><li><input type="submit" value="Submit Listing Request" class="primary" /></li></ul></div>
 </div>
@@ -136,6 +136,8 @@
 </div>
 <p class="copyright">&copy; 2026 <a href="/">Lookforit.xyz</a>. All rights reserved.</p></footer></div></div></div>
 <script src="../assets/js/jquery.min.js"></script><script src="../assets/js/browser.min.js"></script><script src="../assets/js/breakpoints.min.js"></script><script src="../assets/js/util.js"></script><script src="../assets/js/main.js"></script>
+<script src="../assets/js/form-proxy-config.js"></script>
+<script src="../assets/js/turnstile-guard.js"></script>
 <script src="/assets/js/tools-data.js"></script><script src="/assets/js/sidebar-search.js"></script>
 </body>
 </html>

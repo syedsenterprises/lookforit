@@ -1,0 +1,62 @@
+Lookforit Cloudflare WAF / Rate Limit examples
+=============================================
+
+1) Block SQL injection payloads
+Expression:
+(lower(http.request.uri.query) contains "union select") or
+(lower(http.request.uri.query) contains "or 1=1") or
+(lower(http.request.uri.query) contains "information_schema") or
+(lower(http.request.body.raw) contains "union select") or
+(lower(http.request.body.raw) contains "or 1=1")
+Suggested action:
+Block
+
+2) Managed Challenge on suspicious admin probes
+Expression:
+(http.request.uri.path starts_with "/admin/") and not cf.access.authenticated_user.email in {"syedsinterprises@gmail.com"}
+Suggested action:
+Managed Challenge
+
+3) Block common exploit scanner paths
+Expression:
+(http.request.uri contains "wp-admin") or
+(http.request.uri contains "wp-login") or
+(http.request.uri contains "xmlrpc") or
+(http.request.uri contains ".env") or
+(http.request.uri contains "/.git/") or
+(http.request.uri contains "/etc/passwd")
+Suggested action:
+Block
+
+4) Block obvious hostile user agents
+Expression:
+(http.user_agent contains "sqlmap") or
+(http.user_agent contains "nikto") or
+(http.user_agent contains "masscan") or
+(http.user_agent contains "zgrab")
+Suggested action:
+Block
+
+5) Managed Challenge high-risk POST traffic to forms
+Expression:
+(http.request.method eq "POST") and
+(http.request.uri.path in {"/contact.html" "/listing-requests/"}) and
+(cf.threat_score gt 10)
+Suggested action:
+Managed Challenge
+
+6) Rate Limit rule for /form-proxy
+Scope:
+POST /form-proxy
+Threshold:
+10 requests / 60 seconds / IP
+Action:
+Block for 10 minutes
+
+7) Rate Limit rule for /listing-requests
+Scope:
+POST /listing-requests/
+Threshold:
+5 requests / 60 seconds / IP
+Action:
+Block for 10 minutes

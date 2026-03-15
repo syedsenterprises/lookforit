@@ -45,36 +45,31 @@ This is the ONLY way to truly protect `/admin/` on a static site. The JS gate in
 5. Copy the **Site Key** and **Secret Key**
 
 ### Plug in the Site Key (client-side)
-In `contact.html` and `listing-requests/index.html` replace the placeholder:
+The live forms already use your site key:
 ```html
-<div class="cf-turnstile" data-sitekey="REPLACE_WITH_TURNSTILE_SITE_KEY" data-theme="dark"></div>
-```
-with:
-```html
-<div class="cf-turnstile" data-sitekey="YOUR_REAL_SITE_KEY" data-theme="dark"></div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACrNm5GsRnWsWuFt" data-theme="dark"></div>
 ```
 
+Client-side submit enforcement is also included in:
+- `assets/js/turnstile-guard.js`
+- `assets/js/form-proxy-config.js`
+
+That prevents normal browser submits when the Turnstile token is missing, but you still need server-side verification.
+
 ### Server-side validation (Formspree / Webhook)
-If using Formspree, Turnstile is purely cosmetic unless Formspree validates it.
-For real validation connect a Cloudflare Worker:
-```js
-// verify-turnstile.js (Cloudflare Worker)
-export default {
-  async fetch(request) {
-    const body = await request.formData();
-    const token = body.get('cf-turnstile-response');
-    const secret = 'YOUR_TURNSTILE_SECRET_KEY'; // set as Worker secret
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ secret, response: token })
-    });
-    const data = await res.json();
-    if (!data.success) return new Response('Forbidden', { status: 403 });
-    // Forward to Formspree or handle submission here
-  }
-};
-```
+If using Formspree directly, Turnstile is only a front-end gate. For real validation deploy the included Cloudflare Worker files:
+
+- `ops/security/cloudflare/turnstile-form-proxy-worker.js`
+- `ops/security/cloudflare/wrangler.toml.example`
+
+Deployment flow:
+1. `npm install -g wrangler`
+2. Copy `wrangler.toml.example` to `wrangler.toml`
+3. Run `wrangler secret put TURNSTILE_SECRET_KEY`
+4. Set your Worker route or workers.dev URL
+5. Deploy the Worker on the route `/form-proxy` or update `assets/js/form-proxy-config.js`
+6. In `assets/js/form-proxy-config.js`, set `enabled: true`
+7. The Worker will verify Turnstile, then forward the valid form to Formspree
 
 ---
 
@@ -108,6 +103,10 @@ Content-Security-Policy:
   form-action 'self' https://formspree.io;
   upgrade-insecure-requests;
 ```
+
+If you are hosting on Cloudflare Pages, a ready-to-apply headers example is included here:
+
+- `ops/security/cloudflare/_headers.example`
 
 ---
 
@@ -218,6 +217,8 @@ Go to **Rules → Redirect Rules** and set:
 ## 10. Post-Setup Verification Checklist
 
 - [ ] Visit `https://lookforit.xyz/admin/dashboard.html` in incognito → Zero Trust challenge appears
+- [ ] Submit `contact.html` with Turnstile incomplete → browser blocks submission
+- [ ] Submit through deployed Worker endpoint → request reaches Formspree only after successful verification
 - [ ] Visit `https://lookforit.xyz/contact.html` → Turnstile widget renders
 - [ ] Run `curl -I https://lookforit.xyz` → confirm HSTS, X-Frame-Options headers present
 - [ ] Run site through `https://securityheaders.com` → target A or A+ grade

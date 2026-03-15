@@ -17,6 +17,8 @@ Client-side checks improve privacy and workflow control, but true access control
 2. Protect path `/admin/*` with an Access application.
 3. Allow only your verified identity provider users.
 4. Keep `/admin/` blocked in `robots.txt` (already configured).
+5. Follow the full hardening checklist in `ops/security/cloudflare-access-checklist.md`.
+6. If using Cloudflare Pages, apply the edge headers in `ops/security/cloudflare/_headers.example`.
 
 ### Apache (example)
 
@@ -57,6 +59,22 @@ Managed in `assets/js/admin-access.js`:
   "draftText": "..."
 }
 ```
+
+## Turnstile Form Protection
+
+The public contact and listing request forms now include:
+
+- Cloudflare Turnstile widget
+- client-side missing-token guard in `assets/js/turnstile-guard.js`
+- proxy toggle config in `assets/js/form-proxy-config.js`
+
+For real server-side verification, deploy the included Worker example:
+
+- `ops/security/cloudflare/turnstile-form-proxy-worker.js`
+- `ops/security/cloudflare/wrangler.toml.example`
+
+After deployment, update the form `action` URL to the Worker endpoint so invalid submissions never reach Formspree.
+The repo is already wired for this: deploy the Worker on `/form-proxy` and set `enabled: true` in `assets/js/form-proxy-config.js`.
 
 ## CI Quality Checks
 
