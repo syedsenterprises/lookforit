@@ -24,39 +24,6 @@
 		$header.find('.logo-by, .logo-author').remove();
 	})();
 
-	function isMobileView() {
-		return window.matchMedia('(max-width: 736px)').matches;
-	}
-
-	// Keep header search mobile-only.
-	function syncHeaderSearchMobile() {
-		var $header = $('#header');
-		if ($header.length === 0)
-			return;
-
-		var $existing = $header.find('.header-search');
-
-		if (isMobileView()) {
-			if ($existing.length > 0)
-				return;
-
-			var searchHtml = ''
-				+ '<div class="header-search">'
-				+ '<form method="get" action="/tools/">'
-				+ '<input type="text" name="query" id="header-query" placeholder="Search tools..." aria-label="Search tools" />'
-				+ '</form>'
-				+ '</div>';
-
-			var $icons = $header.children('ul.icons').first();
-			if ($icons.length > 0)
-				$icons.before($(searchHtml));
-			else
-				$header.append($(searchHtml));
-			return;
-		}
-
-		$existing.remove();
-	}
 
 	// Social icons: ensure a consistent icon row exists in every page header.
 	(function ensureHeaderIcons() {
@@ -80,58 +47,6 @@
 		$header.append($(iconsHtml));
 	})();
 
-	// Group sidebar sections only on mobile drawer view and remove grouping on desktop.
-	function syncSidebarMobileGroups() {
-		var $inner = $('#sidebar > .inner');
-		if ($inner.length === 0)
-			return;
-
-		if (!window.matchMedia('(max-width: 1280px)').matches) {
-			$inner.children('.sidebar-menu-group').each(function() {
-				var $group = $(this);
-				$group.children().appendTo($inner);
-				$group.remove();
-			});
-			return;
-		}
-
-		if ($inner.children('.sidebar-menu-group').length > 0)
-			return;
-
-		var $children = $inner.children();
-		var $menu = $inner.children('#menu').first();
-		var $categorySection = $inner.children('section').filter(function() {
-			return $(this).find('h2').first().text().trim().toLowerCase() === 'categories';
-		}).first();
-		var $contactSection = $inner.children('section').filter(function() {
-			return $(this).find('h2').first().text().trim().toLowerCase() === 'get in touch';
-		}).first();
-		var $footer = $inner.children('#footer').first();
-
-		if ($menu.length > 0 && $categorySection.length > 0) {
-			var headerStart = $children.index($menu);
-			var headerEnd = $children.index($categorySection);
-			if (headerStart >= 0 && headerEnd >= headerStart) {
-				var $headerWrap = $('<div class="sidebar-menu-group sidebar-header-menu" />');
-				$menu.before($headerWrap);
-				$children.slice(headerStart, headerEnd + 1).appendTo($headerWrap);
-			}
-		}
-
-		if ($contactSection.length > 0 && $footer.length > 0) {
-			$children = $inner.children();
-			var footerStart = $children.index($contactSection);
-			var footerEnd = $children.index($footer);
-			if (footerStart >= 0 && footerEnd >= footerStart) {
-				var $footerWrap = $('<div class="sidebar-menu-group sidebar-footer-menu" />');
-				$contactSection.before($footerWrap);
-				$children.slice(footerStart, footerEnd + 1).appendTo($footerWrap);
-			}
-		}
-	}
-
-	syncHeaderSearchMobile();
-	syncSidebarMobileGroups();
 
 	// Breakpoints.
 		breakpoints({
@@ -168,9 +83,6 @@
 					resizeTimeout = setTimeout(function() {
 						$body.removeClass('is-resizing');
 					}, 100);
-
-					syncHeaderSearchMobile();
-					syncSidebarMobileGroups();
 
 			});
 

@@ -3269,49 +3269,8 @@ body.layout-standard #header.header .logo {
   margin-right: 0.4rem;
 }
 
-body.layout-standard #header.header .header-search {
-  margin-left: auto;
-  margin-right: 0.5rem;
-  width: min(360px, 42vw);
-}
-
-body.layout-standard #header.header .header-search form {
-  margin: 0;
-}
-
-body.layout-standard #header.header .header-search input[type="text"] {
-  height: 2.5em;
-  padding: 0 0.95em;
-  border-radius: 0.45em;
-  font-size: 0.9em;
-}
-
 body.layout-standard #header.header .icons {
-  margin-left: 0;
-}
-
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > .group-title {
-  border-bottom: solid 2px rgba(210, 215, 217, 0.75);
-  margin: 0 0 2.2em 0;
-  padding: 0 0 1.25em 0;
-}
-
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > .group-title h2 {
-  margin-bottom: 0;
-}
-
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > section,
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > nav,
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > footer {
-  border-bottom: solid 2px rgba(210, 215, 217, 0.75);
-  margin: 0 0 2.5em 0;
-  padding: 0 0 2.5em 0;
-}
-
-body.layout-standard #sidebar.sidebar .sidebar-menu-group > *:last-child {
-  border-bottom: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
+  margin-left: auto;
 }
 
 body.layout-standard #sidebar.sidebar .toggle {
@@ -3388,10 +3347,6 @@ body.layout-standard .tools-grid article:after {
 }
 
 @media screen and (max-width: 1024px) {
-  body.layout-standard #wrapper.layout {
-    display: block;
-  }
-
   body.layout-standard .hero {
     grid-template-columns: 1fr;
   }
@@ -3428,22 +3383,6 @@ body.layout-standard .tools-grid article:after {
 
   body.layout-standard #header.header {
     padding-top: 1.6em;
-  }
-
-  body.layout-standard #header.header {
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  body.layout-standard #header.header .header-search {
-    order: 3;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-  }
-
-  body.layout-standard #header.header .icons {
-    margin-left: auto;
   }
 
   body.layout-standard .tools-grid {
