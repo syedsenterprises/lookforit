@@ -3425,3 +3425,57 @@ body.layout-standard .articles-page .hero {
 body.layout-standard .articles-page .article-grid + .article-grid {
   margin-top: 1rem;
 }
+
+#homepage-faq .faq-item {
+  border-top: 1px solid rgba(210, 215, 217, 0.75);
+  padding-top: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+#homepage-faq .faq-item:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+#homepage-faq .faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-weight: 700;
+  position: relative;
+  padding-right: 1.8rem;
+}
+
+#homepage-faq .faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+#homepage-faq .faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #f56a6a;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+#homepage-faq .faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+#homepage-faq .faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.28s ease, opacity 0.22s ease;
+}
+
+#homepage-faq .faq-item[open] .faq-answer {
+  max-height: 14rem;
+  opacity: 1;
+}
+
+#homepage-faq .faq-answer p {
+  margin: 0.55rem 0 0;
+}

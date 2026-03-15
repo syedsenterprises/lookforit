@@ -10,6 +10,28 @@
 		$head = $('head'),
 		$body = $('body');
 
+	// Social icons: ensure a consistent icon row exists in every page header.
+	(function ensureHeaderIcons() {
+		var $header = $('#header.header');
+		if ($header.length === 0)
+			return;
+
+		if ($header.children('ul.icons').length > 0)
+			return;
+
+		var iconsHtml = ''
+			+ '<ul class="icons">'
+			+ '<li><a href="https://x.com/syedShahid1433" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"><span class="label">Twitter</span></a></li>'
+			+ '<li><a href="https://www.facebook.com/syed.shahed.273196" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>'
+			+ '<li><a href="https://www.youtube.com/@Ampersent" class="icon brands fa-youtube" target="_blank" rel="noopener noreferrer"><span class="label">YouTube</span></a></li>'
+			+ '<li><a href="https://www.instagram.com/shah.voidheart/" class="icon brands fa-instagram" target="_blank" rel="noopener noreferrer"><span class="label">Instagram</span></a></li>'
+			+ '<li><a href="https://medium.com/@syedsinterprises" class="icon brands fa-medium-m" target="_blank" rel="noopener noreferrer"><span class="label">Medium</span></a></li>'
+			+ '<li><a href="https://chat.whatsapp.com/J6EsOm6PFqgBZm2nkNy3w3" class="icon brands fa-whatsapp" target="_blank" rel="noopener noreferrer"><span class="label">Community</span></a></li>'
+			+ '</ul>';
+
+		$header.append($(iconsHtml));
+	})();
+
 	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
