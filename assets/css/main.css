@@ -3306,6 +3306,18 @@ body.layout-standard .buttons-row .button {
   white-space: normal;
 }
 
+body.layout-standard #main.content ul.actions {
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+body.layout-standard #main.content ul.actions li > .button,
+body.layout-standard #main.content ul.actions li > button,
+body.layout-standard #main.content ul.actions li > input {
+  white-space: normal;
+  max-width: 100%;
+}
+
 body.layout-standard .tools-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3365,6 +3377,24 @@ body.layout-standard .tools-grid article:after {
   body.layout-standard .hero-right {
     justify-self: start;
     max-width: 320px;
+  }
+
+  body.layout-standard #main.content ul.actions {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 0.55em;
+  }
+
+  body.layout-standard #main.content ul.actions li {
+    padding: 0;
+    width: 100%;
+  }
+
+  body.layout-standard #main.content ul.actions li > .button,
+  body.layout-standard #main.content ul.actions li > button,
+  body.layout-standard #main.content ul.actions li > input {
+    width: 100%;
+    text-align: center;
   }
 }
 
