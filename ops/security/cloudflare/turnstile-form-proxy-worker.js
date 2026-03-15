@@ -35,7 +35,22 @@ export default {
 
     formData.delete('cf-turnstile-response');
 
-    const upstream = await fetch(env.FORMSPREE_ENDPOINT, {
+    const submissionType = (formData.get('submission_type') || '').toString().toLowerCase();
+    let upstreamEndpoint = env.FORMSPREE_DEFAULT_ENDPOINT || env.FORMSPREE_CONTACT_ENDPOINT || '';
+
+    if (submissionType === 'tool-listing-request') {
+      upstreamEndpoint = env.FORMSPREE_LISTING_ENDPOINT || upstreamEndpoint;
+    }
+
+    if (submissionType === 'contact-message' || submissionType === 'contact') {
+      upstreamEndpoint = env.FORMSPREE_CONTACT_ENDPOINT || upstreamEndpoint;
+    }
+
+    if (!upstreamEndpoint) {
+      return new Response('Missing Formspree endpoint configuration', { status: 500 });
+    }
+
+    const upstream = await fetch(upstreamEndpoint, {
       method: 'POST',
       body: formData,
       headers: {

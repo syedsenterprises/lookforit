@@ -4,7 +4,9 @@ compatibility_date = "2026-03-15"
 workers_dev = true
 
 [vars]
-FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwzdkgz"
+FORMSPREE_CONTACT_ENDPOINT = "https://formspree.io/f/mvzwbqew"
+FORMSPREE_LISTING_ENDPOINT = "https://formspree.io/f/mpqyjlvl"
+FORMSPREE_DEFAULT_ENDPOINT = "https://formspree.io/f/mvzwbqew"
 
 # Set secrets with:
 # wrangler secret put TURNSTILE_SECRET_KEY

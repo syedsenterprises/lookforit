@@ -87,7 +87,7 @@
 <div class="row">
 <div class="col-6 col-12-small">
 <h2>Send a Message</h2>
-<form method="post" action="https://formspree.io/f/xpwzdkgz" data-direct-action="https://formspree.io/f/xpwzdkgz" data-worker-action="/form-proxy">
+<form method="post" action="https://formspree.io/f/mvzwbqew" data-direct-action="https://formspree.io/f/mvzwbqew" data-worker-action="/form-proxy">
 <div class="row gtr-uniform">
 <div class="col-12">
 <input type="text" name="name" id="name" value="" placeholder="Your Name" required />
@@ -107,6 +107,7 @@
 <div class="col-12">
 <textarea name="message" id="message" placeholder="Your message..." rows="6" required></textarea>
 </div>
+<div class="col-12"><input type="hidden" name="submission_type" value="contact-message" /></div>
 <div class="col-12">
 <!-- Replace SITE_KEY with your Cloudflare Turnstile site key from the Cloudflare dashboard -->
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACrNm5GsRnWsWuFt" data-theme="dark"></div>
