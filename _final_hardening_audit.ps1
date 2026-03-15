@@ -13,7 +13,11 @@ $adminDashHasGuard = Select-String -Path admin\dashboard.html -Pattern 'admin-ac
 $adminLoginHasGuard = Select-String -Path admin\login.html -Pattern 'admin-access\.js' -Quiet
 $dashboardRedirects = Select-String -Path dashboard.html -Pattern '/admin/dashboard\.html' -Quiet
 
-$sitemap = Get-Content sitemap.xml -Raw
+$sitemapFiles = @('sitemap.xml')
+if (Test-Path sitemaps) {
+  $sitemapFiles += Get-ChildItem sitemaps -Recurse -Filter *.xml | ForEach-Object { $_.FullName }
+}
+$sitemap = ($sitemapFiles | Where-Object { Test-Path $_ } | ForEach-Object { Get-Content $_ -Raw }) -join "`n"
 $toolMissing = @()
 foreach ($f in $toolFiles) {
   if ($f.Name -eq 'example-ai-tool.html' -or $f.Name -eq 'index.html') { continue }

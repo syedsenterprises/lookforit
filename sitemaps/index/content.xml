@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://lookforit.xyz/sitemaps/index/content.xml</loc>
+    <loc>https://lookforit.xyz/sitemaps/pages.xml</loc>
     <lastmod>2026-03-15</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://lookforit.xyz/sitemaps/index/catalog.xml</loc>
+    <loc>https://lookforit.xyz/sitemaps/articles.xml</loc>
+    <lastmod>2026-03-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://lookforit.xyz/sitemaps/tools.xml</loc>
     <lastmod>2026-03-15</lastmod>
   </sitemap>
 </sitemapindex>
