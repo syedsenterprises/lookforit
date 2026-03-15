@@ -1,11 +1,13 @@
 # generate-sitemap.ps1
 # Regenerates sitemap.xml from all indexable HTML files in the workspace.
+# For large tool catalogs, also creates split catalog sitemap files.
 # Run from the repo root: ./generate-sitemap.ps1
 # Adds a <changefreq> and <priority> based on file path tier.
 
 param(
     [string]$BaseUrl   = "https://lookforit.xyz",
-    [string]$OutputFile = "sitemap.xml"
+    [string]$OutputFile = "sitemap.xml",
+    [int]$CatalogChunkSize = 500
 )
 
 $ErrorActionPreference = "Stop"
@@ -49,6 +51,32 @@ function Get-Rule($rel) {
     return @{ Priority = "0.5"; Freq = "monthly" }
 }
 
+function Write-UrlsetFile {
+    param(
+        [string]$Path,
+        [object[]]$Entries
+    )
+
+    $lines = [System.Collections.Generic.List[string]]::new()
+    $lines.Add('<?xml version="1.0" encoding="UTF-8"?>')
+    $lines.Add('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
+    $lines.Add('        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"')
+    $lines.Add('        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9')
+    $lines.Add('          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">')
+
+    foreach ($e in $Entries) {
+        $lines.Add("  <url>")
+        $lines.Add("    <loc>$($e.Loc)</loc>")
+        $lines.Add("    <lastmod>$($e.Lastmod)</lastmod>")
+        $lines.Add("    <changefreq>$($e.Freq)</changefreq>")
+        $lines.Add("    <priority>$($e.Priority)</priority>")
+        $lines.Add("  </url>")
+    }
+    $lines.Add('</urlset>')
+
+    $lines -join "`n" | Set-Content $Path -Encoding UTF8 -NoNewline
+}
+
 # ---------------------------------------------------------------------------
 # Collect files
 # ---------------------------------------------------------------------------
@@ -56,6 +84,7 @@ $htmlFiles = Get-ChildItem -Recurse -Filter "*.html" |
     Where-Object { $_.FullName -notmatch '\\\.git\\' }
 
 $entries = [System.Collections.Generic.List[object]]::new()
+$catalogEntries = [System.Collections.Generic.List[object]]::new()
 
 foreach ($f in $htmlFiles) {
     $rel = $f.FullName.Replace($PSScriptRoot + "\", "").Replace("\", "/")
@@ -84,37 +113,57 @@ foreach ($f in $htmlFiles) {
     $rule = Get-Rule $rel
     $lastmod = $f.LastWriteTime.ToString("yyyy-MM-dd")
 
-    $entries.Add([PSCustomObject]@{
+    $entry = [PSCustomObject]@{
         Loc      = $url
         Lastmod  = $lastmod
         Freq     = $rule.Freq
         Priority = $rule.Priority
-    })
+    }
+
+    if ($rel -match '^tools[/\\]catalog[/\\]' -and $rel -notmatch '^tools[/\\]catalog[/\\]index\.html$') {
+        $catalogEntries.Add($entry)
+    } else {
+        $entries.Add($entry)
+    }
 }
 
 # Sort: priority desc, then alpha
 $entries = $entries | Sort-Object { -[double]$_.Priority }, Loc
+$catalogEntries = $catalogEntries | Sort-Object Loc
 
 # ---------------------------------------------------------------------------
 # Write XML
 # ---------------------------------------------------------------------------
-$lines = [System.Collections.Generic.List[string]]::new()
-$lines.Add('<?xml version="1.0" encoding="UTF-8"?>')
-$lines.Add('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
-$lines.Add('        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"')
-$lines.Add('        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9')
-$lines.Add('          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">')
+Write-UrlsetFile -Path $OutputFile -Entries $entries
 
-foreach ($e in $entries) {
-    $lines.Add("  <url>")
-    $lines.Add("    <loc>$($e.Loc)</loc>")
-    $lines.Add("    <lastmod>$($e.Lastmod)</lastmod>")
-    $lines.Add("    <changefreq>$($e.Freq)</changefreq>")
-    $lines.Add("    <priority>$($e.Priority)</priority>")
-    $lines.Add("  </url>")
+# Split catalog sitemap files for better crawl efficiency
+$catalogSitemapFiles = New-Object System.Collections.Generic.List[string]
+if ($catalogEntries.Count -gt 0) {
+    $chunks = [Math]::Ceiling($catalogEntries.Count / [double]$CatalogChunkSize)
+    for ($i = 0; $i -lt $chunks; $i++) {
+        $start = $i * $CatalogChunkSize
+        $chunkEntries = $catalogEntries | Select-Object -Skip $start -First $CatalogChunkSize
+        $fileName = "sitemap-tools-catalog-{0}.xml" -f ($i + 1)
+        Write-UrlsetFile -Path $fileName -Entries $chunkEntries
+        $catalogSitemapFiles.Add($fileName)
+    }
+
+    $indexLines = [System.Collections.Generic.List[string]]::new()
+    $indexLines.Add('<?xml version="1.0" encoding="UTF-8"?>')
+    $indexLines.Add('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    $today = (Get-Date).ToString('yyyy-MM-dd')
+    foreach ($fileName in $catalogSitemapFiles) {
+        $indexLines.Add('  <sitemap>')
+        $indexLines.Add("    <loc>$BaseUrl/$fileName</loc>")
+        $indexLines.Add("    <lastmod>$today</lastmod>")
+        $indexLines.Add('  </sitemap>')
+    }
+    $indexLines.Add('</sitemapindex>')
+    $indexLines -join "`n" | Set-Content "sitemap-tools-catalog-index.xml" -Encoding UTF8 -NoNewline
 }
-$lines.Add('</urlset>')
 
-$lines -join "`n" | Set-Content $OutputFile -Encoding UTF8 -NoNewline
-
-Write-Host "SITEMAP_GENERATED: $($entries.Count) URLs -> $OutputFile"
+Write-Host "SITEMAP_GENERATED_MAIN: $($entries.Count) URLs -> $OutputFile"
+Write-Host "SITEMAP_GENERATED_CATALOG: $($catalogEntries.Count) URLs -> $($catalogSitemapFiles.Count) files"
+if ($catalogSitemapFiles.Count -gt 0) {
+    Write-Host "SITEMAP_CATALOG_INDEX: sitemap-tools-catalog-index.xml"
+}

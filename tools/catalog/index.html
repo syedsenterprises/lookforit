@@ -1,0 +1,178 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>AI Tools Catalog (1000+) - Lookforit.xyz</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="description" content="Explore 1000+ AI tools with richer profiles, logos, categories, and practical use-case context." />
+<link rel="canonical" href="https://lookforit.xyz/tools/catalog/" />
+<meta property="og:title" content="AI Tools Catalog (1000+) - Lookforit.xyz" />
+<meta property="og:description" content="Explore 1000+ AI tools with richer profiles, logos, categories, and practical use-case context." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/tools/catalog/" />
+<meta property="og:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI Tools Catalog (1000+) - Lookforit.xyz" />
+<meta name="twitter:description" content="Explore 1000+ AI tools with richer profiles, logos, categories, and practical use-case context." />
+<meta name="twitter:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<link rel="stylesheet" href="../../assets/css/main.css?v=20260315-layout1" />
+</head>
+<body class="is-preload layout-standard">
+<div id="wrapper" class="layout"><div id="main" class="content"><div class="inner site-container">
+<header id="header" class="header"><a href="/" class="logo"><strong>Lookforit</strong> AI Tool Catalog</a></header>
+<section class="hero">
+<header class="major"><h1>AI Tools Catalog (1000+)</h1></header>
+<p>Browse and compare AI tools by category, status, and practical fit. Profiles include richer context, quick evaluation points, and logo-based recognition.</p>
+<div class="catalog-controls box">
+  <div class="row gtr-uniform">
+    <div class="col-5 col-12-small"><input type="search" id="catalog-search" placeholder="Search by name, category, or description" /></div>
+    <div class="col-3 col-12-small"><select id="catalog-category"><option value="">All Categories</option></select></div>
+    <div class="col-2 col-12-small"><select id="catalog-status"><option value="">All Status</option><option value="verified-existing">Verified</option><option value="curated-trending">Trending</option><option value="curated-expansion">Expansion</option><option value="generated-profile">Generated</option></select></div>
+    <div class="col-2 col-12-small"><select id="catalog-page-size"><option value="24">24 per page</option><option value="48">48 per page</option><option value="96">96 per page</option></select></div>
+  </div>
+  <p id="catalog-count" style="margin:0.8rem 0 0; font-size:0.9rem; color:#6b7280;">Loading catalog...</p>
+</div>
+<div id="catalog-grid" class="catalog-cards-grid"></div>
+<div id="catalog-pager" class="catalog-pager"></div>
+</section>
+</div></div>
+<div id="sidebar" class="sidebar"><div class="inner"><section id="search" class="alt"><form method="get" action="/tools/"><input type="text" name="query" id="query" placeholder="Search AI tools..." /></form></section><nav id="menu"><header class="major"><h2>Menu</h2></header><ul><li><a href="/">Homepage</a></li><li><a href="/tools/">AI Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/listing-requests/">Submit Your Tool</a></li></ul></nav><footer id="footer"><p>Lookforit.xyz is an AI tools directory listing hundreds of artificial intelligence tools for productivity, design, coding, marketing, and business.</p><div class="footer-policy-links"><a href="../../privacy-policy.html">Privacy Policy</a><a href="../../terms.html">Terms</a><a href="../../refund.html">Refund Policy</a><a href="../../disclaimer.html">Disclaimer</a><a href="../../faq.html">FAQ</a><a href="../../contact.html">Contact</a></div><p class="copyright">&copy; 2026 <a href="/">Lookforit.xyz</a>. All rights reserved.</p></footer></div></div></div>
+<script src="../../assets/js/jquery.min.js"></script><script src="../../assets/js/browser.min.js"></script><script src="../../assets/js/breakpoints.min.js"></script><script src="../../assets/js/util.js"></script><script src="../../assets/js/main.js"></script>
+<script src="catalog-manifest.js"></script>
+<script>
+(function(){
+  var all = (window.LookforitCatalogManifest || []).slice();
+  var grid = document.getElementById('catalog-grid');
+  var pager = document.getElementById('catalog-pager');
+  var countEl = document.getElementById('catalog-count');
+  var search = document.getElementById('catalog-search');
+  var category = document.getElementById('catalog-category');
+  var status = document.getElementById('catalog-status');
+  var pageSizeSel = document.getElementById('catalog-page-size');
+  var page = 1;
+
+  function uniq(values){
+    var out = [];
+    var seen = {};
+    values.forEach(function(v){ if(!v) return; if(seen[v]) return; seen[v] = 1; out.push(v); });
+    return out.sort();
+  }
+
+  uniq(all.map(function(x){ return x.c; })).forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c;
+    o.textContent = c;
+    category.appendChild(o);
+  });
+
+  function cardNode(item){
+    var article = document.createElement('article');
+    article.className = 'catalog-card';
+
+    var img = document.createElement('img');
+    img.className = 'catalog-card-logo';
+    img.setAttribute('src', item.l);
+    img.setAttribute('alt', item.n + ' logo');
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
+    article.appendChild(img);
+
+    var body = document.createElement('div');
+    body.className = 'catalog-card-body';
+
+    var cat = document.createElement('div');
+    cat.className = 'category';
+    cat.textContent = item.c;
+    body.appendChild(cat);
+
+    var h2 = document.createElement('h2');
+    var titleLink = document.createElement('a');
+    titleLink.setAttribute('href', item.s + '.html');
+    titleLink.textContent = item.n;
+    h2.appendChild(titleLink);
+    body.appendChild(h2);
+
+    var meta = document.createElement('p');
+    meta.innerHTML = '<strong>Status:</strong> ' + item.st + ' | <strong>Updated:</strong> ' + item.u;
+    body.appendChild(meta);
+
+    var desc = document.createElement('p');
+    desc.textContent = item.d;
+    body.appendChild(desc);
+
+    var ctaWrap = document.createElement('div');
+    ctaWrap.className = 'cta';
+    var ctaLink = document.createElement('a');
+    ctaLink.setAttribute('href', item.s + '.html');
+    ctaLink.textContent = 'Open Profile ->';
+    ctaWrap.appendChild(ctaLink);
+    body.appendChild(ctaWrap);
+
+    article.appendChild(body);
+    return article;
+  }
+
+  function filtered(){
+    var q = (search.value || '').toLowerCase().trim();
+    var c = category.value || '';
+    var st = status.value || '';
+    return all.filter(function(item){
+      var qOk = !q || item.n.toLowerCase().indexOf(q) !== -1 || item.c.toLowerCase().indexOf(q) !== -1 || item.d.toLowerCase().indexOf(q) !== -1;
+      var cOk = !c || item.c === c;
+      var sOk = !st || item.st === st;
+      return qOk && cOk && sOk;
+    });
+  }
+
+  function drawPager(totalPages){
+    pager.innerHTML = '';
+    if (totalPages <= 1) return;
+    var start = Math.max(1, page - 2);
+    var end = Math.min(totalPages, start + 4);
+    if (end - start < 4) start = Math.max(1, end - 4);
+
+    function btn(label, p, disabled){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = label;
+      b.disabled = !!disabled;
+      if (p === page) b.className = 'is-current';
+      b.addEventListener('click', function(){ page = p; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      pager.appendChild(b);
+    }
+
+    btn('Prev', Math.max(1, page - 1), page === 1);
+    for (var p = start; p <= end; p++) btn(String(p), p, false);
+    btn('Next', Math.min(totalPages, page + 1), page === totalPages);
+  }
+
+  function render(){
+    var list = filtered();
+    var pageSize = parseInt(pageSizeSel.value || '24', 10);
+    var totalPages = Math.max(1, Math.ceil(list.length / pageSize));
+    if (page > totalPages) page = totalPages;
+    var start = (page - 1) * pageSize;
+    var pageList = list.slice(start, start + pageSize);
+
+    countEl.textContent = 'Showing ' + pageList.length + ' of ' + list.length + ' matching tools (' + all.length + ' total profiles).';
+    grid.innerHTML = '';
+    pageList.forEach(function(item){
+      grid.appendChild(cardNode(item));
+    });
+    drawPager(totalPages);
+  }
+
+  [search, category, status, pageSizeSel].forEach(function(el){
+    el.addEventListener('input', function(){ page = 1; render(); });
+    el.addEventListener('change', function(){ page = 1; render(); });
+  });
+
+  render();
+})();
+</script>
+<script src="/assets/js/tools-data.js"></script><script src="/assets/js/sidebar-search.js"></script>
+</body>
+</html>

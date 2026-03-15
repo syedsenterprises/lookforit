@@ -19,11 +19,11 @@
 <meta name="twitter:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
 <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
-<body class="is-preload">
-<div id="wrapper">
-<div id="main">
-<div class="inner">
-<header id="header"><a href="/" class="logo"><strong>Lookforit</strong> Content Dashboard</a></header>
+<body class="is-preload layout-standard">
+<div id="wrapper" class="layout">
+<div id="main" class="content">
+<div class="inner site-container">
+<header id="header" class="header"><a href="/" class="logo"><strong>Lookforit</strong> Content Dashboard</a></header>
 <section>
 <header class="major">
 <h1>Publishing Dashboard</h1>
@@ -186,6 +186,17 @@
 <li><button type="button" id="clearSnapshots">Clear Snapshots</button></li>
 </ul>
 </div>
+<div class="col-12">
+<h3>Internal Recommendation Clicks</h3>
+<p style="margin-bottom:0.65rem;">Clicks from Related Guides and Next Recommended Read widgets, stored in local browser history.</p>
+<div id="internalClicksSummary" class="box" style="min-height:6rem;max-height:12rem;overflow:auto;font-size:0.82rem;font-family:monospace;white-space:pre-wrap;background:#1f2937;color:#bfdbfe;"></div>
+<div id="internalClicksLog" class="box" style="min-height:8rem;max-height:16rem;overflow:auto;font-size:0.8rem;font-family:monospace;white-space:pre-wrap;background:#0f172a;color:#c7f9cc;"></div>
+<ul class="actions" style="margin-top:0.5rem;">
+<li><button type="button" id="refreshInternalClicks">Refresh Click Data</button></li>
+<li><button type="button" id="clearInternalClicks">Clear Click Data</button></li>
+<li><button type="button" id="exportInternalClicks">Export Click JSON</button></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -193,7 +204,7 @@
 </section>
 </div>
 </div>
-<div id="sidebar"><div class="inner"><section id="search" class="alt"><form method="get" action="/tools/"><input type="text" name="query" id="query" placeholder="Search AI tools..." /></form></section><nav id="menu"><header class="major"><h2>Menu</h2></header><ul><li><span class="opener">Home</span><ul><li><a href="/">Homepage</a></li><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms &amp; Conditions</a></li><li><a href="../refund.html">Refund Policy</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></li><li><a href="/tools/">AI Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Your Tool</a></li></ul></nav><footer id="footer"><div class="footer-policy-links">
+<div id="sidebar" class="sidebar"><div class="inner"><section id="search" class="alt"><form method="get" action="/tools/"><input type="text" name="query" id="query" placeholder="Search AI tools..." /></form></section><nav id="menu"><header class="major"><h2>Menu</h2></header><ul><li><span class="opener">Home</span><ul><li><a href="/">Homepage</a></li><li><a href="../about.html">About Us</a></li><li><a href="../contact.html">Contact</a></li><li><a href="../privacy-policy.html">Privacy Policy</a></li><li><a href="../terms.html">Terms &amp; Conditions</a></li><li><a href="../refund.html">Refund Policy</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></li><li><a href="/tools/">AI Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Your Tool</a></li></ul></nav><footer id="footer"><div class="footer-policy-links">
 <a href="../privacy-policy.html">Privacy Policy</a>
 <a href="../terms.html">Terms</a>
 <a href="../refund.html">Refund Policy</a>
@@ -245,7 +256,139 @@
     try { render('snapshotsLog', fmtSnaps(window.LookforitDashboard && window.LookforitDashboard.getSnapshots())); }
     catch (e) { render('snapshotsLog', '(unavailable)'); }
   }
-  function renderAll() { renderAuth(); renderDash(); renderSnaps(); }
+  function getInternalClicks() {
+    try {
+      if (window.LookforitInternalLinkClicks && typeof window.LookforitInternalLinkClicks.getEvents === 'function') {
+        return window.LookforitInternalLinkClicks.getEvents();
+      }
+      return JSON.parse(localStorage.getItem('lookforit-internal-link-clicks:v1') || '[]');
+    } catch (_e) {
+      return [];
+    }
+  }
+  function fmtInternalClicks(events) {
+    if (!events || !events.length) return '(no internal recommendation clicks yet)';
+    return events.slice(0, 120).map(function (e) {
+      var raw = e.timestamp || null;
+      var t = raw ? new Date(raw).toLocaleString() : '--';
+      var widget = e.widget_type || 'unknown';
+      var text = (e.link_text || '(no text)').trim();
+      var href = e.link_href || '(no href)';
+      var source = e.source_path || '(no source)';
+      return '[' + t + '] ' + widget + ' | ' + text + ' -> ' + href + ' | from: ' + source;
+    }).join('\n');
+  }
+  function fmtInternalSummary(events) {
+    if (!events || !events.length) {
+      return 'Total clicks: 0\nTop links: (none)';
+    }
+
+    var byWidget = {};
+    var top = [];
+
+    events.forEach(function (e) {
+      var widget = e.widget_type || 'unknown';
+      byWidget[widget] = (byWidget[widget] || 0) + 1;
+    });
+
+    if (window.LookforitInternalLinkClicks && typeof window.LookforitInternalLinkClicks.getTopLinks === 'function') {
+      top = window.LookforitInternalLinkClicks.getTopLinks(10);
+    } else {
+      var byLink = {};
+      events.forEach(function (e) {
+        var href = (e.link_href || '').trim();
+        if (!href) return;
+        var key = (e.widget_type || 'unknown') + '|' + href + '|' + ((e.link_text || '').trim());
+        if (!byLink[key]) {
+          byLink[key] = {
+            widget_type: e.widget_type || 'unknown',
+            link_href: href,
+            link_text: (e.link_text || '').trim(),
+            count: 0,
+            last_clicked_at: e.timestamp || null
+          };
+        }
+        byLink[key].count += 1;
+      });
+
+      top = Object.keys(byLink).map(function (k) { return byLink[k]; });
+      top.sort(function (a, b) {
+        if (b.count !== a.count) return b.count - a.count;
+        return String(a.link_text || '').localeCompare(String(b.link_text || ''));
+      });
+      top = top.slice(0, 10);
+    }
+
+    var lines = [];
+    lines.push('Total clicks: ' + events.length);
+    lines.push('Widget split: ' + Object.keys(byWidget).sort().map(function (k) {
+      return k + '=' + byWidget[k];
+    }).join(' | '));
+    lines.push('Top links (up to 10):');
+    top.forEach(function (item, idx) {
+      var label = item.link_text || item.link_href;
+      var last = item.last_clicked_at ? ' | last: ' + new Date(item.last_clicked_at).toLocaleString() : '';
+      lines.push((idx + 1) + '. ' + item.count + 'x [' + item.widget_type + '] ' + label + ' -> ' + item.link_href + last);
+    });
+    if (top.length === 0) {
+      lines.push('(none)');
+    }
+
+    return lines.join('\n');
+  }
+  function renderInternalClicks() {
+    try {
+      var events = getInternalClicks();
+      render('internalClicksSummary', fmtInternalSummary(events));
+      render('internalClicksLog', fmtInternalClicks(events));
+    }
+    catch (e) {
+      render('internalClicksSummary', '(unavailable)');
+      render('internalClicksLog', '(unavailable)');
+    }
+  }
+  function clearInternalClicks() {
+    try {
+      if (window.LookforitInternalLinkClicks && typeof window.LookforitInternalLinkClicks.clearEvents === 'function') {
+        window.LookforitInternalLinkClicks.clearEvents();
+      } else {
+        localStorage.removeItem('lookforit-internal-link-clicks:v1');
+      }
+    } catch (_e) {
+    }
+  }
+  function exportInternalClicksJson() {
+    try {
+      var events = getInternalClicks();
+      var topLinks = [];
+
+      if (window.LookforitInternalLinkClicks && typeof window.LookforitInternalLinkClicks.getTopLinks === 'function') {
+        topLinks = window.LookforitInternalLinkClicks.getTopLinks(25);
+      }
+
+      var payload = {
+        exported_at: new Date().toISOString(),
+        total_clicks: events.length,
+        top_links: topLinks,
+        events: events
+      };
+
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      var ts = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+$/, '').replace('T', '-');
+      var fileName = 'lookforit-internal-link-clicks-' + ts + '.json';
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (_e) {
+      alert('Unable to export click data in this browser session.');
+    }
+  }
+  function renderAll() { renderAuth(); renderDash(); renderSnaps(); renderInternalClicks(); }
   document.addEventListener('DOMContentLoaded', function () {
     renderAll();
     document.getElementById('refreshAuthLog').addEventListener('click', renderAuth);
@@ -263,11 +406,18 @@
       if (window.LookforitDashboard) window.LookforitDashboard.clearSnapshots();
       renderSnaps();
     });
+    document.getElementById('refreshInternalClicks').addEventListener('click', renderInternalClicks);
+    document.getElementById('clearInternalClicks').addEventListener('click', function () {
+      clearInternalClicks();
+      renderInternalClicks();
+    });
+    document.getElementById('exportInternalClicks').addEventListener('click', exportInternalClicksJson);
     /* Live auto-refresh: content-dashboard.js dispatches on window with "lookforit:" prefix */
     window.addEventListener('lookforit:generate_draft', function () { renderDash(); renderSnaps(); });
     window.addEventListener('lookforit:build_payload', renderDash);
     window.addEventListener('lookforit:export_all', function () { renderDash(); renderSnaps(); });
     window.addEventListener('lookforit:publish_now', function () { renderDash(); renderSnaps(); });
+    window.addEventListener('lookforit:internal-link-click', renderInternalClicks);
   });
 })();
 </script>
@@ -318,6 +468,7 @@
 </script>
 </body>
 </html>
+
 
 
 

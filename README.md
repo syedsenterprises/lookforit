@@ -116,3 +116,29 @@ Site quality checks are automated with:
 
 - qa-site.ps1
 - .github/workflows/site-quality.yml
+
+## One-Command Full Audit
+
+Run a complete local validation sweep with:
+
+powershell -ExecutionPolicy Bypass -File .\full-audit.ps1
+
+Optional flags:
+
+- Rebuild catalog index before checks:
+
+powershell -ExecutionPolicy Bypass -File .\full-audit.ps1 -RebuildCatalogIndex
+
+- Build curated batch before checks:
+
+powershell -ExecutionPolicy Bypass -File .\full-audit.ps1 -BuildCuratedBatch
+
+- Build curated batch with custom size/output:
+
+powershell -ExecutionPolicy Bypass -File .\full-audit.ps1 -BuildCuratedBatch -CuratedTargetCount 300 -CuratedOutputFile "tools/catalog/catalog-data.curated-300.csv"
+
+The script runs:
+
+- generate-sitemap.ps1
+- qa-site.ps1
+- _final_hardening_audit.ps1

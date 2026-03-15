@@ -53,9 +53,12 @@ foreach ($f in $htmlFiles) {
 }
 
 $noindexFiles = @()
+$repoRoot = (Get-Location).Path
+$repoRootPrefix = ($repoRoot -replace '[\\/]+$', '') + '\'
+$repoRootPrefixRegex = [regex]::Escape($repoRootPrefix)
 foreach ($f in $htmlFiles) {
   if (Select-String -Path $f.FullName -Pattern 'content="[^"]*noindex[^"]*"' -Quiet) {
-    $rel = $f.FullName.Replace((Get-Location).Path + '\\', '').Replace('\\', '/')
+    $rel = ($f.FullName -replace "(?i)^$repoRootPrefixRegex", '').Replace('\', '/')
     $noindexFiles += $rel
   }
 }

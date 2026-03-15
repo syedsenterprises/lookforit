@@ -499,6 +499,143 @@
 			renderComments();
 		})();
 
+	// Internal link click tracking for article recommendation widgets.
+		(function() {
+			var TRACK_STORE_KEY = 'lookforit-internal-link-clicks:v1';
+			var TRACK_STORE_LIMIT = 250;
+
+			function readStore() {
+				try {
+					var parsed = JSON.parse(localStorage.getItem(TRACK_STORE_KEY) || '[]');
+					return Array.isArray(parsed) ? parsed : [];
+				}
+				catch (e) {
+					return [];
+				}
+			}
+
+			function writeStore(entry) {
+				var rows = readStore();
+				rows.unshift(entry);
+				if (rows.length > TRACK_STORE_LIMIT)
+					rows = rows.slice(0, TRACK_STORE_LIMIT);
+
+				try {
+					localStorage.setItem(TRACK_STORE_KEY, JSON.stringify(rows));
+				}
+				catch (e) {
+					// Ignore quota/private-mode write failures.
+				}
+			}
+
+			function clearStore() {
+				try {
+					localStorage.removeItem(TRACK_STORE_KEY);
+				}
+				catch (e) {
+					// Ignore private-mode failures.
+				}
+			}
+
+			function topLinks(limit) {
+				var rows = readStore();
+				var index = {};
+
+				for (var i = 0; i < rows.length; i++) {
+					var row = rows[i] || {};
+					var href = String(row.link_href || '').trim();
+					if (!href)
+						continue;
+
+					var key = String(row.widget_type || 'unknown') + '|' + href + '|' + String(row.link_text || '').trim();
+					if (!index[key]) {
+						index[key] = {
+							widget_type: row.widget_type || 'unknown',
+							link_href: href,
+							link_text: String(row.link_text || '').trim(),
+							count: 0,
+							last_clicked_at: row.timestamp || null
+						};
+					}
+
+					index[key].count += 1;
+					if (!index[key].last_clicked_at && row.timestamp)
+						index[key].last_clicked_at = row.timestamp;
+				}
+
+				var list = Object.keys(index).map(function(k) {
+					return index[k];
+				});
+
+				list.sort(function(a, b) {
+					if (b.count !== a.count)
+						return b.count - a.count;
+
+					return String(a.link_text || '').localeCompare(String(b.link_text || ''));
+				});
+
+				var max = typeof limit === 'number' ? Math.max(1, limit) : 10;
+				return list.slice(0, max);
+			}
+
+			function toText(value) {
+				return String(value || '').replace(/\s+/g, ' ').trim();
+			}
+
+			function sendToAnalytics(payload) {
+				if (typeof window.gtag === 'function') {
+					window.gtag('event', 'internal_link_click', payload);
+				}
+
+				if (Array.isArray(window.dataLayer)) {
+					window.dataLayer.push({
+						event: 'internal_link_click',
+						internalLinkClick: payload
+					});
+				}
+			}
+
+			$body.on('click', '.related-guides-inline a, .next-recommended a', function() {
+				var $link = $(this);
+				var href = $link.attr('href') || '';
+				if (!href || href.charAt(0) === '#')
+					return;
+
+				var widgetType = $link.closest('.next-recommended').length > 0
+					? 'next_recommended'
+					: 'related_guides';
+
+				var payload = {
+					widget_type: widgetType,
+					link_text: toText($link.text()),
+					link_href: href,
+					source_path: window.location.pathname || '/',
+					timestamp: new Date().toISOString()
+				};
+
+				writeStore(payload);
+				sendToAnalytics(payload);
+
+				if (typeof window.CustomEvent === 'function') {
+					window.dispatchEvent(new CustomEvent('lookforit:internal-link-click', {
+						detail: payload
+					}));
+				}
+			});
+
+			window.LookforitInternalLinkClicks = {
+				getEvents: function() {
+					return readStore();
+				},
+				clearEvents: function() {
+					clearStore();
+				},
+				getTopLinks: function(limit) {
+					return topLinks(limit);
+				}
+			};
+		})();
+
 	// Back to Top button (global).
 		(function() {
 			var $btn = $('<button id="back-to-top" type="button" aria-label="Back to top" title="Click here to back to top">Back to top</button>');

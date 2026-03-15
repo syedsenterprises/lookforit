@@ -5,3 +5,4 @@ Disallow: /dashboard.html
 Disallow: /admin-login.html
 
 Sitemap: https://lookforit.xyz/sitemap.xml
+Sitemap: https://lookforit.xyz/sitemap-tools-catalog-index.xml

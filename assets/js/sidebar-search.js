@@ -69,7 +69,11 @@
     }
 
     function buildUrl(tool) {
-      return TOOLS_URL + tool.s;
+        var slug = (tool && tool.s) ? String(tool.s).trim() : '';
+        if (!slug) return TOOLS_URL;
+        if (/^https?:\/\//i.test(slug)) return slug;
+        if (!/\.html?$/i.test(slug)) slug += '.html';
+        return TOOLS_URL + slug;
     }
 
     function closeDropdown() {
