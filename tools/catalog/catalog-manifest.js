@@ -75,9 +75,9 @@
         "n":  "Anthropic Claude 3.7",
         "s":  "anthropic-claude-3-7",
         "c":  "AI Assistant",
-        "d":  "Long-context assistant for writing",
-        "st":  "and document-heavy tasks",
-        "u":  "https://claude.ai",
+        "d":  "Long-context assistant for writing, analysis, and document-heavy tasks",
+        "st":  "verified",
+        "u":  "2026-03-15",
         "l":  "logos/anthropic-claude-3-7.svg"
     },
     {

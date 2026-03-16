@@ -36,6 +36,25 @@ function Slugify([string]$text) {
     return $slug
 }
 
+function New-CatalogLongFormContentHtml([string]$Name, [string]$Category, [string]$Description) {
+  return @"
+<h2>Overview</h2>
+<p>$Name is a generated catalog entry in the $Category category for visitors who want a practical starting point before deeper testing. The main question with any tool in this segment is whether it improves output quality, lowers turnaround time, and fits the workflows you already run. $Description</p>
+<p>The most useful way to assess a profile like this is to compare it against one real use case, not a generic wish list. Teams usually get better results when they measure revision effort, reliability, and onboarding friction rather than assuming broad feature coverage automatically creates value.</p>
+
+<h2>What To Check</h2>
+<ul>
+<li>Whether the tool is strong on a narrow, repeated workflow</li>
+<li>How much editing or cleanup is still required after generation</li>
+<li>Whether cost and implementation effort stay reasonable as usage grows</li>
+</ul>
+<p>Those checks make the profile more actionable because they connect product evaluation to actual team constraints. In many cases, a tool becomes valuable not because it does everything, but because it solves one expensive bottleneck reliably.</p>
+
+<h2>Implementation Guidance</h2>
+<p>Start by testing $Name on one workflow with defined acceptance criteria. Keep track of output quality, time saved, and the amount of human review still needed. If the result is stable across multiple runs, document the process and decide whether the category fit justifies broader rollout. That approach is much stronger than adopting tools on curiosity alone.</p>
+"@
+}
+
 $cards = New-Object System.Collections.Generic.List[string]
 
 for ($i = 0; $i -lt $toolNames.Count; $i++) {
@@ -48,6 +67,7 @@ for ($i = 0; $i -lt $toolNames.Count; $i++) {
     $canon = "https://lookforit.xyz/tools/catalog/$slug.html"
     $updatedAt = (Get-Date).ToString('yyyy-MM-dd')
     $status = 'generated-profile'
+    $longFormContent = New-CatalogLongFormContentHtml -Name $name -Category $cat.Name -Description $desc
 
     $page = @"
 <!DOCTYPE HTML>
@@ -92,12 +112,7 @@ for ($i = 0; $i -lt $toolNames.Count; $i++) {
 <p><strong>Status:</strong> $status | <strong>Last reviewed:</strong> $updatedAt</p>
 <p>$name is listed in our expanding AI tools catalog for teams and creators who want practical tooling for $($cat.Desc).</p>
 <p>For accurate adoption decisions, compare real workflow fit, output consistency, onboarding complexity, and cost before committing.</p>
-<h2>Best Use Cases</h2>
-<ul>
-<li>Faster execution in $($cat.Name.ToLower()) workflows with clear goals.</li>
-<li>Higher consistency in repetitive production tasks.</li>
-<li>Team collaboration with structured output expectations.</li>
-</ul>
+$longFormContent
 <ul class="actions">
 <li><a href="$($cat.CatPage)" class="button">Explore $($cat.Name)</a></li>
 <li><a href="../index.html" class="button">Main Tools Directory</a></li>

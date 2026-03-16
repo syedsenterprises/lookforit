@@ -22,6 +22,137 @@
 			|| path.indexOf('/ops/') === 0;
 	}
 
+	function extractRootDomain(rawUrl) {
+		if (!rawUrl)
+			return '';
+
+		try {
+			var parsed = new URL(rawUrl, window.location.origin);
+			return (parsed.hostname || '').toLowerCase().replace(/^www\./, '');
+		}
+		catch (e) {
+			return '';
+		}
+	}
+
+	function extractDomainFromIconUrl(rawUrl) {
+		if (!rawUrl)
+			return '';
+
+		try {
+			var parsed = new URL(rawUrl, window.location.origin);
+			var fromQuery = parsed.searchParams.get('domain') || parsed.searchParams.get('d') || '';
+
+			if (fromQuery) {
+				var normalizedQuery = fromQuery.trim();
+				if (/^https?:\/\//i.test(normalizedQuery))
+					return extractRootDomain(normalizedQuery);
+
+				return normalizedQuery.toLowerCase().replace(/^www\./, '').replace(/\/$/, '');
+			}
+
+			// Supports services like logo.clearbit.com/<domain>.
+			var pathMatch = (parsed.pathname || '').match(/\/([a-z0-9.-]+\.[a-z]{2,})(?:\/|$)/i);
+			if (pathMatch && pathMatch[1])
+				return pathMatch[1].toLowerCase().replace(/^www\./, '');
+
+			return '';
+		}
+		catch (e) {
+			return '';
+		}
+	}
+
+	function buildGoogleFaviconUrl(domain, size) {
+		if (!domain)
+			return '';
+
+		var resolvedSize = parseInt(size, 10);
+		if (!resolvedSize || resolvedSize < 16)
+			resolvedSize = 128;
+
+		return 'https://www.google.com/s2/favicons?sz=' + resolvedSize + '&domain=' + encodeURIComponent(domain);
+	}
+
+	function applyToolImageFallback(img, domain) {
+		if (!img || img.getAttribute('data-lookforit-fallback-bound') === '1')
+			return;
+
+		img.setAttribute('data-lookforit-fallback-bound', '1');
+
+		if (domain) {
+			var duckUrl = 'https://icons.duckduckgo.com/ip3/' + domain + '.ico';
+
+			function tryDuck(el) {
+				el.onload = null;
+				el.onerror = function() { this.onerror = null; this.src = '/Images/pic10.svg'; };
+				el.src = duckUrl;
+			}
+
+			function sizeCheck(el) {
+				if (el.complete && el.naturalWidth > 0 && el.naturalWidth <= 16 && el.naturalHeight <= 16)
+					tryDuck(el);
+			}
+
+			img.onerror = function() { tryDuck(this); };
+			img.onload = function() { sizeCheck(this); };
+			// Also check after current sync block, in case src is the same as HTML and browser won't re-fire onload
+			var _img = img;
+			setTimeout(function() { sizeCheck(_img); }, 0);
+		} else {
+			img.onerror = function() {
+				this.onerror = null;
+				this.src = '/Images/pic10.svg';
+			};
+		}
+	}
+
+	// Tool icon normalization (global): derive root domain and force Google favicon URL format.
+	(function normalizeToolIcons() {
+		var path = (window.location.pathname || '').toLowerCase();
+		var isToolsPath = path.indexOf('/tools/') === 0 || path === '/tools';
+		if (!isToolsPath)
+			return;
+
+		var isToolsIndex = path === '/tools' || path === '/tools/' || path === '/tools/index.html';
+		var isToolDetail = !isToolsIndex && path.indexOf('/tools/category/') !== 0 && /\.html$/.test(path);
+
+		if (isToolDetail) {
+			var visitLink = document.querySelector('#main section a.button.primary[href^="http"]')
+				|| document.querySelector('a.button.primary[href^="http"]');
+			var toolDomain = extractRootDomain(visitLink ? visitLink.getAttribute('href') : '');
+			var heroImg = document.querySelector('#main section img');
+
+			if (heroImg) {
+				heroImg.classList.add('tool-hero-img');
+				applyToolImageFallback(heroImg, toolDomain);
+
+				if (toolDomain)
+					heroImg.src = buildGoogleFaviconUrl(toolDomain, 128);
+			}
+		}
+
+		var iconImgs = document.querySelectorAll('#main .card-thumb img, #sidebar .mini-posts img');
+		for (var i = 0; i < iconImgs.length; i++) {
+			var img = iconImgs[i];
+			var domain = extractDomainFromIconUrl(img.getAttribute('src'));
+
+			if (!domain) {
+				var wrappedExternalLink = img.closest('a[href^="http"]');
+				domain = extractRootDomain(wrappedExternalLink ? wrappedExternalLink.getAttribute('href') : '');
+			}
+
+			applyToolImageFallback(img, domain);
+
+			if (!domain)
+				continue;
+
+			var sz = (img.getAttribute('src') || '').match(/[?&]sz=(\d+)/i);
+			var size = sz && sz[1] ? parseInt(sz[1], 10) : 128;
+			img.src = buildGoogleFaviconUrl(domain, size);
+		}
+	})();
+
 
 	// Google Analytics GA4 (public pages only).
 	(function ensureGA4Tracking() {

@@ -54,6 +54,56 @@ function ConvertTo-HtmlText([string]$Value) {
   return [System.Net.WebUtility]::HtmlEncode($Value)
 }
 
+function New-CatalogLongFormContentHtml(
+  [string]$Name,
+  [string]$Category,
+  [string]$Description,
+  [string[]]$Features,
+  [string[]]$UseCases
+) {
+  $safeName = ConvertTo-HtmlText $Name
+  $safeCategory = ConvertTo-HtmlText $Category
+  $safeDesc = ConvertTo-HtmlText $Description
+  $safeFeatures = @($Features | ForEach-Object { ConvertTo-HtmlText $_ })
+  $safeUseCases = @($UseCases | ForEach-Object { ConvertTo-HtmlText $_ })
+
+  return @"
+<h2>Overview</h2>
+<p>$safeName is a cataloged option in the $safeCategory category for teams that want faster execution, more predictable output quality, and fewer manual handoff points in everyday AI workflows. At a practical level, the important question is not whether a tool can produce an impressive demo, but whether it can hold up during repeated use with real deadlines, real stakeholders, and real quality standards. $safeDesc</p>
+<p>For most buyers or operators, the value of $safeName should be judged by workflow fit rather than hype. A strong tool in this category should reduce rework, make onboarding easier for teammates, and improve consistency across repeated tasks. That means testing it with your actual prompts, source files, collaboration patterns, and review process. A short trial with production-like inputs usually tells you more than a long list of marketing claims.</p>
+
+<h2>Key Features and Workflow Strengths</h2>
+<ul>
+<li>$($safeFeatures[0])</li>
+<li>$($safeFeatures[1])</li>
+<li>$($safeFeatures[2])</li>
+</ul>
+
+<h2>Who Should Consider $safeName</h2>
+<p>$safeName is generally a better fit for people who already have a defined workflow and want to improve speed or consistency without lowering standards. Teams with clear templates, review checkpoints, and ownership rules tend to get more value from AI tooling than teams that are still improvising the process itself. It can also be a useful option for solo operators who need leverage across production, planning, and delivery but still want enough control to maintain quality.</p>
+
+<h2>Best Fit Use Cases</h2>
+<ul>
+<li>$($safeUseCases[0])</li>
+<li>$($safeUseCases[1])</li>
+<li>$($safeUseCases[2])</li>
+</ul>
+
+<h2>Evaluation Checklist</h2>
+<ul>
+<li>Output quality under real project constraints</li>
+<li>Speed and reliability across repeated runs</li>
+<li>Integration effort with your current stack</li>
+<li>Team usability and onboarding friction</li>
+<li>Total cost and scaling predictability</li>
+</ul>
+<p>A useful buying rule is to score $safeName against one narrow workflow before rolling it out broadly. Use the same inputs across two or three competing tools, compare the number of edits needed, and note whether the output format is already close to publishable or deployable. That method keeps the evaluation grounded and makes it easier to defend the final choice internally.</p>
+
+<h2>Implementation Advice</h2>
+<p>If you decide to move forward with $safeName, start small. Pick one workflow, define a review rubric, and document the inputs that consistently produce acceptable output. Once that baseline is stable, you can expand usage to adjacent tasks and assign ownership for prompts, templates, and quality control. This approach reduces confusion, makes results easier to compare over time, and turns the tool into part of a system instead of a one-off experiment.</p>
+"@
+}
+
 function SlugToTitle([string]$Slug) {
   return ($Slug -split '-') | ForEach-Object {
     if ($_.Length -eq 0) { return $_ }
@@ -180,6 +230,7 @@ foreach ($file in $files) {
   $safeWebsite = ConvertTo-HtmlText $record.Website
   $safeCatPage = ConvertTo-HtmlText $catPage
   $canon = "https://lookforit.xyz/tools/catalog/$($record.Slug).html"
+  $longFormContent = New-CatalogLongFormContentHtml -Name $record.Name -Category $record.Category -Description $record.Description -Features $features -UseCases $useCases
 
   $toolPage = @"
 <!DOCTYPE HTML>
@@ -230,28 +281,7 @@ foreach ($file in $files) {
   </div>
 </div>
 
-<h2>Key Features</h2>
-<ul>
-<li>$($features[0])</li>
-<li>$($features[1])</li>
-<li>$($features[2])</li>
-</ul>
-
-<h2>Best Fit Use Cases</h2>
-<ul>
-<li>$($useCases[0])</li>
-<li>$($useCases[1])</li>
-<li>$($useCases[2])</li>
-</ul>
-
-<h2>Evaluation Checklist</h2>
-<ul>
-<li>Output quality under real project constraints</li>
-<li>Speed and reliability across repeated runs</li>
-<li>Integration effort with your current stack</li>
-<li>Team usability and onboarding friction</li>
-<li>Total cost and scaling predictability</li>
-</ul>
+$longFormContent
 
 <ul class="actions">
 <li><a href="$safeCatPage" class="button">Explore $safeCategory</a></li>

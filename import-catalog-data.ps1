@@ -58,6 +58,32 @@ function Get-NormalizedDate([string]$Value) {
   return (Get-Date).ToString('yyyy-MM-dd')
 }
 
+function New-CatalogLongFormContentHtml([string]$Name, [string]$Category, [string]$Description) {
+  $safeName = $Name.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;')
+  $safeCategory = $Category.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;')
+  $safeDesc = $Description.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;')
+
+  return @"
+<h2>Overview</h2>
+<p>$safeName is listed in the $safeCategory segment of the Lookforit catalog for teams that need practical AI software evaluation rather than vague feature discovery. The strongest way to assess a tool like this is to ask whether it improves speed, consistency, and handoff quality inside a real workflow. $safeDesc</p>
+<p>That matters because many tools look capable in isolated demos but create friction when introduced into an existing process. A useful catalog profile should help you think about repeated execution, reviewer expectations, onboarding needs, and whether the tool can produce acceptable output without excessive cleanup.</p>
+
+<h2>What To Evaluate First</h2>
+<ul>
+<li>How well the output matches your real requirements on the first pass</li>
+<li>Whether the product reduces revision cycles or only shifts work elsewhere</li>
+<li>How quickly a teammate can learn the workflow and repeat the result</li>
+</ul>
+<p>Those factors usually reveal more value than a broad checklist of features. If the tool is easy to test against one narrow business case, it becomes easier to compare with alternatives and decide whether the category fit is genuine.</p>
+
+<h2>Best Fit Usage Pattern</h2>
+<p>$safeName is more likely to create value when you begin with one repeatable workflow and document the inputs, review criteria, and expected output format. Teams that treat AI adoption as a process design problem tend to get better long-term results than teams that use tools ad hoc. A measured rollout also makes it easier to evaluate cost, usage growth, and reliability before wider deployment.</p>
+
+<h2>Implementation Advice</h2>
+<p>Start with a trial period focused on one measurable use case, then compare turnaround time, acceptance rate, and editing effort against your current baseline. If performance is stable, build a simple playbook so the tool can be used consistently by others. That turns the product from an experiment into an operational asset and makes the catalog profile more actionable for decision-making.</p>
+"@
+}
+
 $rows = if ($Format -eq 'csv') {
   Import-Csv $InputFile
 } else {
@@ -78,6 +104,7 @@ foreach ($r in $rows) {
   $catLink = if ($categoryMap.ContainsKey($category)) { $categoryMap[$category] } else { '/tools/' }
   $canon = "https://lookforit.xyz/tools/catalog/$slug.html"
   $safeDesc = $description.Replace('"','&quot;')
+  $longFormContent = New-CatalogLongFormContentHtml -Name $name -Category $category -Description $description
 
   $page = @"
 <!DOCTYPE HTML>
@@ -122,6 +149,7 @@ foreach ($r in $rows) {
 <p><strong>Status:</strong> $status | <strong>Last reviewed:</strong> $updatedAt</p>
 <p>$description</p>
 <p><strong>Official website:</strong> <a href="$website" target="_blank" rel="noopener noreferrer">$website</a></p>
+$longFormContent
 <ul class="actions">
 <li><a href="$catLink" class="button">Explore $category</a></li>
 <li><a href="../index.html" class="button">Main Tools Directory</a></li>
