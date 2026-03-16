@@ -48,6 +48,66 @@
 	})();
 
 
+	// Google Translate widget (public pages only, static-host friendly).
+	(function ensureGoogleTranslateWidget() {
+		var path = (window.location.pathname || '').toLowerCase();
+
+		function isInternalPage(currentPath) {
+			if (!currentPath)
+				return false;
+
+			return currentPath.indexOf('/admin/') === 0
+				|| currentPath === '/admin'
+				|| currentPath === '/dashboard.html'
+				|| currentPath === '/admin-login.html'
+				|| currentPath.indexOf('/ops/') === 0;
+		}
+
+		if (isInternalPage(path))
+			return;
+
+		var $sidebarInner = $('#sidebar .inner').first();
+		if ($sidebarInner.length === 0)
+			return;
+
+		if ($('#google_translate_element').length > 0)
+			return;
+
+		var widgetHtml = ''
+			+ '<section class="google-translate-wrap" aria-label="Translate this page">'
+			+ '<h3 class="google-translate-label">Translate</h3>'
+			+ '<div id="google_translate_element"></div>'
+			+ '</section>';
+
+		$sidebarInner.prepend($(widgetHtml));
+
+		window.googleTranslateElementInit = function() {
+			if (!window.google || !window.google.translate || !window.google.translate.TranslateElement)
+				return;
+
+			new window.google.translate.TranslateElement({
+				pageLanguage: 'en',
+				autoDisplay: false
+			}, 'google_translate_element');
+		};
+
+		if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+			window.googleTranslateElementInit();
+			return;
+		}
+
+		if (document.querySelector('script[data-lookforit-google-translate]'))
+			return;
+
+		var script = document.createElement('script');
+		script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+		script.async = true;
+		script.defer = true;
+		script.setAttribute('data-lookforit-google-translate', '1');
+		document.body.appendChild(script);
+	})();
+
+
 	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
@@ -458,9 +518,13 @@
 			}
 
 			function syncStars(ratingValue) {
+				ratingValue = Math.max(0, Math.min(5, parseInt(ratingValue, 10) || 0));
+
 				$ratingStars.find('button').each(function() {
 					var v = parseInt($(this).attr('data-value'), 10) || 0;
 					$(this).toggleClass('active', v <= ratingValue);
+					$(this).toggleClass('selected', v === ratingValue && ratingValue > 0);
+					$(this).attr('aria-pressed', v <= ratingValue ? 'true' : 'false');
 				});
 			}
 
@@ -599,7 +663,7 @@
 
 			$ratingStars.on('click', 'button', function(event) {
 				event.preventDefault();
-				var rating = parseInt($(this).attr('data-value'), 10) || 0;
+				var rating = Math.max(1, Math.min(5, parseInt($(this).attr('data-value'), 10) || 0));
 				$reviewRating.val(String(rating));
 				syncStars(rating);
 			});

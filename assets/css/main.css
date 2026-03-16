@@ -2660,6 +2660,76 @@ article.card {
   border-bottom: 0;
 }
 
+/* Google Translate widget (public sidebar block) */
+.google-translate-wrap {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.google-translate-label {
+  margin: 0 0 0.35rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+#google_translate_element {
+  min-height: 0;
+}
+
+#google_translate_element .goog-te-gadget {
+  font-family: inherit;
+  color: #7f888f;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+#google_translate_element .goog-te-gadget-simple {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border: 1px solid #d7dee3;
+  border-radius: 6px;
+  background: #ffffff;
+  margin: 0;
+  padding: 0.2rem 0.35rem;
+}
+
+#google_translate_element .goog-te-gadget-simple > span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.15;
+}
+
+#google_translate_element .goog-te-combo,
+#google_translate_element select.goog-te-combo {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  height: 1.95rem;
+  border: 1px solid #d7dee3;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #3d4449;
+  font-family: inherit;
+  font-size: 0.82rem;
+  padding: 0 0.45rem;
+}
+
+#google_translate_element .goog-logo-link,
+#google_translate_element .goog-te-gadget > span > a {
+  font-size: 0.72rem;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 /* Feedback hub: comments, reviews, ratings */
 .feedback-hub {
   margin-top: 2.5rem;
@@ -2704,22 +2774,44 @@ article.card {
 }
 
 .rating-stars {
-  display: inline-flex;
-  gap: 0.2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 2.15rem);
+  gap: 0.35rem;
+  align-items: center;
 }
 
 .rating-stars button {
-  border: 0;
-  background: transparent;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 1px solid #d7dee3;
+  border-radius: 0.35rem;
+  background: #f7f9fa;
   color: #c8cfd4;
   cursor: pointer;
-  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
   line-height: 1;
-  padding: 0.1rem;
+  padding: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.rating-stars button:hover,
+.rating-stars button:focus-visible {
+  border-color: #f0c766;
+  outline: none;
 }
 
 .rating-stars button.active {
   color: #f5a623;
+  background: #fff9e8;
+  border-color: #f1c159;
+}
+
+.rating-stars button.selected {
+  box-shadow: inset 0 0 0 1px rgba(245, 166, 35, 0.25);
 }
 
 .feedback-list {
