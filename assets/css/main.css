@@ -3537,6 +3537,114 @@ body.layout-standard .articles-page .article-grid + .article-grid {
   margin-top: 1rem;
 }
 
+/* Prevent article action buttons from causing horizontal overflow */
+.articles-page ul.actions {
+  flex-wrap: wrap;
+  width: 100%;
+  margin-left: 0;
+  gap: 0.55em;
+}
+
+.articles-page ul.actions li {
+  padding: 0;
+  min-width: 0;
+}
+
+.articles-page ul.actions.fit {
+  width: 100%;
+}
+
+.articles-page ul.actions li > .button,
+.articles-page ul.actions li > button,
+.articles-page ul.actions li > input {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.articles-page .buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.articles-page .video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 1.5em 0;
+}
+
+.articles-page .video-wrap iframe,
+.articles-page iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+}
+
+.articles-page .video-wrap iframe {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+.articles-page pre,
+.articles-page code,
+.articles-page table,
+.articles-page .table-wrapper {
+  max-width: 100%;
+}
+
+.articles-page p,
+.articles-page li,
+.articles-page a,
+.articles-page h1,
+.articles-page h2,
+.articles-page h3,
+.articles-page h4,
+.articles-page h5,
+.articles-page h6 {
+  overflow-wrap: anywhere;
+}
+
+.articles-page .related-guides-inline a,
+.articles-page .editorial-cluster-list a {
+  white-space: normal;
+}
+
+/* Fallback guards to prevent any remaining horizontal leak in article content */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#main,
+#main .inner,
+#main section {
+  max-width: 100%;
+}
+
+#main section img,
+#main section iframe,
+#main section video,
+#main section canvas,
+#main section svg,
+#main section table {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 980px) {
+  .articles-page .buttons-row li {
+    width: 100%;
+  }
+
+  .articles-page .buttons-row .button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 #homepage-faq .faq-item {
   border-top: 1px solid rgba(210, 215, 217, 0.75);
   padding-top: 0.8rem;

@@ -228,7 +228,7 @@ $template = @"
 <meta property="og:url" content="$canonical" />
 <meta property="og:image" content="$ogImage" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="stylesheet" href="../assets/css/main.css" />
+<link rel="stylesheet" href="../assets/css/main.css?v=20260316-overflow3" />
 
 <script type="application/ld+json" data-ai="breadcrumb">
 {
@@ -283,7 +283,7 @@ $template = @"
 <body class="is-preload">
 <div id="wrapper"><div id="main"><div class="inner">
 <header id="header"><a href="/" class="logo"><strong>Lookforit</strong> by Syed Shahid</a></header>
-<section>
+<section class="articles-page">
 <header class="major"><h1>$safeTitleHtml</h1><p class="article-author-chip">Published by Syed Shahid</p></header>
 <span class="image main"><img src="$ImagePath" alt="$safeImageAltHtml" decoding="async" loading="lazy" /></span>
 <p><em>$safePublishedTextHtml</em></p>

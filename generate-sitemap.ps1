@@ -30,10 +30,13 @@ $excludePatterns = @(
 
 $rules = @(
     @{ Pattern = '^index\.html$'; Priority = '1.0'; Freq = 'weekly' },
+    @{ Pattern = '^web-tools[/\\]index\.html$'; Priority = '0.9'; Freq = 'weekly' },
     @{ Pattern = '^articles[/\\]index\.html$'; Priority = '0.9'; Freq = 'weekly' },
     @{ Pattern = '^tools[/\\]index\.html$'; Priority = '0.9'; Freq = 'weekly' },
+    @{ Pattern = '^web-tools[/\\][^/\\]+[/\\]index\.html$'; Priority = '0.8'; Freq = 'weekly' },
     @{ Pattern = '^tools[/\\]catalog[/\\]index\.html$'; Priority = '0.8'; Freq = 'weekly' },
     @{ Pattern = '^articles[/\\]'; Priority = '0.8'; Freq = 'monthly' },
+    @{ Pattern = '^web-tools[/\\]'; Priority = '0.8'; Freq = 'monthly' },
     @{ Pattern = '^tools[/\\]catalog[/\\]'; Priority = '0.7'; Freq = 'monthly' },
     @{ Pattern = '^tools[/\\]'; Priority = '0.7'; Freq = 'monthly' },
     @{ Pattern = '^(ai-writing|ai-image|ai-video|ai-code|ai-voice)[/\\]index\.html$'; Priority = '0.8'; Freq = 'monthly' },
@@ -61,6 +64,7 @@ function Get-SitemapGroup($rel) {
     }
 
     if (
+        $rel -match '^web-tools[/\\]' -or
         $rel -match '^tools[/\\]' -or
         $rel -match '^(ai-writing|ai-image|ai-video|ai-code|ai-voice)[/\\]index\.html$' -or
         $rel -match '^listing-requests[/\\]index\.html$'
