@@ -3,6 +3,20 @@
    lookforit.xyz
    ========================================= */
 
+:root {
+  --wt-bg: #ffffff;
+  --wt-surface: #f8fafc;
+  --wt-surface-soft: #f1f5f9;
+  --wt-border: #dbe3ec;
+  --wt-text: #1f2937;
+  --wt-text-muted: #5b6778;
+  --wt-accent: #e85d5d;
+  --wt-accent-hover: #d84e4e;
+  --wt-accent-soft: #fde8e8;
+  --wt-success: #0f9f6e;
+  --wt-danger: #c53030;
+}
+
 /* ---- Layout ---- */
 .wt-container {
   background: #fff;
@@ -444,6 +458,198 @@
 /* ---- Highlighted text (regex) ---- */
 .wt-highlighted { font-family: monospace; font-size: .87em; line-height: 1.7; word-break: break-word; }
 .wt-highlighted mark { background: #fef08a; color: #854d0e; border-radius: 3px; padding: 0 2px; }
+
+/* ---- Sidebar: popular tools actions + categories ---- */
+#sidebar ul.actions.fit.wt-sidebar-actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 0;
+  gap: 0.55em;
+}
+
+#sidebar ul.actions.fit.wt-sidebar-actions li {
+  display: block;
+  width: 100%;
+  padding: 0;
+  flex: 0 0 auto;
+}
+
+#sidebar ul.actions.fit.wt-sidebar-actions li > .button,
+#sidebar ul.actions.fit.wt-sidebar-actions li > button,
+#sidebar ul.actions.fit.wt-sidebar-actions li > input {
+  width: 100%;
+}
+
+.wt-sidebar-categories {
+  margin-top: 1em;
+  padding-top: 0.8em;
+  border-top: 1px solid #e5e7eb;
+}
+
+.wt-sidebar-categories h3 {
+  margin: 0 0 0.5em 0;
+  font-size: 0.92em;
+  color: #374151;
+}
+
+.wt-sidebar-categories ul {
+  margin: 0;
+  padding-left: 1.15em;
+}
+
+.wt-sidebar-categories li {
+  margin: 0.3em 0;
+  font-size: 0.86em;
+}
+
+.wt-sidebar-categories a {
+  color: #6b7280;
+  border-bottom: 0;
+}
+
+.wt-sidebar-categories a:hover {
+  color: #f56a6a;
+}
+
+/* ---- Global color normalization (all web-tools pages) ---- */
+.wt-container,
+.wt-cat-card,
+.wt-tool-card {
+  background: var(--wt-bg);
+  border-color: var(--wt-border);
+}
+
+.wt-label,
+.wt-inner-title,
+.wt-cat-title,
+.wt-tool-card-name,
+.wt-faq summary,
+.wt-todo-item span,
+.wt-color-val,
+.wt-features ul li {
+  color: var(--wt-text);
+}
+
+.wt-cat-desc,
+.wt-tool-card-desc,
+.wt-faq-answer,
+.wt-breadcrumb,
+.wt-breadcrumb a,
+.wt-cat-count,
+.wt-notes-meta,
+.wt-stat-label,
+.wt-sidebar-categories a {
+  color: var(--wt-text-muted);
+}
+
+.wt-textarea,
+.wt-input,
+.wt-select,
+.wt-calc-display,
+.wt-preview-img,
+.wt-canvas-wrap canvas,
+.wt-todo-item,
+.wt-swatch,
+.wt-timer-display,
+.wt-stat-item,
+.wt-related a,
+.wt-breadcrumb,
+.wt-faq details,
+.wt-sidebar-categories {
+  border-color: var(--wt-border);
+}
+
+.wt-textarea,
+.wt-input,
+.wt-select,
+.wt-todo-item,
+.wt-timer-display,
+.wt-related a,
+.wt-canvas-wrap,
+.wt-stat-item,
+.wt-calc-btn,
+.wt-swatch {
+  background: var(--wt-surface);
+}
+
+.wt-textarea:focus,
+.wt-input:focus,
+.wt-select:focus,
+.wt-cat-card:hover,
+.wt-tool-card:hover,
+.wt-related a:hover,
+.wt-breadcrumb a:hover,
+.wt-faq summary::after,
+.wt-sidebar-categories a:hover,
+.wt-stat-value {
+  color: var(--wt-accent);
+}
+
+.wt-textarea:focus,
+.wt-input:focus,
+.wt-cat-card:hover,
+.wt-tool-card:hover,
+.wt-related a:hover,
+.wt-calc-btn.eq,
+.wt-pick-result {
+  border-color: var(--wt-accent);
+}
+
+.wt-btn,
+.wt-calc-btn.eq {
+  background: var(--wt-accent);
+}
+
+.wt-btn:hover,
+.wt-calc-btn.eq:hover {
+  background: var(--wt-accent-hover);
+}
+
+.wt-btn.green,
+.wt-status.ok,
+.wt-features ul li::before {
+  color: var(--wt-success);
+}
+
+.wt-btn.green { background: var(--wt-success); }
+
+.wt-btn.grey,
+.wt-btn.blue {
+  background: #5b6778;
+}
+
+.wt-btn.grey:hover,
+.wt-btn.blue:hover {
+  background: #4a5565;
+}
+
+.wt-todo-del,
+.wt-status.err,
+.wt-error-box {
+  color: var(--wt-danger);
+}
+
+.wt-cat-icon,
+.wt-tool-card-icon {
+  color: var(--wt-accent);
+}
+
+.wt-cat-icon {
+  background: var(--wt-accent-soft);
+  border-radius: 10px;
+  width: 2.3em;
+  height: 2.3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.wt-related a:hover {
+  background: var(--wt-accent-soft);
+}
 
 /* ---- Responsive ---- */
 @media screen and (max-width: 640px) {
