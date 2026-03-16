@@ -1,0 +1,13 @@
+name = "lookforit-feedback-api"
+main = "feedback-api-worker.js"
+compatibility_date = "2026-03-16"
+workers_dev = true
+
+# Bind a KV namespace for comments/reviews storage.
+[[kv_namespaces]]
+binding = "FEEDBACK_STORE"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Set to your production origin. Use * only for temporary testing.
+FEEDBACK_ALLOWED_ORIGIN = "https://lookforit.xyz"

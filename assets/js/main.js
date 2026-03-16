@@ -321,6 +321,22 @@
 				.toLowerCase()
 				.replace(/[^a-z0-9]+/g, '-');
 
+			var feedbackConfig = window.LookforitFeedback || {
+				enabled: true,
+				endpoint: '/feedback-api'
+			};
+
+			var apiEnabled = feedbackConfig.enabled !== false;
+			var apiEndpoint = String(feedbackConfig.endpoint || '/feedback-api').trim();
+
+			var feedbackState = {
+				mode: 'local',
+				remote: {
+					reviews: [],
+					comments: []
+				}
+			};
+
 			var storageKeys = {
 				reviews: 'lookforit-feedback-reviews:' + pageKey,
 				comments: 'lookforit-feedback-comments:' + pageKey
@@ -362,7 +378,7 @@
 				+ '<ul class="actions"><li><button type="submit" class="button">Post Comment</button></li></ul>'
 				+ '</form>'
 				+ '<div id="feedback-comment-list" class="feedback-list" aria-live="polite"></div>'
-				+ '<p class="feedback-note">Note: feedback is stored in your browser on this device.</p>'
+				+ '<p class="feedback-note" id="feedback-note-text">Loading feedback mode...</p>'
 				+ '</div>'
 				+ '</div>'
 				+ '</section>'
@@ -388,7 +404,39 @@
 			}
 
 			function writeStore(key, value) {
-				localStorage.setItem(key, JSON.stringify(value));
+				try {
+					localStorage.setItem(key, JSON.stringify(value));
+				}
+				catch (e) {
+					// Ignore write failures in private browsing or full storage.
+				}
+			}
+
+			function setFeedbackNote(message) {
+				$('#feedback-note-text').text(message);
+			}
+
+			function currentReviews() {
+				if (feedbackState.mode === 'remote')
+					return feedbackState.remote.reviews;
+
+				return readStore(storageKeys.reviews);
+			}
+
+			function currentComments() {
+				if (feedbackState.mode === 'remote')
+					return feedbackState.remote.comments;
+
+				return readStore(storageKeys.comments);
+			}
+
+			function updateFeedbackModeLabel() {
+				if (feedbackState.mode === 'remote') {
+					setFeedbackNote('Live mode: ratings and comments are shared across all visitors.');
+					return;
+				}
+
+				setFeedbackNote('Fallback mode: feedback is currently stored in your browser on this device.');
 			}
 
 			function formatDate(isoDate) {
@@ -411,7 +459,7 @@
 			}
 
 			function renderReviews() {
-				var reviews = readStore(storageKeys.reviews);
+				var reviews = currentReviews();
 				var $list = $('#feedback-review-list');
 
 				if (reviews.length === 0) {
@@ -447,7 +495,7 @@
 			}
 
 			function renderComments() {
-				var comments = readStore(storageKeys.comments);
+				var comments = currentComments();
 				var $list = $('#feedback-comment-list');
 
 				if (comments.length === 0) {
@@ -470,6 +518,79 @@
 				$list.html(html);
 			}
 
+			function buildApiUrl() {
+				if (!apiEndpoint)
+					return '';
+
+				return apiEndpoint + '?page=' + encodeURIComponent(pageKey);
+			}
+
+			function ensureArray(input) {
+				return Array.isArray(input) ? input : [];
+			}
+
+			function loadRemoteFeedback() {
+				if (!apiEnabled || !apiEndpoint)
+					return Promise.resolve(false);
+
+				return fetch(buildApiUrl(), {
+					method: 'GET',
+					headers: {
+						'Accept': 'application/json'
+					},
+					cache: 'no-store'
+				}).then(function(response) {
+					if (!response.ok)
+						throw new Error('Feedback API unavailable');
+
+					return response.json();
+				}).then(function(payload) {
+					feedbackState.mode = 'remote';
+					feedbackState.remote.reviews = ensureArray(payload && payload.reviews);
+					feedbackState.remote.comments = ensureArray(payload && payload.comments);
+					updateFeedbackModeLabel();
+					renderReviews();
+					renderComments();
+					return true;
+				}).catch(function() {
+					feedbackState.mode = 'local';
+					updateFeedbackModeLabel();
+					renderReviews();
+					renderComments();
+					return false;
+				});
+			}
+
+			function submitRemoteFeedback(type, item) {
+				if (!apiEnabled || !apiEndpoint)
+					return Promise.reject(new Error('Feedback API disabled'));
+
+				return fetch(apiEndpoint, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Accept': 'application/json'
+					},
+					body: JSON.stringify({
+						page: pageKey,
+						type: type,
+						item: item
+					})
+				}).then(function(response) {
+					if (!response.ok)
+						throw new Error('Feedback write failed');
+
+					return response.json().catch(function() {
+						return {};
+					});
+				});
+			}
+
+			function setSubmitBusy(formSelector, busy) {
+				var $submit = $(formSelector + ' button[type="submit"]');
+				$submit.prop('disabled', !!busy);
+			}
+
 			$('#rating-stars').on('click', 'button', function() {
 				var rating = parseInt($(this).attr('data-value'), 10) || 0;
 				$('#review-rating').val(String(rating));
@@ -478,6 +599,7 @@
 
 			$('#feedback-review-form').on('submit', function(event) {
 				event.preventDefault();
+				setSubmitBusy('#feedback-review-form', true);
 
 				var name = ($('#reviewer-name').val() || '').trim() || 'Anonymous';
 				var text = ($('#review-text').val() || '').trim();
@@ -485,56 +607,88 @@
 
 				if (rating < 1 || rating > 5) {
 					window.alert('Please select a rating from 1 to 5 stars.');
+					setSubmitBusy('#feedback-review-form', false);
 					return;
 				}
 
 				if (!text) {
 					window.alert('Please write a short review.');
+					setSubmitBusy('#feedback-review-form', false);
 					return;
 				}
 
-				var reviews = readStore(storageKeys.reviews);
-				reviews.unshift({
+				var reviewItem = {
 					name: name,
 					text: text,
 					rating: rating,
 					createdAt: new Date().toISOString()
-				});
+				};
 
-				writeStore(storageKeys.reviews, reviews.slice(0, 50));
-				$('#reviewer-name').val('');
-				$('#review-text').val('');
-				$('#review-rating').val('0');
-				syncStars(0);
-				renderReviews();
+				submitRemoteFeedback('review', reviewItem).then(function() {
+					feedbackState.mode = 'remote';
+					$('#reviewer-name').val('');
+					$('#review-text').val('');
+					$('#review-rating').val('0');
+					syncStars(0);
+					return loadRemoteFeedback();
+				}).catch(function() {
+					var reviews = readStore(storageKeys.reviews);
+					reviews.unshift(reviewItem);
+					writeStore(storageKeys.reviews, reviews.slice(0, 50));
+					feedbackState.mode = 'local';
+					updateFeedbackModeLabel();
+					$('#reviewer-name').val('');
+					$('#review-text').val('');
+					$('#review-rating').val('0');
+					syncStars(0);
+					renderReviews();
+				}).then(function() {
+					setSubmitBusy('#feedback-review-form', false);
+				});
 			});
 
 			$('#feedback-comment-form').on('submit', function(event) {
 				event.preventDefault();
+				setSubmitBusy('#feedback-comment-form', true);
 
 				var name = ($('#commenter-name').val() || '').trim() || 'Anonymous';
 				var text = ($('#comment-text').val() || '').trim();
 
 				if (!text) {
 					window.alert('Please write a comment before posting.');
+					setSubmitBusy('#feedback-comment-form', false);
 					return;
 				}
 
-				var comments = readStore(storageKeys.comments);
-				comments.unshift({
+				var commentItem = {
 					name: name,
 					text: text,
 					createdAt: new Date().toISOString()
-				});
+				};
 
-				writeStore(storageKeys.comments, comments.slice(0, 100));
-				$('#commenter-name').val('');
-				$('#comment-text').val('');
-				renderComments();
+				submitRemoteFeedback('comment', commentItem).then(function() {
+					feedbackState.mode = 'remote';
+					$('#commenter-name').val('');
+					$('#comment-text').val('');
+					return loadRemoteFeedback();
+				}).catch(function() {
+					var comments = readStore(storageKeys.comments);
+					comments.unshift(commentItem);
+					writeStore(storageKeys.comments, comments.slice(0, 100));
+					feedbackState.mode = 'local';
+					updateFeedbackModeLabel();
+					$('#commenter-name').val('');
+					$('#comment-text').val('');
+					renderComments();
+				}).then(function() {
+					setSubmitBusy('#feedback-comment-form', false);
+				});
 			});
 
+			updateFeedbackModeLabel();
 			renderReviews();
 			renderComments();
+			loadRemoteFeedback();
 		})();
 
 	// Internal link click tracking for article recommendation widgets.
