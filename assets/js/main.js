@@ -384,6 +384,12 @@
 				+ '</section>'
 			);
 
+			var $feedbackHub = $('#feedback-hub').last();
+			var $ratingStars = $feedbackHub.find('#rating-stars');
+			var $reviewRating = $feedbackHub.find('#review-rating');
+			var $reviewForm = $feedbackHub.find('#feedback-review-form');
+			var $commentForm = $feedbackHub.find('#feedback-comment-form');
+
 			function escapeHtml(value) {
 				return String(value)
 					.replace(/&/g, '&amp;')
@@ -413,7 +419,7 @@
 			}
 
 			function setFeedbackNote(message) {
-				$('#feedback-note-text').text(message);
+				$feedbackHub.find('#feedback-note-text').text(message);
 			}
 
 			function currentReviews() {
@@ -452,7 +458,7 @@
 			}
 
 			function syncStars(ratingValue) {
-				$('#rating-stars button').each(function() {
+				$ratingStars.find('button').each(function() {
 					var v = parseInt($(this).attr('data-value'), 10) || 0;
 					$(this).toggleClass('active', v <= ratingValue);
 				});
@@ -460,11 +466,11 @@
 
 			function renderReviews() {
 				var reviews = currentReviews();
-				var $list = $('#feedback-review-list');
+				var $list = $feedbackHub.find('#feedback-review-list');
 
 				if (reviews.length === 0) {
-					$('#feedback-average').text('0.0');
-					$('#feedback-review-count').text('0');
+					$feedbackHub.find('#feedback-average').text('0.0');
+					$feedbackHub.find('#feedback-review-count').text('0');
 					$list.html('<p class="feedback-empty">No reviews yet. Be the first to rate this page.</p>');
 					return;
 				}
@@ -474,8 +480,8 @@
 					total += (parseInt(reviews[i].rating, 10) || 0);
 
 				var avg = (total / reviews.length).toFixed(1);
-				$('#feedback-average').text(avg);
-				$('#feedback-review-count').text(String(reviews.length));
+				$feedbackHub.find('#feedback-average').text(avg);
+				$feedbackHub.find('#feedback-review-count').text(String(reviews.length));
 
 				var html = '';
 				for (var j = 0; j < reviews.length; j++) {
@@ -496,7 +502,7 @@
 
 			function renderComments() {
 				var comments = currentComments();
-				var $list = $('#feedback-comment-list');
+				var $list = $feedbackHub.find('#feedback-comment-list');
 
 				if (comments.length === 0) {
 					$list.html('<p class="feedback-empty">No comments yet. Start the discussion.</p>');
@@ -587,23 +593,24 @@
 			}
 
 			function setSubmitBusy(formSelector, busy) {
-				var $submit = $(formSelector + ' button[type="submit"]');
+				var $submit = $feedbackHub.find(formSelector + ' button[type="submit"]');
 				$submit.prop('disabled', !!busy);
 			}
 
-			$('#rating-stars').on('click', 'button', function() {
+			$ratingStars.on('click', 'button', function(event) {
+				event.preventDefault();
 				var rating = parseInt($(this).attr('data-value'), 10) || 0;
-				$('#review-rating').val(String(rating));
+				$reviewRating.val(String(rating));
 				syncStars(rating);
 			});
 
-			$('#feedback-review-form').on('submit', function(event) {
+			$reviewForm.on('submit', function(event) {
 				event.preventDefault();
 				setSubmitBusy('#feedback-review-form', true);
 
-				var name = ($('#reviewer-name').val() || '').trim() || 'Anonymous';
-				var text = ($('#review-text').val() || '').trim();
-				var rating = parseInt($('#review-rating').val(), 10) || 0;
+				var name = ($feedbackHub.find('#reviewer-name').val() || '').trim() || 'Anonymous';
+				var text = ($feedbackHub.find('#review-text').val() || '').trim();
+				var rating = parseInt($reviewRating.val(), 10) || 0;
 
 				if (rating < 1 || rating > 5) {
 					window.alert('Please select a rating from 1 to 5 stars.');
@@ -626,9 +633,9 @@
 
 				submitRemoteFeedback('review', reviewItem).then(function() {
 					feedbackState.mode = 'remote';
-					$('#reviewer-name').val('');
-					$('#review-text').val('');
-					$('#review-rating').val('0');
+					$feedbackHub.find('#reviewer-name').val('');
+					$feedbackHub.find('#review-text').val('');
+					$reviewRating.val('0');
 					syncStars(0);
 					return loadRemoteFeedback();
 				}).catch(function() {
@@ -637,9 +644,9 @@
 					writeStore(storageKeys.reviews, reviews.slice(0, 50));
 					feedbackState.mode = 'local';
 					updateFeedbackModeLabel();
-					$('#reviewer-name').val('');
-					$('#review-text').val('');
-					$('#review-rating').val('0');
+					$feedbackHub.find('#reviewer-name').val('');
+					$feedbackHub.find('#review-text').val('');
+					$reviewRating.val('0');
 					syncStars(0);
 					renderReviews();
 				}).then(function() {
@@ -647,12 +654,12 @@
 				});
 			});
 
-			$('#feedback-comment-form').on('submit', function(event) {
+			$commentForm.on('submit', function(event) {
 				event.preventDefault();
 				setSubmitBusy('#feedback-comment-form', true);
 
-				var name = ($('#commenter-name').val() || '').trim() || 'Anonymous';
-				var text = ($('#comment-text').val() || '').trim();
+				var name = ($feedbackHub.find('#commenter-name').val() || '').trim() || 'Anonymous';
+				var text = ($feedbackHub.find('#comment-text').val() || '').trim();
 
 				if (!text) {
 					window.alert('Please write a comment before posting.');
@@ -668,8 +675,8 @@
 
 				submitRemoteFeedback('comment', commentItem).then(function() {
 					feedbackState.mode = 'remote';
-					$('#commenter-name').val('');
-					$('#comment-text').val('');
+					$feedbackHub.find('#commenter-name').val('');
+					$feedbackHub.find('#comment-text').val('');
 					return loadRemoteFeedback();
 				}).catch(function() {
 					var comments = readStore(storageKeys.comments);
@@ -677,8 +684,8 @@
 					writeStore(storageKeys.comments, comments.slice(0, 100));
 					feedbackState.mode = 'local';
 					updateFeedbackModeLabel();
-					$('#commenter-name').val('');
-					$('#comment-text').val('');
+					$feedbackHub.find('#commenter-name').val('');
+					$feedbackHub.find('#comment-text').val('');
 					renderComments();
 				}).then(function() {
 					setSubmitBusy('#feedback-comment-form', false);
