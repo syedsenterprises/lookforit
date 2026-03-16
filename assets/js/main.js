@@ -10,6 +10,57 @@
 		$head = $('head'),
 		$body = $('body');
 
+	function isInternalPagePath(pathname) {
+		var path = String(pathname || '').toLowerCase();
+		if (!path)
+			return false;
+
+		return path.indexOf('/admin/') === 0
+			|| path === '/admin'
+			|| path === '/dashboard.html'
+			|| path === '/admin-login.html'
+			|| path.indexOf('/ops/') === 0;
+	}
+
+
+	// Google Analytics GA4 (public pages only).
+	(function ensureGA4Tracking() {
+		var measurementId = 'G-WKN1GKE1SJ';
+		var path = window.location.pathname || '';
+
+		if (isInternalPagePath(path))
+			return;
+
+		if (window.__lookforitGa4Configured)
+			return;
+
+		window.dataLayer = window.dataLayer || [];
+		if (typeof window.gtag !== 'function') {
+			window.gtag = function() {
+				window.dataLayer.push(arguments);
+			};
+		}
+
+		window.gtag('js', new Date());
+		window.gtag('config', measurementId, {
+			anonymize_ip: true,
+			transport_type: 'beacon'
+		});
+		window.__lookforitGa4Configured = true;
+
+		var existingTag = document.querySelector('script[src*="googletagmanager.com/gtag/js?id=' + measurementId + '"]')
+			|| document.querySelector('script[data-lookforit-ga4="' + measurementId + '"]');
+
+		if (existingTag)
+			return;
+
+		var gaScript = document.createElement('script');
+		gaScript.async = true;
+		gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+		gaScript.setAttribute('data-lookforit-ga4', measurementId);
+		document.head.appendChild(gaScript);
+	})();
+
 	// Normalize branding text across pages.
 	(function normalizeHeaderBranding() {
 		var $header = $('#header');
@@ -52,18 +103,7 @@
 	(function ensureGoogleTranslateWidget() {
 		var path = (window.location.pathname || '').toLowerCase();
 
-		function isInternalPage(currentPath) {
-			if (!currentPath)
-				return false;
-
-			return currentPath.indexOf('/admin/') === 0
-				|| currentPath === '/admin'
-				|| currentPath === '/dashboard.html'
-				|| currentPath === '/admin-login.html'
-				|| currentPath.indexOf('/ops/') === 0;
-		}
-
-		if (isInternalPage(path))
+		if (isInternalPagePath(path))
 			return;
 
 		var $sidebarInner = $('#sidebar .inner').first();
