@@ -6,4 +6,4 @@ Disallow: /admin-login.html
 
 Sitemap: https://lookforit.xyz/sitemap.xml
 Sitemap: https://lookforit.xyz/sitemaps/index/content.xml
-Sitemap: https://lookforit.xyz/sitemaps/index/catalog.xml
+Sitemap: https://lookforit.xyz/sitemaps/index/catalog.xml 
