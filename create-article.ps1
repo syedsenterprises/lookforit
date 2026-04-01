@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory = $true)]
     [string]$Title,
 
@@ -172,14 +172,14 @@ function Add-ArticleToIndex {
 </article>
 "@
 
-    $needle = '<div class="posts">'
-    $idx = $indexRaw.IndexOf($needle)
-    if ($idx -lt 0) {
+    $pattern = '<div\s+class="[^"]*posts[^"]*">'
+    $match = [regex]::Match($indexRaw, $pattern)
+    if (-not $match.Success) {
         Write-Warning "Could not find a posts container in articles/index.html. Skipping index update."
         return
     }
 
-    $insertPos = $idx + $needle.Length
+    $insertPos = $match.Index + $match.Length
     $newIndex = $indexRaw.Insert($insertPos, "`n$card")
     Set-Content -LiteralPath $IndexPath -Value $newIndex -Encoding UTF8
     Write-Output "Updated index: $IndexPath"
@@ -216,7 +216,7 @@ $template = @"
 <head>
 <title>$safeTitleHtml - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -228,6 +228,10 @@ $template = @"
 <meta property="og:url" content="$canonical" />
 <meta property="og:image" content="$ogImage" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="$safeTitleHtml" />
+<meta name="twitter:description" content="$safeDescriptionHtml" />
+<meta name="twitter:image" content="$ogImage" />
+<meta name="twitter:image:alt" content="$safeImageAltHtml" />
 <link rel="stylesheet" href="../assets/css/main.css?v=20260316-overflow3" />
 
 <script type="application/ld+json" data-ai="breadcrumb">
@@ -333,3 +337,4 @@ if ($UpdateIndex) {
     $indexPath = Join-Path $PSScriptRoot "articles/index.html"
     Add-ArticleToIndex -IndexPath $indexPath -Slug $Slug -Title $Title -ImagePath $ImagePath -ImageAlt $ImageAlt -Teaser $teaser
 }
+

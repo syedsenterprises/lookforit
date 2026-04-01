@@ -2460,6 +2460,196 @@ article.card {
   background-image: url("../../Images/pic03.svg");
 }
 
+.lookforit-revenue-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10001;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  background: rgba(15, 23, 42, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.lookforit-revenue-bar .rb-copy {
+  color: #f8fafc;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.lookforit-exit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  background: rgba(2, 6, 23, 0.74);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lookforit-exit-modal {
+  position: relative;
+  max-width: 520px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.35);
+  padding: 1.2rem;
+}
+
+.lookforit-exit-modal h3 {
+  margin-bottom: 0.5rem;
+}
+
+.lookforit-exit-modal p {
+  margin-bottom: 0.8rem;
+}
+
+.lookforit-exit-modal form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem;
+}
+
+.lookforit-exit-modal .exit-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  border: 0;
+  background: transparent;
+  font-size: 1.15rem;
+  cursor: pointer;
+  color: #1f2937;
+}
+
+@media screen and (max-width: 736px) {
+  .lookforit-revenue-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lookforit-revenue-bar .rb-copy {
+    text-align: center;
+  }
+
+  .lookforit-exit-modal form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lookforit-revenue-bar .rb-close {
+  border: 0;
+  background: transparent;
+  color: #e2e8f0;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.lookforit-revenue-bar .rb-urgency {
+  color: #fecaca;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.lookforit-compare-section {
+  margin-top: 1.4rem;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+  padding: 1rem;
+}
+
+.lookforit-compare-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.lookforit-compare-table {
+  width: 100%;
+  min-width: 760px;
+}
+
+.lookforit-compare-table th,
+.lookforit-compare-table td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+.lookforit-compare-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.earnings-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.earnings-card {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  padding: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.earnings-card .kpi-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.mini-bar-chart {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.mini-bar-row {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mini-bar-track {
+  background: #e2e8f0;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.mini-bar-fill {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  height: 8px;
+}
+
+@media screen and (max-width: 980px) {
+  .earnings-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mini-bar-row {
+    grid-template-columns: 120px 1fr auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .earnings-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-bar-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .posts .card:nth-child(6n + 4) .card-thumb {
   background-image: url("../../Images/pic04.svg");
 }

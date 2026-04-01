@@ -192,6 +192,32 @@
 		document.head.appendChild(gaScript);
 	})();
 
+
+	// Monetization and conversion automation (public pages only).
+	(function ensureMonetizationAutomation() {
+		var path = (window.location.pathname || '').toLowerCase();
+
+		if (isInternalPagePath(path))
+			return;
+
+		if (document.querySelector('script[data-lookforit-monetization]'))
+			return;
+
+		if (!document.querySelector('script[data-lookforit-monetization-config]')) {
+			var configScript = document.createElement('script');
+			configScript.src = '/assets/js/monetization-config.js?v=20260401-1';
+			configScript.defer = true;
+			configScript.setAttribute('data-lookforit-monetization-config', '1');
+			document.body.appendChild(configScript);
+		}
+
+		var monetizationScript = document.createElement('script');
+		monetizationScript.src = '/assets/js/monetization-automation.js?v=20260401-1';
+		monetizationScript.defer = true;
+		monetizationScript.setAttribute('data-lookforit-monetization', '1');
+		document.body.appendChild(monetizationScript);
+	})();
+
 	// Normalize branding text across pages.
 	(function normalizeHeaderBranding() {
 		var $header = $('#header');

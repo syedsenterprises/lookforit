@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Earnings Dashboard - Lookforit.xyz</title>
+<meta charset="utf-8" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="description" content="Internal earnings dashboard for ad and affiliate click monitoring." />
+<link rel="canonical" href="https://lookforit.xyz/admin/earnings.html" />
+<meta property="og:title" content="Earnings Dashboard - Lookforit.xyz" />
+<meta property="og:description" content="Internal earnings dashboard for ad and affiliate click monitoring." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/admin/earnings.html" />
+<meta property="og:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Earnings Dashboard - Lookforit.xyz" />
+<meta name="twitter:description" content="Internal earnings dashboard for ad and affiliate click monitoring." />
+<meta name="twitter:image" content="https://lookforit.xyz/Images/ai-tools-2026.jpg" />
+<link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body class="is-preload">
+<div id="wrapper">
+<div id="main">
+<div class="inner">
+<header id="header"><a href="/" class="logo"><strong>Lookforit</strong> Earnings Dashboard</a></header>
+<section>
+<header class="major">
+<h1>Earnings Dashboard</h1>
+<p>Monitor ad clicks, affiliate clicks, CTA clicks, and top pages from GA4 CSV exports.</p>
+<ul class="actions" style="margin-top:0.75rem;">
+<li><a href="https://lookforit.xyz/admin/dashboard.html" class="button">Back to Publishing Dashboard</a></li>
+<li><button type="button" id="adminLogout">Log Out</button></li>
+</ul>
+</header>
+
+<div class="earnings-metric-grid" id="kpiCards">
+<div class="earnings-card"><div>Total Affiliate Clicks</div><div class="kpi-value" id="kpiAffiliateClicks">0</div></div>
+<div class="earnings-card"><div>Total Leads</div><div class="kpi-value" id="kpiTotalLeads">0</div></div>
+<div class="earnings-card"><div>Sticky Bar CTR</div><div class="kpi-value" id="kpiStickyCtr">0%</div></div>
+<div class="earnings-card"><div>Popup Conversion</div><div class="kpi-value" id="kpiPopupRate">0%</div></div>
+<div class="earnings-card"><div>Pricing Table CTR</div><div class="kpi-value" id="kpiPricingCtr">0%</div></div>
+<div class="earnings-card"><div>Return Visitor %</div><div class="kpi-value" id="kpiReturnRate">0%</div></div>
+<div class="earnings-card"><div>Top Category</div><div class="kpi-value" id="kpiTopCategory">-</div></div>
+<div class="earnings-card"><div>Top Converting Page</div><div class="kpi-value" id="kpiTopPage">-</div></div>
+</div>
+
+<div class="row">
+<div class="col-6 col-12-medium">
+<h2>Local Monetization Events</h2>
+<div class="box" id="localMetrics" style="min-height:10rem;"></div>
+<ul class="actions">
+<li><button type="button" id="refreshLocalMetrics">Refresh Local Metrics</button></li>
+<li><button type="button" id="clearLocalMetrics">Clear Local Metrics</button></li>
+</ul>
+</div>
+<div class="col-6 col-12-medium">
+<h2>Import GA4 CSV</h2>
+<p>Export a GA4 report CSV and upload it here to analyze top pages and conversion-like events.</p>
+<input type="file" id="ga4CsvFile" accept=".csv,text/csv" />
+<ul class="actions" style="margin-top:0.75rem;">
+<li><button type="button" id="parseGa4Csv" class="primary">Parse CSV</button></li>
+</ul>
+<div class="box" id="ga4Summary" style="min-height:10rem;"></div>
+</div>
+</div>
+
+<div class="row" style="margin-top:1.5rem;">
+<div class="col-6 col-12-medium">
+<h2>Clicks by Category</h2>
+<div class="box"><div class="mini-bar-chart" id="chartClicksByCategory"></div></div>
+</div>
+<div class="col-6 col-12-medium">
+<h2>Leads by Week</h2>
+<div class="box"><div class="mini-bar-chart" id="chartLeadsByWeek"></div></div>
+</div>
+</div>
+
+<div class="row" style="margin-top:1.5rem;">
+<div class="col-6 col-12-medium">
+<h2>Top CTA Placements</h2>
+<div class="box"><div class="mini-bar-chart" id="chartTopPlacements"></div></div>
+</div>
+<div class="col-6 col-12-medium">
+<h2>Top Affiliate Destinations</h2>
+<div class="box"><div class="mini-bar-chart" id="chartTopDestinations"></div></div>
+</div>
+</div>
+
+<div class="row" style="margin-top:1.5rem;">
+<div class="col-12">
+<h2>Top Pages and Events (GA4 CSV)</h2>
+<div class="box" id="ga4TableHost" style="overflow:auto;"></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+
+<div id="sidebar"><div class="inner"><section id="search" class="alt"><form method="get" action="https://lookforit.xyz/tools/"><input type="text" name="query" id="query" placeholder="Search AI tools..." /></form></section><nav id="menu"><header class="major"><h2>Menu</h2></header><ul><li><a href="https://lookforit.xyz/admin/dashboard.html">Publishing Dashboard</a></li><li><a href="https://lookforit.xyz/admin/earnings.html">Earnings Dashboard</a></li><li><a href="https://lookforit.xyz/tools/">AI Tools</a></li><li><a href="https://lookforit.xyz/articles/">Articles</a></li></ul></nav><footer id="footer"><div class="footer-policy-links"><a href="../privacy-policy.html">Privacy Policy</a><a href="../terms.html">Terms</a><a href="../refund.html">Refund Policy</a><a href="../disclaimer.html">Disclaimer</a><a href="../faq.html">FAQ</a><a href="../contact.html">Contact</a></div><p class="copyright">&copy; 2026 <a href="/">Lookforit.xyz</a>. All rights reserved.</p></footer></div></div>
+</div>
+<script src="../assets/js/jquery.min.js"></script><script src="../assets/js/browser.min.js"></script><script src="../assets/js/breakpoints.min.js"></script><script src="../assets/js/util.js"></script><script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin-access.js"></script>
+<script src="../assets/js/earnings-dashboard.js"></script>
+<script src="../assets/js/tools-data.js"></script><script src="../assets/js/sidebar-search.js"></script>
+</body>
+</html>
+
