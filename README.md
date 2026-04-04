@@ -1,7 +1,76 @@
-# LOOKFORIT
-A directory to discover the best AI tools, useful websites, and online resources.
+# 🔍 LookForIt
 
-## Publish New Articles Without Writing HTML
+**A curated directory to discover the best AI tools, useful websites, and online resources.**
+
+[![Live Site](https://img.shields.io/badge/Live%20Site-lookforit.xyz-blue?style=for-the-badge)](https://lookforit.xyz)
+[![HTML](https://img.shields.io/badge/HTML-5-orange?style=for-the-badge&logo=html5)](https://lookforit.xyz)
+[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-black?style=for-the-badge&logo=github)](https://lookforit.xyz)
+
+---
+
+## 🌐 About
+
+[LookForIt.xyz](https://lookforit.xyz) helps you work smarter, launch faster, and grow online by surfacing the most useful:
+
+- 🤖 **AI Tools** — writing, coding, image, video, voice, and more
+- 🌐 **Useful Websites** — productivity, freelancing, earning online
+- 📚 **Articles & Guides** — practical how-to content for 2026
+
+---
+
+## ✨ Features
+
+- Curated catalog of 300+ tools and websites
+- SEO-optimised pages with structured data, sitemaps, and canonical tags
+- Fully responsive design — works on mobile, tablet, and desktop
+- Fast static site hosted on GitHub Pages with a custom domain
+- Built-in admin dashboard for publishing articles without writing HTML
+- Automated quality checks, sitemap generation, and monetisation tooling
+
+---
+
+## 🚀 Live Demo
+
+👉 **[https://lookforit.xyz](https://lookforit.xyz)**
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | HTML5, CSS3, JavaScript |
+| Hosting | GitHub Pages |
+| Domain | Custom (lookforit.xyz) |
+| Automation | PowerShell scripts |
+| Analytics | Google Analytics 4 |
+| SEO | Structured data (JSON-LD), sitemap.xml, robots.txt |
+
+---
+
+## 📁 Project Structure
+
+```
+lookforit/
+├── index.html              # Homepage
+├── articles/               # Blog articles
+├── tools/                  # AI tool pages
+├── ai-tools.html           # AI tools directory
+├── websites.html           # Websites directory
+├── assets/
+│   ├── css/                # Stylesheets
+│   └── js/                 # Scripts (incl. monetisation & admin)
+├── admin/                  # Admin dashboard (login-protected)
+├── ops/                    # Operational scripts & reports
+├── sitemap.xml             # SEO sitemap
+└── robots.txt              # Crawl directives
+```
+
+---
+
+## ⚙️ Developer Docs
+
+### Publish New Articles Without Writing HTML
 
 You can now write article content in plain text and generate full HTML automatically.
 
@@ -302,3 +371,9 @@ powershell -ExecutionPolicy Bypass -File .\search-console-export.ps1 -MaxUrls 15
 Optional: enable automatic URL Inspection API checks by setting a token:
 
 $env:GSC_OAUTH_TOKEN = 'ya29....'
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
