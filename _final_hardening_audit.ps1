@@ -66,7 +66,7 @@ foreach ($f in $htmlFiles) {
     $noindexFiles += $rel
   }
 }
-$allowedNoindex = @('admin/login.html','admin/dashboard.html','dashboard.html','admin-login.html')
+$allowedNoindex = @('admin/login.html','admin/dashboard.html','dashboard.html','admin-login.html','admin/earnings.html')
 $unexpectedNoindex = $noindexFiles | Where-Object { $allowedNoindex -notcontains $_ }
 
 "FORMS_WORKER_ACTION_COUNT=$formsWorker"
