@@ -1,9 +1,13 @@
 param(
-  [switch]$UpdateArticlesIndex = $true
+  [switch]$UpdateArticlesIndex
 )
 
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
+
+if (-not $PSBoundParameters.ContainsKey('UpdateArticlesIndex')) {
+  $UpdateArticlesIndex = $true
+}
 
 $articlesDir = Join-Path $PSScriptRoot 'articles'
 $indexPath = Join-Path $articlesDir 'index.html'
@@ -11,7 +15,8 @@ $indexPath = Join-Path $articlesDir 'index.html'
 if (-not (Test-Path $articlesDir)) { throw "Missing directory: $articlesDir" }
 if (-not (Test-Path $indexPath)) { throw "Missing file: $indexPath" }
 
-$today = '2026-03-16'
+$today = Get-Date -Format 'yyyy-MM-dd'
+$updatedLabel = Get-Date -Format 'MMMM yyyy'
 
 $topicList = @(
   @{ Slug='ai-agents-workflow-automation-2026';
@@ -133,10 +138,130 @@ $topicList = @(
      External2='https://www.semrush.com/blog/ai-seo/';
      External3='https://openai.com/business/';
     Video='https://www.youtube.com/embed?listType=search&list=small+business+AI+roadmap+2026';
+  },
+  @{ Slug='ai-contract-review-software-small-law-firms-2026';
+     Title='AI Contract Review Software for Small Law Firms in 2026';
+     Meta='A practical commercial-intent guide to AI contract review software for small law firms with workflow checks, buying criteria, and implementation tips.';
+     Hero='How small law firms can evaluate AI contract review tools without creating risk, compliance gaps, or quality problems.';
+     Category='Legal AI Operations';
+     PrimaryKeyword='AI contract review software small law firms';
+     Image1='pic04.svg'; Image2='ai-tools-2026-pro.svg';
+     External1='https://www.ironcladapp.com/';
+     External2='https://www.legalontech.com/';
+     External3='https://www.termcraft.ai/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+contract+review+software+small+law+firms';
+  },
+  @{ Slug='ai-lead-qualification-software-b2b-saas-2026';
+     Title='AI Lead Qualification Software for B2B SaaS in 2026';
+     Meta='A buyer-focused guide to AI lead qualification software for B2B SaaS teams with qualification workflows, tool comparisons, and ROI logic.';
+     Hero='How B2B SaaS teams can prioritize the right leads faster while protecting pipeline quality and sales efficiency.';
+     Category='Revenue Operations';
+     PrimaryKeyword='AI lead qualification software B2B SaaS';
+     Image1='pic05.svg'; Image2='ai-tools-2026.jpg';
+     External1='https://www.madkudu.com/';
+     External2='https://www.6sense.com/';
+     External3='https://www.zoominfo.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+lead+qualification+software+B2B+SaaS';
+  },
+  @{ Slug='ai-expense-management-small-business-2026';
+     Title='AI Expense Management for Small Business in 2026';
+     Meta='A commercial guide to AI expense management for small business owners comparing receipt capture, categorization, approval flows, and accounting sync.';
+     Hero='How to reduce admin time and clean up bookkeeping with AI-enabled expense workflows that scale with the business.';
+     Category='Finance Automation';
+     PrimaryKeyword='AI expense management small business';
+     Image1='pic06.svg'; Image2='ai-tools-2026-pro.svg';
+     External1='https://www.zoho.com/expense/';
+     External2='https://www.expensify.com/';
+     External3='https://quickbooks.intuit.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+expense+management+small+business';
+  },
+  @{ Slug='ai-customer-support-automation-ecommerce-2026';
+     Title='AI Customer Support Automation for Ecommerce in 2026';
+     Meta='A practical ecommerce support automation guide covering AI chat, ticket deflection, order lookup, and customer experience operations.';
+     Hero='How ecommerce teams can automate repetitive support work and protect response quality during peak demand.';
+     Category='Ecommerce Operations';
+     PrimaryKeyword='AI customer support automation ecommerce';
+     Image1='pic07.svg'; Image2='ai-tools-2026.jpg';
+     External1='https://www.tidio.com/';
+     External2='https://www.kodif.ai/';
+     External3='https://www.gorgias.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+customer+support+automation+ecommerce';
+  },
+  @{ Slug='ai-recruiting-screening-software-small-business-2026';
+     Title='AI Recruiting Screening Software for Small Business in 2026';
+     Meta='A search-friendly guide to AI recruiting screening software for small business teams with hiring workflows, scorecards, and bias-aware review.';
+     Hero='How small hiring teams can speed up candidate screening while keeping the process human, fair, and practical.';
+     Category='HR Automation';
+     PrimaryKeyword='AI recruiting screening software small business';
+     Image1='pic08.svg'; Image2='ai-tools-2026-pro.svg';
+     External1='https://www.paradox.ai/';
+     External2='https://www.hirevue.com/';
+     External3='https://www.greenhouse.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+recruiting+screening+software+small+business';
+  },
+  @{ Slug='ai-meeting-notes-software-executives-2026';
+     Title='AI Meeting Notes Software for Executives in 2026';
+     Meta='A commercial guide to AI meeting notes software for executives comparing summaries, action items, search, and follow-up automation.';
+     Hero='How leadership teams can capture decisions, action items, and follow-ups without losing context after each meeting.';
+     Category='Executive Productivity';
+     PrimaryKeyword='AI meeting notes software executives';
+     Image1='pic09.svg'; Image2='ai-tools-2026.jpg';
+     External1='https://fireflies.ai/';
+     External2='https://otter.ai/';
+     External3='https://fathom.video/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+meeting+notes+software+executives';
+  },
+  @{ Slug='ai-invoicing-automation-freelancers-2026';
+     Title='AI Invoicing Automation for Freelancers in 2026';
+     Meta='A practical guide to AI invoicing automation for freelancers covering billing speed, payment reminders, and client workflow improvements.';
+     Hero='How freelancers can automate invoicing and reduce cash-flow friction without adding a complicated finance stack.';
+     Category='Freelancer Finance';
+     PrimaryKeyword='AI invoicing automation freelancers';
+     Image1='pic10.svg'; Image2='ai-tools-2026-pro.svg';
+     External1='https://www.freshbooks.com/';
+     External2='https://www.waveapps.com/';
+     External3='https://www.zoho.com/invoice/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+invoicing+automation+freelancers';
+  },
+  @{ Slug='ai-proposal-generation-software-agencies-2026';
+     Title='AI Proposal Generation Software for Agencies in 2026';
+     Meta='A conversion-focused guide to AI proposal generation software for agencies with proposal structure, pricing, and client-close workflows.';
+     Hero='How agencies can create faster proposals that still feel specific, persuasive, and easy to approve.';
+     Category='Agency Sales';
+     PrimaryKeyword='AI proposal generation software agencies';
+     Image1='pic01.svg'; Image2='ai-tools-2026.jpg';
+     External1='https://www.pandadoc.com/';
+     External2='https://www.proposify.com/';
+     External3='https://www.qwilr.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+proposal+generation+software+agencies';
+  },
+  @{ Slug='ai-inventory-forecasting-tools-shopify-2026';
+     Title='AI Inventory Forecasting Tools for Shopify Stores in 2026';
+     Meta='A merchant-focused guide to AI inventory forecasting tools for Shopify stores with demand planning, stock control, and replenishment logic.';
+     Hero='How ecommerce teams can reduce stockouts, overbuying, and dead inventory with smarter forecasting.';
+     Category='Ecommerce Forecasting';
+     PrimaryKeyword='AI inventory forecasting tools Shopify';
+     Image1='pic02.svg'; Image2='ai-tools-2026-pro.svg';
+     External1='https://www.shopify.com/';
+     External2='https://www.inventory-planner.com/';
+     External3='https://www.finaleinventory.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+inventory+forecasting+tools+Shopify';
+  },
+  @{ Slug='ai-onboarding-automation-hr-teams-2026';
+     Title='AI Onboarding Automation for HR Teams in 2026';
+     Meta='A practical HR automation guide to AI onboarding workflows, document collection, task routing, and employee experience.';
+     Hero='How HR teams can automate onboarding steps while keeping the employee experience structured and personal.';
+     Category='HR Automation';
+     PrimaryKeyword='AI onboarding automation HR teams';
+     Image1='pic03.svg'; Image2='ai-tools-2026.jpg';
+     External1='https://www.rippling.com/';
+     External2='https://www.bamboohr.com/';
+     External3='https://www.deel.com/';
+    Video='https://www.youtube.com/embed?listType=search&list=AI+onboarding+automation+HR+teams';
   }
 )
 
-function Build-ArticleHtml {
+function New-ArticleHtml {
   param([hashtable]$topic)
 
   $url = "https://lookforit.xyz/articles/$($topic.Slug).html"
@@ -247,7 +372,7 @@ $faqSchema
 <h1>$headline</h1>
 <p>$hero</p>
 </header>
-<p><em>Updated March 2026</em></p>
+<p><em>Updated $updatedLabel</em></p>
 <p>The biggest trend in $cat right now is clear: teams are moving from isolated prompts to connected systems. Instead of asking AI for one-off outputs, leading operators build reusable workflows where planning, execution, review, and distribution happen in sequence. This shift matters for rankings because search visibility now favors pages that solve complete jobs-to-be-done, not just keywords. If your content and operations are still fragmented, this guide gives you a practical path to fix that.</p>
 <p>This article is built from live market signals and product updates across major platforms. We reviewed recent announcements from OpenAI, Anthropic, Google, Microsoft, and AI infrastructure leaders to identify what is changing now, what is hype, and what produces measurable output in real teams. You will get an implementation roadmap, a workflow model, a compact flowchart, a KPI framework, and an FAQ section designed to capture question-led search intent.</p>
 <p>Before implementation, keep one principle in mind: quality control is not optional. In 2026, AI-assisted content can scale fast, but rankings and trust depend on editorial rigor, internal linking discipline, source quality, and clear topical authority. Your target should be a repeatable engine, not random publication velocity. For discovery, combine this guide with your existing tool stack on <a href="/tools/">Lookforit AI Tools</a> and map each step to your team capacity.</p>
@@ -314,7 +439,7 @@ Entity Map       Internal Links     Media Blocks   Fact Check  KPI Review
 <p><strong>Risk 3: Governance debt.</strong> Teams often add AI output faster than they can verify it. Use a simple editorial gate: source validation, legal sensitivity review, and final human sign-off. This is especially important for strategy advice, compliance-heavy topics, and buyer-decision content where trust drives conversion.</p>
 
 <h2>FAQ</h2>
-<h3>1) What is the fastest way to implement $keyword?</h3>
+<h3>1) What is the fastest way to implement ${keyword} in 2026?</h3>
 <p>Start with one workflow where the input is already structured and the output can be checked quickly. Build a repeatable brief template, automate first drafts, and enforce a human QA layer before publication or deployment. Speed comes from consistency, not from skipping review.</p>
 <h3>2) Which KPI should I track first?</h3>
 <p>Track one traffic quality KPI and one business KPI together. A practical pair is qualified organic sessions and assisted conversion rate. This prevents growth vanity where pageviews increase but business impact does not.</p>
@@ -406,7 +531,7 @@ Entity Map       Internal Links     Media Blocks   Fact Check  KPI Review
 $newCards = New-Object System.Text.StringBuilder
 
 foreach ($topic in $topicList) {
-  $html = Build-ArticleHtml -topic $topic
+  $html = New-ArticleHtml -topic $topic
   $path = Join-Path $articlesDir ($topic.Slug + '.html')
   Set-Content -LiteralPath $path -Value $html -Encoding UTF8
 

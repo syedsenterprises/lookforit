@@ -1,7 +1,7 @@
 window.LookforitMonetization = {
   enabled: true,
   adsense: {
-    enabled: false,
+    enabled: true,
     publisherId: "ca-pub-7363635746119645",
     autoAds: false,
     articleSlots: {

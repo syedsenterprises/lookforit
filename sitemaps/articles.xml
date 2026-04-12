@@ -5,7 +5,7 @@
           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://lookforit.xyz/articles/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -17,13 +17,31 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/ai-agents-workflow-automation-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/ai-coding-stack-for-teams-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-contract-review-software-small-law-firms-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-customer-support-automation-ecommerce-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-expense-management-small-business-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -34,14 +52,56 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lookforit.xyz/articles/ai-inventory-forecasting-tools-shopify-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-invoicing-automation-freelancers-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-lead-qualification-software-b2b-saas-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-meeting-notes-software-executives-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-onboarding-automation-hr-teams-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-proposal-generation-software-agencies-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lookforit.xyz/articles/ai-recruiting-screening-software-small-business-2026.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://lookforit.xyz/articles/ai-search-and-seo-strategy-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/ai-seo-content-operations-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -77,7 +137,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/ai-video-marketing-workflow-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -113,7 +173,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/claude-sonnet-4-6-business-implementation-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -125,7 +185,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/gemini-3-workspace-productivity-guide-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -137,7 +197,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/gpt-5-4-enterprise-use-cases-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -149,7 +209,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/on-device-ai-edge-stack-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -161,7 +221,7 @@
   </url>
   <url>
     <loc>https://lookforit.xyz/articles/small-business-ai-roadmap-2026.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
