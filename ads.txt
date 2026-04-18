@@ -5,5 +5,18 @@ contact=directsales@ezoic.com
 managerdomain=ezoic.ai
 
 ezoic.ai, 0f9ce18619a89d7bbc292eb2263a6046, DIRECT
+# 35
+sonobi.com, 192ecdea01, RESELLER, d1a215d9eb5aee9e
 google.com, pub-6644558441501035, DIRECT, f08c47fec0942fa0
 google.com, pub-1175987143200523, RESELLER, f08c47fec0942fa0
+risecodes.com, 608fee2f84a3a300011acd3f, DIRECT
+ssp.cadent.com, 45, DIRECT, 1e1d41537f7cad7f
+yahoo.com, 100028, DIRECT, e1a5b5b6e3255540
+themediagrid.com, Q19AKF, DIRECT, 9fac4a4a87c2a44f
+# 36
+sharethrough.com, PmzCMtAd, DIRECT, d53b998a7bd4ecd2
+google.com, pub-9508156287817487, RESELLER, f08c47fec0942fa0
+improvedigital.com, 2483, RESELLER
+inmobi.com, 6b1465d6abe84397bf7baad04aaee1f1, DIRECT, 83e75a7ae333ca9d
+sonobi.com, c2988be809, RESELLER, d1a215d9eb5aee9e
+media.net, 8CUM5Z5B0, DIRECT
