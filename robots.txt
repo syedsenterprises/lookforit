@@ -1,9 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /dashboard.html
-Disallow: /admin-login.html
 
 Sitemap: https://lookforit.xyz/sitemap.xml
-Sitemap: https://lookforit.xyz/sitemaps/index/content.xml
-Sitemap: https://lookforit.xyz/sitemaps/index/catalog.xml 

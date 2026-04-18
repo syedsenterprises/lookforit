@@ -1,1 +1,9 @@
-google.com, pub-7363635746119645, DIRECT, f08c47fec0942fa0
+﻿#Ads.txt lookforit.xyz
+#Ads.txt managed by AdsTxtManager.com - the free ads.txt management tool for publishers
+ownerdomain=lookforit.xyz
+contact=directsales@ezoic.com
+managerdomain=ezoic.ai
+
+ezoic.ai, 0f9ce18619a89d7bbc292eb2263a6046, DIRECT
+google.com, pub-6644558441501035, DIRECT, f08c47fec0942fa0
+google.com, pub-1175987143200523, RESELLER, f08c47fec0942fa0
