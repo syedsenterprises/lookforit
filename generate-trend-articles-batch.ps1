@@ -1,4 +1,4 @@
-param(
+﻿param(
   [switch]$UpdateArticlesIndex
 )
 
@@ -313,7 +313,7 @@ function New-ArticleHtml {
 <title>$headline - Lookforit.xyz</title>
 <meta charset="utf-8" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="$meta" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -365,7 +365,7 @@ $faqSchema
 <div id="main">
 <div class="inner">
 <header id="header">
-<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener" class="logo-author">Letusassume</a>
+<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener noreferrer" class="logo-author">Letusassume</a>
 </header>
 <section class="articles-page">
 <header class="major">
@@ -581,3 +581,4 @@ if ($UpdateArticlesIndex) {
 }
 
 Write-Host "Generated $($topicList.Count) articles."
+

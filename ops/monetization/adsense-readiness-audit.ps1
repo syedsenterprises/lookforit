@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$Root = ".",
   [string]$OutputFile = "ops/monetization/adsense-readiness-report.md"
 )
@@ -43,7 +43,7 @@ $adSenseScriptPresent = 0
 foreach ($file in $htmlFiles) {
   $raw = Get-Content -Raw $file.FullName
 
-  if ($raw -match "user-scalable=no") { $viewportBlockers++ }
+  if ($raw -match "") { $viewportBlockers++ }
   if ($raw -notmatch '<link rel="canonical"') { $missingCanonical++ }
   if ($raw -notmatch '<meta name="description"') { $missingDescription++ }
   if (($raw -replace "<[^>]+>", " " -replace "\s+", " ").Length -lt 900) { $thinContent++ }
@@ -87,14 +87,14 @@ $lines += "- Monetization automation script present: $hasMonetizationAutomation"
 $lines += ""
 $lines += "## SEO + UX Risks"
 $lines += "- HTML files checked (public): $($htmlFiles.Count)"
-$lines += "- Files with user-scalable=no: $viewportBlockers"
+$lines += "- Files with : $viewportBlockers"
 $lines += "- Files missing canonical tag: $missingCanonical"
 $lines += "- Files missing meta description: $missingDescription"
 $lines += "- Thin content pages (< about 900 chars text): $thinContent"
 $lines += "- Pages already loading AdSense script: $adSenseScriptPresent"
 $lines += ""
 $lines += "## Recommended Next Actions"
-$lines += "1. Remove user-scalable=no from all templates and generated pages."
+$lines += "1. Remove  from all templates and generated pages."
 $lines += "2. Enable AdSense in assets/js/monetization-config.js after creating ad slots."
 $lines += "3. Keep policy pages and affiliate disclosures updated monthly."
 $lines += "4. Increase informational depth on thin pages before heavy ad placement."
@@ -107,3 +107,4 @@ $lines -join "`r`n" | Set-Content -Path $OutputFile -Encoding UTF8
 Write-Output "ADSENSE_READINESS_SCORE=$score"
 Write-Output "ADSENSE_READINESS_GRADE=$grade"
 Write-Output "ADSENSE_REPORT=$OutputFile"
+

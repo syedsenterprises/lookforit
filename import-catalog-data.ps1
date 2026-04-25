@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$InputFile = "tools/catalog/catalog-data.sample.csv",
   [ValidateSet('csv','json')][string]$Format = "csv"
 )
@@ -112,7 +112,7 @@ foreach ($r in $rows) {
 <head>
 <title>$name - $category Tool Profile - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -169,3 +169,4 @@ $longFormContent
 }
 
 Write-Output "CATALOG_IMPORTED=$written"
+

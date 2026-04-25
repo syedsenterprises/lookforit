@@ -1,4 +1,4 @@
-param(
+﻿param(
   [switch]$RebuildIndexOnly
 )
 
@@ -238,7 +238,7 @@ foreach ($file in $files) {
 <head>
 <title>$safeName - $safeCategory Tool Profile - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -324,7 +324,7 @@ $indexHtml = @"
 <head>
 <title>AI Tools Catalog (1000+) - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -504,3 +504,4 @@ Set-Content -LiteralPath (Join-Path $catalogDir 'index.html') -Value $indexHtml 
 Write-Output "CATALOG_UPGRADED=$($toolRecords.Count)"
 Write-Output "CATALOG_LOGOS_WRITTEN=$($toolRecords.Count)"
 Write-Output "CATALOG_MANIFEST_WRITTEN=1"
+

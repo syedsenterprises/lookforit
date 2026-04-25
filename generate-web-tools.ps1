@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$BaseUrl = "https://lookforit.xyz"
 )
 
@@ -19,7 +19,7 @@ function Get-SharedHead {
 <title>$Title - Lookforit.xyz</title>
 <meta charset="utf-8" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="$Description" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -675,7 +675,7 @@ $hubHead
 <div id="main">
 <div class="inner">
 <header id="header">
-<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener" class="logo-author">Letusassume</a>
+<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener noreferrer" class="logo-author">Letusassume</a>
 </header>
 $hubLd
 <section>
@@ -727,7 +727,7 @@ $catHead
 <div id="main">
 <div class="inner">
 <header id="header">
-<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener" class="logo-author">Letusassume</a>
+<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener noreferrer" class="logo-author">Letusassume</a>
 </header>
 $catLd
 <section>
@@ -779,7 +779,7 @@ $toolHead
 <div id="main">
 <div class="inner">
 <header id="header">
-<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener" class="logo-author">Letusassume</a>
+<a href="/" class="logo"><strong>Lookforit</strong></a> <span class="logo-by">by</span> <a href="https://www.letusassume.com" target="_blank" rel="noopener noreferrer" class="logo-author">Letusassume</a>
 </header>
 $toolLd
 <section>
@@ -815,3 +815,4 @@ $(Get-FooterScripts -JsPrefix '../../')
 Write-Host "WEB_TOOLS_GENERATED: hub + $($categories.Count) categories + $($tools.Count) tools"
 
 & (Join-Path $PSScriptRoot 'generate-sitemap.ps1')
+

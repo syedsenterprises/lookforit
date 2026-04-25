@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 
 $catalogDir = Join-Path $PSScriptRoot 'tools\catalog'
@@ -75,7 +75,7 @@ for ($i = 0; $i -lt $toolNames.Count; $i++) {
 <head>
 <title>$title - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -140,7 +140,7 @@ $catalogIndex = @"
 <head>
 <title>AI Tools Catalog (1000+) - Lookforit.xyz</title>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -209,3 +209,4 @@ $cardsHtml
 Set-Content -Path (Join-Path $catalogDir 'index.html') -Value $catalogIndex -Encoding UTF8 -NoNewline
 
 Write-Output "CATALOG_GENERATED=$($toolNames.Count)"
+

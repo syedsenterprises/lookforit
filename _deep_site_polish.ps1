@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $root = 'c:\Users\syeds\lookforit'
 $toolsDir = Join-Path $root 'tools'
 $today = '2026-03-14'
@@ -166,7 +166,7 @@ foreach ($file in $allHtml) {
     }
   }
 
-  $c = $c.Replace('target="_blank" rel="noopener"','target="_blank" rel="noopener noreferrer"')
+  $c = $c.Replace('target="_blank" rel="noopener noreferrer"','target="_blank" rel="noopener noreferrer"')
   [System.IO.File]::WriteAllText($file.FullName, $c, $utf8NoBom)
 }
 

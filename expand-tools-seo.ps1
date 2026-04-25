@@ -1,4 +1,4 @@
-param(
+﻿param(
   [int]$NewToolsCount = 100,
   [bool]$RebuildSitemap = $true
 )
@@ -202,7 +202,7 @@ function BuildToolPage([pscustomobject]$rec) {
     <title>$toolName - Lookforit.xyz</title>
     <meta charset="utf-8" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#0f172a" />
@@ -372,3 +372,4 @@ Write-Output "NEW_TOOLS_CREATED=$newPageCount"
 Write-Output "TOOLS_INDEX_UPDATED=1"
 Write-Output "TOOLS_DATA_UPDATED=1"
 Write-Output "TOOL_PAGES_EXPANDED=$expandedCount"
+
