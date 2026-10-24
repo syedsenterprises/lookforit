@@ -98,7 +98,6 @@ window.LookforitToolsData = [
   {n:'CapCut AI',s:'capcut-ai.html',c:'Video',d:'AI-assisted video editing suite for creators and short-form content.',k:'capcut ai'},
   {n:'ClickUp AI',s:'clickup-ai.html',c:'Productivity',d:'AI assistant inside ClickUp for tasks, docs, and project planning.',k:'clickup ai'},
   {n:'Mem AI',s:'mem-ai.html',c:'Productivity',d:'AI-powered notes app that auto-organizes ideas and knowledge.',k:'mem ai'},
-  {n:'Rewind AI',s:'rewind-ai.html',c:'Productivity',d:'Personal AI assistant that helps search your past meetings and notes.',k:'rewind ai'}
-
-
+  {n:'Rewind AI',s:'rewind-ai.html',c:'Productivity',d:'Personal AI assistant that helps search your past meetings and notes.',k:'rewind ai'},
+  {n:'InnerCanvas',s:'innercanvas.html',c:'Productivity',d:'AI-guided drawing reflection reports for private self-awareness and journaling.',k:'innercanvas drawing reflection journaling'}
 ];
