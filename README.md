@@ -20,7 +20,7 @@
 
 ## ✨ Features
 
-- Curated catalog of 300+ tools and websites
+- Curated directory of 99 AI tools and websites
 - SEO-optimised pages with structured data, sitemaps, and canonical tags
 - Fully responsive design — works on mobile, tablet, and desktop
 - Fast static site hosted on GitHub Pages with a custom domain
