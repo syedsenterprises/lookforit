@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Meta Tag Generator — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Generate copyable SEO meta tags and Open Graph tags from your title and description." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/meta-tag-generator.html" />
+<meta property="og:title" content="Meta Tag Generator — LookForIt" />
+<meta property="og:description" content="Generate copyable SEO meta tags and Open Graph tags from your title and description." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/meta-tag-generator.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Meta Tag Generator — LookForIt" />
+<meta name="twitter:description" content="Generate copyable SEO meta tags and Open Graph tags from your title and description." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Meta Tag Generator</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Meta Tag Generator</h1>
+<p class="lede">Fill in your page details and copy a clean block of SEO and social meta tags.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Page title <input type="text" id="mt-title" placeholder="e.g. Best AI Tools for Freelancers" /></label>
+<label>Meta description <input type="text" id="mt-desc" placeholder="One sentence, under 160 characters" /></label>
+<label>Page URL <input type="url" id="mt-url" placeholder="https://example.com/page" /></label>
+<label>OG image URL (optional) <input type="url" id="mt-img" placeholder="https://example.com/cover.png" /></label>
+<button class="button primary" id="mt-go">Generate tags</button>
+</div><textarea id="mt-out" rows="10" readonly placeholder="Meta tags will appear here…"></textarea>
+<p><button class="button" id="mt-copy">Copy</button> <span class="form-note" id="mt-warn"></span></p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+function escAttr(s) { return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+function buildMetaTags(f) {
+  var lines = [];
+  if (f.title) { lines.push('<title>' + escAttr(f.title) + '</title>'); }
+  if (f.desc) { lines.push('<meta name="description" content="' + escAttr(f.desc) + '" />'); }
+  if (f.url) { lines.push('<link rel="canonical" href="' + escAttr(f.url) + '" />'); }
+  if (f.title) { lines.push('<meta property="og:title" content="' + escAttr(f.title) + '" />'); }
+  if (f.desc) { lines.push('<meta property="og:description" content="' + escAttr(f.desc) + '" />'); }
+  if (f.url) { lines.push('<meta property="og:url" content="' + escAttr(f.url) + '" />'); }
+  if (f.img) { lines.push('<meta property="og:image" content="' + escAttr(f.img) + '" />'); }
+  if (f.title) { lines.push('<meta name="twitter:title" content="' + escAttr(f.title) + '" />'); }
+  if (f.desc) { lines.push('<meta name="twitter:description" content="' + escAttr(f.desc) + '" />'); }
+  lines.push('<meta name="twitter:card" content="summary_large_image" />');
+  return lines.join('\n');
+}
+if (typeof document !== 'undefined') {
+  el('mt-go').addEventListener('click', function () {
+    var t = el('mt-title').value.trim(), d = el('mt-desc').value.trim();
+    el('mt-out').value = buildMetaTags({ title: t, desc: d, url: el('mt-url').value.trim(), img: el('mt-img').value.trim() });
+    var warns = [];
+    if (t.length > 60) { warns.push('Title is ' + t.length + ' characters (aim for 60 or fewer).'); }
+    if (d.length > 160) { warns.push('Description is ' + d.length + ' characters (aim for 160 or fewer).'); }
+    el('mt-warn').textContent = warns.join(' ');
+  });
+  bindCopy('mt-copy', function () { return el('mt-out').value; });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Markdown Preview — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Write Markdown and preview it safely — raw HTML is escaped, never injected." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/markdown-preview.html" />
+<meta property="og:title" content="Markdown Preview — LookForIt" />
+<meta property="og:description" content="Write Markdown and preview it safely — raw HTML is escaped, never injected." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/markdown-preview.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Markdown Preview — LookForIt" />
+<meta name="twitter:description" content="Write Markdown and preview it safely — raw HTML is escaped, never injected." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Markdown Preview</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Markdown Preview</h1>
+<p class="lede">A small, safe Markdown previewer. Raw HTML in your input is shown as text, never run.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Markdown <textarea id="md-in" rows="12" placeholder="# Heading&#10;&#10;Some **bold** text and a [link](https://example.com)."></textarea></label>
+<button class="button primary" id="md-go">Preview</button>
+</div><div class="md-preview" id="md-out"></div>
+<p class="form-note">Supports headings, bold, italic, inline code, code blocks, links, lists, quotes, and horizontal rules.</p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+function escHtml(s) { return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function mdInline(s) {
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+  return s;
+}
+function renderMarkdown(md) {
+  var blocks = [], lines = (md || '').split('\n'), i = 0, html = '';
+  function flushPara(buf) {
+    if (buf.length) { html += '<p>' + buf.map(mdInline).join(' ') + '</p>'; buf.length = 0; }
+  }
+  var para = [];
+  while (i < lines.length) {
+    var line = lines[i];
+    if (line.trim().startsWith('```')) {
+      flushPara(para);
+      var code = [];
+      i++;
+      while (i < lines.length && !lines[i].trim().startsWith('```')) { code.push(lines[i]); i++; }
+      html += '<pre><code>' + escHtml(code.join('\n')) + '</code></pre>';
+      i++;
+      continue;
+    }
+    var hm = line.match(/^(#{1,6})\s+(.*)$/);
+    if (hm) { flushPara(para); var lvl = hm[1].length; html += '<h' + lvl + '>' + mdInline(escHtml(hm[2])) + '</h' + lvl + '>'; i++; continue; }
+    if (/^\s*---\s*$/.test(line)) { flushPara(para); html += '<hr />'; i++; continue; }
+    if (/^\s*>\s?/.test(line)) { flushPara(para); html += '<blockquote>' + mdInline(escHtml(line.replace(/^\s*>\s?/, ''))) + '</blockquote>'; i++; continue; }
+    if (/^\s*[-*]\s+/.test(line)) {
+      flushPara(para);
+      var items = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) { items.push(lines[i].replace(/^\s*[-*]\s+/, '')); i++; }
+      html += '<ul>' + items.map(function (it) { return '<li>' + mdInline(escHtml(it)) + '</li>'; }).join('') + '</ul>';
+      continue;
+    }
+    if (line.trim() === '') { flushPara(para); i++; continue; }
+    para.push(escHtml(line.trim()));
+    i++;
+  }
+  flushPara(para);
+  return html;
+}
+if (typeof document !== 'undefined') {
+  el('md-go').addEventListener('click', function () { el('md-out').innerHTML = renderMarkdown(el('md-in').value); });
+}
+
+</script>
+</body>
+</html>

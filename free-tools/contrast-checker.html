@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Color Contrast Checker — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Check WCAG color contrast ratios and AA/AAA pass or fail for normal and large text." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/contrast-checker.html" />
+<meta property="og:title" content="Color Contrast Checker — LookForIt" />
+<meta property="og:description" content="Check WCAG color contrast ratios and AA/AAA pass or fail for normal and large text." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/contrast-checker.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Color Contrast Checker — LookForIt" />
+<meta name="twitter:description" content="Check WCAG color contrast ratios and AA/AAA pass or fail for normal and large text." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Color Contrast Checker</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Color Contrast Checker</h1>
+<p class="lede">Pick a text color and a background color, and see the WCAG contrast ratio with AA and AAA verdicts.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Text color <input type="color" id="cc-text" value="#0b1220" /></label>
+<label>Background color <input type="color" id="cc-bg" value="#faf9f6" /></label>
+<button class="button primary" id="cc-go">Check contrast</button>
+</div><div class="gradient-preview" id="cc-preview"><p style="text-align:center;padding-top:2rem;font-weight:700;">Sample text at these colors</p></div>
+<div class="stat-grid" id="cc-out"></div>
+<p class="form-note">WCAG thresholds: AA normal text 4.5:1, AA large text 3:1, AAA normal text 7:1, AAA large text 4.5:1.</p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+function hexToRgbCc(hex) {
+  hex = (hex || '').replace('#', '');
+  if (hex.length === 3) { hex = hex.split('').map(function (c) { return c + c; }).join(''); }
+  var n = parseInt(hex, 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+function luminanceCc(hex) {
+  var c = hexToRgbCc(hex);
+  function f(v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+  return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+}
+function contrastRatio(h1, h2) {
+  var l1 = luminanceCc(h1), l2 = luminanceCc(h2);
+  var hi = Math.max(l1, l2), lo = Math.min(l1, l2);
+  return (hi + 0.05) / (lo + 0.05);
+}
+function wcagVerdict(ratio) {
+  return { aaNormal: ratio >= 4.5, aaLarge: ratio >= 3, aaaNormal: ratio >= 7, aaaLarge: ratio >= 4.5 };
+}
+if (typeof document !== 'undefined') {
+  el('cc-go').addEventListener('click', function () {
+    var t = el('cc-text').value, b = el('cc-bg').value;
+    var ratio = contrastRatio(t, b), v = wcagVerdict(ratio);
+    var prev = el('cc-preview');
+    prev.style.background = b;
+    prev.querySelector('p').style.color = t;
+    function pill(label, pass) { return '<div class="stat"><strong>' + (pass ? 'Pass \u2713' : 'Fail') + '</strong><span>' + label + '</span></div>'; }
+    el('cc-out').innerHTML = '<div class="stat"><strong>' + (Math.round(ratio * 100) / 100) + ':1</strong><span>Contrast ratio</span></div>'
+      + pill('AA normal text (4.5:1)', v.aaNormal) + pill('AA large text (3:1)', v.aaLarge)
+      + pill('AAA normal text (7:1)', v.aaaNormal) + pill('AAA large text (4.5:1)', v.aaaLarge);
+  });
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Unit Converter — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Convert length, weight, temperature and data size with fixed conversion factors — no live data needed." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/unit-converter.html" />
+<meta property="og:title" content="Unit Converter — LookForIt" />
+<meta property="og:description" content="Convert length, weight, temperature and data size with fixed conversion factors — no live data needed." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/unit-converter.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Unit Converter — LookForIt" />
+<meta name="twitter:description" content="Convert length, weight, temperature and data size with fixed conversion factors — no live data needed." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Unit Converter</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Unit Converter</h1>
+<p class="lede">Convert length, weight, temperature, and data size. All factors are fixed — no currency, because exchange rates need a live feed.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Category <select id="uc-cat"><option value="length">Length</option><option value="weight">Weight</option><option value="temperature">Temperature</option><option value="data">Data size</option></select></label>
+<label>Value <input type="number" id="uc-val" value="1" step="any" /></label>
+<label>From <select id="uc-from"></select></label>
+<label>To <select id="uc-to"></select></label>
+<button class="button primary" id="uc-go">Convert</button>
+</div><div class="tool-output" id="uc-out" aria-live="polite"></div>
+<p class="form-note">Data sizes use 1024-based units (1 KB = 1024 bytes). Temperature conversions use the standard formulas.</p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+var UC_UNITS = {
+  length: { m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.344, yd: 0.9144, ft: 0.3048, inch: 0.0254 },
+  weight: { kg: 1, g: 0.001, lb: 0.45359237, oz: 0.028349523125, t: 1000 },
+  data: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1099511627776 }
+};
+function convertUnits(category, value, from, to) {
+  var v = Number(value);
+  if (isNaN(v)) { return NaN; }
+  if (category === 'temperature') {
+    var c;
+    if (from === 'C') { c = v; } else if (from === 'F') { c = (v - 32) * 5 / 9; } else if (from === 'K') { c = v - 273.15; } else { return NaN; }
+    if (to === 'C') { return c; } else if (to === 'F') { return c * 9 / 5 + 32; } else if (to === 'K') { return c + 273.15; }
+    return NaN;
+  }
+  var table = UC_UNITS[category];
+  if (!table || table[from] === undefined || table[to] === undefined) { return NaN; }
+  return v * table[from] / table[to];
+}
+if (typeof document !== 'undefined') {
+  var UC_LABELS = { length: ['m', 'km', 'cm', 'mm', 'mi', 'yd', 'ft', 'inch'],
+    weight: ['kg', 'g', 'lb', 'oz', 't'], temperature: ['C', 'F', 'K'], data: ['B', 'KB', 'MB', 'GB', 'TB'] };
+  function fillUnits() {
+    var cat = el('uc-cat').value, opts = UC_LABELS[cat];
+    [el('uc-from'), el('uc-to')].forEach(function (sel, i) {
+      sel.innerHTML = '';
+      opts.forEach(function (u) { var o = document.createElement('option'); o.textContent = u; o.value = u; sel.appendChild(o); });
+      sel.selectedIndex = i === 0 ? 0 : Math.min(1, opts.length - 1);
+    });
+  }
+  el('uc-cat').addEventListener('change', fillUnits);
+  fillUnits();
+  el('uc-go').addEventListener('click', function () {
+    var r = convertUnits(el('uc-cat').value, el('uc-val').value, el('uc-from').value, el('uc-to').value);
+    el('uc-out').textContent = isNaN(r) ? 'Could not convert — check the units.'
+      : el('uc-val').value + ' ' + el('uc-from').value + ' = ' + (Math.round(r * 10000) / 10000) + ' ' + el('uc-to').value;
+  });
+}
+
+</script>
+</body>
+</html>

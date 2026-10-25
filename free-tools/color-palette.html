@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Color Palette Generator — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Build harmony color palettes from one color and copy gradient CSS — free, in your browser." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/color-palette.html" />
+<meta property="og:title" content="Color Palette Generator — LookForIt" />
+<meta property="og:description" content="Build harmony color palettes from one color and copy gradient CSS — free, in your browser." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/color-palette.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Color Palette Generator — LookForIt" />
+<meta name="twitter:description" content="Build harmony color palettes from one color and copy gradient CSS — free, in your browser." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Color Palette & Gradient Generator</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Color Palette & Gradient Generator</h1>
+<p class="lede">Pick a color, get harmony palettes and a ready-to-paste gradient — no sign-up, no downloads.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Base color <input type="color" id="cp-base" value="#b9975b" /></label>
+<button class="button primary" id="cp-go">Generate palettes</button>
+</div><div id="cp-out"></div>
+<h3>Gradient</h3><div class="row">
+<label>From <input type="color" id="cp-g1" value="#0b1220" /></label>
+<label>To <input type="color" id="cp-g2" value="#b9975b" /></label>
+<label>Angle (degrees) <input type="number" id="cp-ang" value="135" min="0" max="360" /></label>
+<button class="button" id="cp-ggo">Make gradient</button>
+</div><div class="gradient-preview" id="cp-preview"></div>
+<textarea id="cp-css" rows="2" readonly></textarea>
+<p><button class="button" id="cp-copy">Copy CSS</button></p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+function hexToRgb(hex) {
+  hex = (hex || '').replace('#', '');
+  if (hex.length === 3) { hex = hex.split('').map(function (c) { return c + c; }).join(''); }
+  var n = parseInt(hex, 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+function rgbToHex(r, g, b) {
+  function p(v) { var s = Math.round(v).toString(16); return s.length === 1 ? '0' + s : s; }
+  return '#' + p(r) + p(g) + p(b);
+}
+function hexToHsl(hex) {
+  var c = hexToRgb(hex), r = c.r / 255, g = c.g / 255, b = c.b / 255;
+  var max = Math.max(r, g, b), min = Math.min(r, g, b), h = 0, s = 0, l = (max + min) / 2;
+  if (max !== min) {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) { h = (g - b) / d + (g < b ? 6 : 0); }
+    else if (max === g) { h = (b - r) / d + 2; }
+    else { h = (r - g) / d + 4; }
+    h *= 60;
+  }
+  return { h: h, s: s * 100, l: l * 100 };
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360; s /= 100; l /= 100;
+  var c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs(((h / 60) % 2) - 1)), m = l - c / 2, r = 0, g = 0, b = 0;
+  if (h < 60) { r = c; g = x; } else if (h < 120) { r = x; g = c; }
+  else if (h < 180) { g = c; b = x; } else if (h < 240) { g = x; b = c; }
+  else if (h < 300) { r = x; b = c; } else { r = c; b = x; }
+  return rgbToHex((r + m) * 255, (g + m) * 255, (b + m) * 255);
+}
+function harmonies(hex) {
+  var base = hexToHsl(hex), h = base.h, s = base.s, l = base.l;
+  return {
+    complementary: [hex, hslToHex(h + 180, s, l)],
+    analogous: [hslToHex(h - 30, s, l), hex, hslToHex(h + 30, s, l)],
+    triadic: [hex, hslToHex(h + 120, s, l), hslToHex(h + 240, s, l)],
+    shades: [hslToHex(h, s, Math.max(10, l - 30)), hslToHex(h, s, Math.max(10, l - 15)), hex,
+             hslToHex(h, s, Math.min(90, l + 15)), hslToHex(h, s, Math.min(95, l + 30))]
+  };
+}
+function gradientCss(c1, c2, angle) {
+  return 'background: linear-gradient(' + (Number(angle) || 0) + 'deg, ' + c1 + ', ' + c2 + ');';
+}
+if (typeof document !== 'undefined') {
+  function swatchRow(name, colors) {
+    var html = '<h3>' + name + '</h3><div class="swatch-row">';
+    colors.forEach(function (c) {
+      html += '<button class="swatch" style="background:' + c + '" data-hex="' + c + '" title="Copy ' + c + '"><span>' + c + '</span></button>';
+    });
+    return html + '</div>';
+  }
+  el('cp-go').addEventListener('click', function () {
+    var h = harmonies(el('cp-base').value);
+    el('cp-out').innerHTML = swatchRow('Complementary', h.complementary) + swatchRow('Analogous', h.analogous)
+      + swatchRow('Triadic', h.triadic) + swatchRow('Shades', h.shades);
+    el('cp-out').querySelectorAll('.swatch').forEach(function (b) {
+      b.addEventListener('click', function () { copyText(b.getAttribute('data-hex'), null); });
+    });
+  });
+  el('cp-ggo').addEventListener('click', function () {
+    var css = gradientCss(el('cp-g1').value, el('cp-g2').value, el('cp-ang').value);
+    el('cp-css').value = css;
+    el('cp-preview').style.background = 'linear-gradient(' + (Number(el('cp-ang').value) || 0) + 'deg, ' + el('cp-g1').value + ', ' + el('cp-g2').value + ')';
+  });
+  bindCopy('cp-copy', function () { return el('cp-css').value; });
+}
+
+</script>
+</body>
+</html>

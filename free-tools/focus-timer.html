@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("lookforit-theme");if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<title>Focus Timer — LookForIt</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="A simple Pomodoro-style focus timer that runs locally in your browser — no account, no tracking." />
+<link rel="canonical" href="https://lookforit.xyz/free-tools/focus-timer.html" />
+<meta property="og:title" content="Focus Timer — LookForIt" />
+<meta property="og:description" content="A simple Pomodoro-style focus timer that runs locally in your browser — no account, no tracking." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lookforit.xyz/free-tools/focus-timer.html" />
+<meta property="og:site_name" content="Lookforit.xyz" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Focus Timer — LookForIt" />
+<meta name="twitter:description" content="A simple Pomodoro-style focus timer that runs locally in your browser — no account, no tracking." />
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><div class="header-inner"><a class="logo" href="/">Lookforit<span>.xyz</span></a><button id="nav-toggle" class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button><nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/tools/">AI Tools</a><a href="/free-tools/">Free Tools</a><a href="/articles/">Articles</a><a href="/earn-online.html">Earn Online</a><a href="/listing-requests/">Submit Tool</a><a href="/faq.html">FAQ</a><a href="/contact.html">Contact</a></nav><button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button><form class="header-search" method="get" action="/tools/" role="search"><input type="search" name="query" placeholder="Search tools and free tools…" aria-label="Search tools and free tools" /><button type="submit">Search</button></form></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/free-tools/">Free Tools</a> › Focus Timer</nav>
+<main id="main-content" class="page-wrap">
+<section class="reveal">
+<p class="eyebrow">Free Tool</p>
+<h1>Focus Timer</h1>
+<p class="lede">A simple focus timer: work in focused blocks, rest in short breaks. Everything runs locally on this page.</p>
+<div class="key-box"><strong>Runs entirely in your browser.</strong> Nothing you type on this page is sent to any server, stored, or tracked. Close the tab and it is gone.</div>
+<div class="tool-panel"><div class="row">
+<label>Focus (minutes) <input type="number" id="ft-focus" value="25" min="1" max="180" /></label>
+<label>Short break (minutes) <input type="number" id="ft-break" value="5" min="1" max="60" /></label>
+</div><div class="timer-display" id="ft-clock">25:00</div>
+<p class="form-note" id="ft-phase">Ready — press Start to begin a focus session.</p>
+<p><button class="button primary" id="ft-start">Start</button> <button class="button" id="ft-pause">Pause</button> <button class="button" id="ft-reset">Reset</button></p>
+<p class="form-note" id="ft-cycles">Completed focus sessions: 0</p></div>
+</section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><div class="footer-brand">Lookforit<span>.xyz</span></div><p>Discover the best AI tools, useful websites, and practical guides — curated for real work.</p><p><a href="mailto:syedsinterprises@gmail.com">syedsinterprises@gmail.com</a></p></div><div><h4>Explore</h4><ul><li><a href="/tools/">AI Tools</a></li><li><a href="/free-tools/">Free Tools</a></li><li><a href="/articles/">Articles</a></li><li><a href="/earn-online.html">Earn Online</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/listing-requests/">Submit Tool</a></li></ul></div><div><h4>Legal</h4><ul><li><a href="/privacy-policy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms</a></li><li><a href="/refund.html">Refund Policy</a></li><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/dmca.html">DMCA</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 Lookforit.xyz. All rights reserved. Last updated October 2026.</p></div></footer><button id="to-top" aria-label="Back to top">↑</button>
+<script src="/assets/js/main.js" defer></script>
+<script>
+
+function copyText(text, btn) {
+  var done = function () { if (btn) { btn.textContent = 'Copied \u2713'; setTimeout(function(){ btn.textContent = 'Copy'; }, 2000); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function el(id) { return document.getElementById(id); }
+function bindCopy(btnId, getText) {
+  var b = el(btnId);
+  if (b) { b.addEventListener('click', function () { copyText(getText(), b); }); }
+}
+'use strict';
+function formatTime(totalSeconds) {
+  var s = Math.max(0, Math.floor(totalSeconds));
+  var m = Math.floor(s / 60), sec = s % 60;
+  return (m < 10 ? '0' + m : '' + m) + ':' + (sec < 10 ? '0' + sec : '' + sec);
+}
+if (typeof document !== 'undefined') {
+  var ftTimer = null, ftRemaining = 25 * 60, ftMode = 'focus', ftCycles = 0, ftRunning = false;
+  function ftApply() {
+    if (ftMode === 'focus') { ftRemaining = (Number(el('ft-focus').value) || 25) * 60; }
+    else { ftRemaining = (Number(el('ft-break').value) || 5) * 60; }
+    el('ft-clock').textContent = formatTime(ftRemaining);
+    el('ft-phase').textContent = ftMode === 'focus' ? 'Focus session' : 'Break — rest well.';
+  }
+  function ftTick() {
+    ftRemaining--;
+    if (ftRemaining <= 0) {
+      clearInterval(ftTimer); ftRunning = false;
+      if (ftMode === 'focus') {
+        ftCycles++;
+        el('ft-cycles').textContent = 'Completed focus sessions: ' + ftCycles;
+        ftMode = 'break';
+        el('ft-phase').textContent = 'Focus complete — time for a break.';
+      } else {
+        ftMode = 'focus';
+        el('ft-phase').textContent = 'Break over — ready for the next focus session.';
+      }
+      ftApply();
+      el('ft-start').textContent = 'Start';
+      return;
+    }
+    el('ft-clock').textContent = formatTime(ftRemaining);
+  }
+  el('ft-start').addEventListener('click', function () {
+    if (ftRunning) { return; }
+    ftRunning = true;
+    el('ft-start').textContent = 'Running…';
+    ftTimer = setInterval(ftTick, 1000);
+  });
+  el('ft-pause').addEventListener('click', function () {
+    clearInterval(ftTimer); ftRunning = false; el('ft-start').textContent = 'Resume';
+  });
+  el('ft-reset').addEventListener('click', function () {
+    clearInterval(ftTimer); ftRunning = false; ftMode = 'focus'; el('ft-start').textContent = 'Start'; ftApply();
+  });
+  el('ft-focus').addEventListener('change', function () { if (!ftRunning && ftMode === 'focus') { ftApply(); } });
+  el('ft-break').addEventListener('change', function () { if (!ftRunning && ftMode === 'break') { ftApply(); } });
+  ftApply();
+}
+
+</script>
+</body>
+</html>
