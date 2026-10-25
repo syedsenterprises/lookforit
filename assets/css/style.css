@@ -202,3 +202,51 @@ html[data-theme="dark"] details summary { color: #f1f5f9; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .card { transition: none; }
 }
+
+/* v2: free-tool widgets */
+.tool-panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow); margin-top: 1.2rem; }
+.tool-panel label { display: block; font-weight: 600; margin: 0.7rem 0 0.3rem; }
+.tool-panel label input[type="checkbox"] { width: auto; }
+.tool-panel p label { display: inline-block; margin-right: 1rem; font-weight: 400; }
+input[type="number"], input[type="color"], input[type="range"] { border: 1px solid var(--line); border-radius: 10px; padding: 0.75rem 0.9rem; font: inherit; background: var(--card); color: var(--text); }
+input[type="color"] { padding: 0.2rem; height: 3rem; width: 5rem; }
+input[type="range"] { width: 100%; padding: 0; }
+.tool-output { background: var(--gold-soft); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; min-height: 3rem; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+.stat { background: var(--gold-soft); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; text-align: center; }
+.stat strong { display: block; font-family: var(--serif); font-size: 1.5rem; color: var(--ink); }
+.stat span { font-size: 0.85rem; color: var(--muted); }
+.swatch-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem; }
+.swatch { border: 1px solid var(--line); border-radius: 10px; width: 6.5rem; height: 4.5rem; cursor: pointer; position: relative; padding: 0; }
+.swatch span { position: absolute; left: 0; right: 0; bottom: 0.2rem; font-size: 0.72rem; background: rgba(255,255,255,0.85); color: #1c2430; }
+.gradient-preview { height: 6rem; border-radius: 12px; border: 1px solid var(--line); margin: 1rem 0; }
+.timer-display { font-family: var(--serif); font-size: 4rem; text-align: center; color: var(--ink); margin: 1rem 0 0; }
+.meter { height: 0.7rem; background: var(--line); border-radius: 999px; overflow: hidden; margin-top: 1rem; }
+.meter div { height: 100%; background: var(--gold); width: 0; transition: width 0.3s ease; }
+.md-preview { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem; margin-top: 1rem; }
+.md-preview pre { background: var(--ink); color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+.md-preview code { background: var(--gold-soft); padding: 0.1rem 0.35rem; border-radius: 4px; }
+.md-preview pre code { background: none; padding: 0; }
+.search-result { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.2rem; margin: 0.6rem 0; }
+.search-result h3 { margin: 0 0 0.2rem; }
+.search-result p { margin: 0; color: var(--muted); }
+html[data-theme="dark"] .stat strong, html[data-theme="dark"] .timer-display { color: #f1f5f9; }
+
+/* v2-extra: diff + mark */
+.diff-box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92rem; }
+.diff-add { background: #e6f4ea; color: #14532d; }
+.diff-del { background: #fde8e8; color: #7f1d1d; }
+.diff-same { color: var(--muted); }
+mark { background: var(--gold); color: #1a1405; padding: 0 0.15rem; border-radius: 3px; }
+html[data-theme="dark"] .diff-add { background: #14351f; color: #bbf7d0; }
+html[data-theme="dark"] .diff-del { background: #3d1515; color: #fecaca; }
+
+/* polish 2026-10-25: category icons, chip links, balanced 4-card grids, stacked tool forms */
+.card .cat-icon { display: block; width: 2.1rem; height: 2.1rem; color: var(--gold); margin-bottom: 0.7rem; }
+.card .cat-icon svg { width: 100%; height: 100%; }
+.cat-links a { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.75rem; margin: 0.2rem 0.25rem 0.2rem 0; text-decoration: none; color: var(--ink); }
+.cat-links a:hover { border-color: var(--gold); }
+@media (min-width: 900px) { .grid.grid-4 { grid-template-columns: repeat(2, 1fr); } }
+.tool-panel .row { display: grid; gap: 0.2rem; max-width: 36rem; }
+.tool-panel .row label { margin: 0.7rem 0 0.2rem; }
+.tool-panel .row label input[type="number"], .tool-panel .row label input[type="text"], .tool-panel .row label input[type="url"], .tool-panel .row label input[type="search"], .tool-panel .row label select, .tool-panel .row label textarea { display: block; width: 100%; max-width: 28rem; margin-top: 0.35rem; }
