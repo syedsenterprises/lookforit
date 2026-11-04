@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.lookforit.xyz/sitemap.xml
+Sitemap: https://lookforit.xyz/sitemap.xml
