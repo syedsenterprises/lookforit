@@ -307,4 +307,55 @@
     }
   }
 
+  /* Cookie consent + Google Analytics (GA4, G-WKN1GKE1SJ), consent-gated.
+     Pages that load consent.js (the newest article pages) are handled there;
+     this covers every other page. Choice stored as 'lookforit-consent'. */
+  var GA_ID = 'G-WKN1GKE1SJ';
+  function lfLoadGA(granted) {
+    if (window.__lfGALoaded) return;
+    window.__lfGALoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', { analytics_storage: granted ? 'granted' : 'denied', ad_storage: 'denied' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+  }
+  function lfGrantGA() {
+    if (window.gtag) window.gtag('consent', 'update', { analytics_storage: 'granted' });
+  }
+  function lfConsentChoice() { try { return localStorage.getItem('lookforit-consent'); } catch (e) { return null; } }
+  function lfConsentInit() {
+    if (document.querySelector('script[src*="consent.js"]') || window.__lfConsentHandled) return; /* consent.js owns this page */
+    var c = lfConsentChoice();
+    if (c === 'accepted') { lfLoadGA(true); return; }
+    if (c === 'declined') { return; }
+    var b = document.getElementById('lf-consent');
+    if (!b) {
+      b = document.createElement('div');
+      b.id = 'lf-consent';
+      b.setAttribute('role', 'dialog');
+      b.setAttribute('aria-label', 'Cookie consent');
+      b.style.cssText = 'display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:620px;margin:0 auto;background:#0b1220;color:#eef2fa;border:1px solid #334155;border-radius:12px;padding:14px 16px;font:14px/1.5 system-ui,-apple-system,\'Segoe UI\',Roboto,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.35);flex-direction:column';
+      b.innerHTML = '<p style="margin:0 0 10px">This site uses cookies for ads (Ezoic) and analytics (Google Analytics). Accept to load them, or decline and browse without them. See our <a href="/privacy-policy.html" style="color:#7dd3fc">Privacy Policy</a>.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button id="lf-consent-accept" type="button" style="cursor:pointer;border:0;border-radius:999px;padding:9px 20px;font:600 14px system-ui,-apple-system,\'Segoe UI\',Roboto,sans-serif;background:#0ea5e9;color:#fff">Accept</button><button id="lf-consent-decline" type="button" style="cursor:pointer;border:1px solid #64748b;border-radius:999px;padding:9px 20px;font:600 14px system-ui,-apple-system,\'Segoe UI\',Roboto,sans-serif;background:transparent;color:#e2e8f0">Decline</button></div>';
+      document.body.appendChild(b);
+    }
+    b.style.display = 'flex';
+    var a = document.getElementById('lf-consent-accept');
+    var d = document.getElementById('lf-consent-decline');
+    if (a) a.addEventListener('click', function () {
+      try { localStorage.setItem('lookforit-consent', 'accepted'); } catch (e) {}
+      b.style.display = 'none'; lfLoadGA(false); lfGrantGA();
+    });
+    if (d) d.addEventListener('click', function () {
+      try { localStorage.setItem('lookforit-consent', 'declined'); } catch (e) {}
+      b.style.display = 'none';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', lfConsentInit);
+  else lfConsentInit();
+
 })();
