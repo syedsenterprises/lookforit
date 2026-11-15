@@ -1,0 +1,97 @@
+# LookForIt
+
+> LookForIt is a curated directory for discovering the best AI tools, useful websites and online resources. Every listing is manually reviewed and verified, with no invented listings. It lists 153 verified AI tools in 20 categories, 20 free browser tools and 43 articles.
+
+- Site: https://www.lookforit.xyz/
+- Sitemap: https://lookforit.xyz/sitemap.xml
+- Contact: syedsenterprises@gmail.com
+
+## Main pages
+
+- [Home](https://www.lookforit.xyz/)
+- [AI Tools](https://www.lookforit.xyz/tools/)
+- [Free Tools](https://www.lookforit.xyz/free-tools/)
+- [Articles](https://www.lookforit.xyz/articles/)
+- [Earn Online](https://www.lookforit.xyz/earn-online.html)
+- [About](https://www.lookforit.xyz/about.html)
+- [FAQ](https://www.lookforit.xyz/faq.html)
+- [Contact](https://www.lookforit.xyz/contact.html)
+- [Submit a Tool](https://www.lookforit.xyz/listing-requests/)
+
+## AI tool categories (20 categories, 153 tools)
+
+- [AI Assistant (5 tools)](https://www.lookforit.xyz/tools/category/ai-assistant.html)
+- [AI Chatbot (7 tools)](https://www.lookforit.xyz/tools/category/ai-chatbot.html)
+- [AI Search (5 tools)](https://www.lookforit.xyz/tools/category/ai-search.html)
+- [Audio/Video (7 tools)](https://www.lookforit.xyz/tools/category/audio-video.html)
+- [Automation (5 tools)](https://www.lookforit.xyz/tools/category/automation.html)
+- [Content (13 tools)](https://www.lookforit.xyz/tools/category/content.html)
+- [Data Labeling (3 tools)](https://www.lookforit.xyz/tools/category/data-labeling.html)
+- [Databases (8 tools)](https://www.lookforit.xyz/tools/category/databases.html)
+- [Design (7 tools)](https://www.lookforit.xyz/tools/category/design.html)
+- [Developer Tools (13 tools)](https://www.lookforit.xyz/tools/category/developer-tools.html)
+- [Evaluation (3 tools)](https://www.lookforit.xyz/tools/category/evaluation.html)
+- [Image Editing (4 tools)](https://www.lookforit.xyz/tools/category/image-editing.html)
+- [Image Generation (9 tools)](https://www.lookforit.xyz/tools/category/image-generation.html)
+- [Infrastructure (4 tools)](https://www.lookforit.xyz/tools/category/infrastructure.html)
+- [LLM (7 tools)](https://www.lookforit.xyz/tools/category/llm.html)
+- [MLOps (7 tools)](https://www.lookforit.xyz/tools/category/mlops.html)
+- [Platform (10 tools)](https://www.lookforit.xyz/tools/category/platform.html)
+- [Productivity (15 tools)](https://www.lookforit.xyz/tools/category/productivity.html)
+- [Video (15 tools)](https://www.lookforit.xyz/tools/category/video.html)
+- [Voice (6 tools)](https://www.lookforit.xyz/tools/category/voice.html)
+
+## Featured AI tools
+
+- [ChatGPT](https://www.lookforit.xyz/tools/chatgpt.html)
+- [Claude](https://www.lookforit.xyz/tools/claude.html)
+- [Google Gemini](https://www.lookforit.xyz/tools/google-gemini.html)
+- [Manus](https://www.lookforit.xyz/tools/manus.html)
+- [n8n](https://www.lookforit.xyz/tools/n8n.html)
+- [Perplexity](https://www.lookforit.xyz/tools/perplexity.html)
+- [Google NotebookLM](https://www.lookforit.xyz/tools/google-notebooklm.html)
+- [Cursor](https://www.lookforit.xyz/tools/cursor.html)
+- [GitHub Copilot](https://www.lookforit.xyz/tools/github-copilot.html)
+- [Midjourney](https://www.lookforit.xyz/tools/midjourney.html)
+- [Framer AI](https://www.lookforit.xyz/tools/framer-ai.html)
+- [Lovable](https://www.lookforit.xyz/tools/lovable.html)
+- [Durable](https://www.lookforit.xyz/tools/durable.html)
+- [v0](https://www.lookforit.xyz/tools/v0.html)
+- [Bolt.new](https://www.lookforit.xyz/tools/bolt-new.html)
+- [Canva AI](https://www.lookforit.xyz/tools/canva-ai.html)
+
+## Free tools (20 tools)
+
+Free tools that run entirely in the browser, with no sign-up and no downloads.
+
+- [AI Cost Calculator](https://www.lookforit.xyz/free-tools/ai-cost-calculator.html)
+- [Prompt Builder](https://www.lookforit.xyz/free-tools/prompt-builder.html)
+- [Word Counter & Readability](https://www.lookforit.xyz/free-tools/word-counter.html)
+- [JSON Formatter & Validator](https://www.lookforit.xyz/free-tools/json-formatter.html)
+- [Password Generator](https://www.lookforit.xyz/free-tools/password-generator.html)
+- [Color Palette & Gradient](https://www.lookforit.xyz/free-tools/color-palette.html)
+- [Meta Tag Generator](https://www.lookforit.xyz/free-tools/meta-tag-generator.html)
+- [Text Toolkit](https://www.lookforit.xyz/free-tools/text-toolkit.html)
+- [Unit Converter](https://www.lookforit.xyz/free-tools/unit-converter.html)
+- [Markdown Preview](https://www.lookforit.xyz/free-tools/markdown-preview.html)
+- [Focus Timer](https://www.lookforit.xyz/free-tools/focus-timer.html)
+- [Base64 Encoder & Decoder](https://www.lookforit.xyz/free-tools/base64-encoder.html)
+- [UUID Generator](https://www.lookforit.xyz/free-tools/uuid-generator.html)
+- [Regex Tester](https://www.lookforit.xyz/free-tools/regex-tester.html)
+- [Color Contrast Checker](https://www.lookforit.xyz/free-tools/contrast-checker.html)
+- [Lorem Ipsum Generator](https://www.lookforit.xyz/free-tools/lorem-ipsum.html)
+- [CSV to JSON Converter](https://www.lookforit.xyz/free-tools/csv-to-json.html)
+- [Text Diff](https://www.lookforit.xyz/free-tools/text-diff.html)
+- [Stopwatch & Countdown](https://www.lookforit.xyz/free-tools/stopwatch.html)
+- [Random Picker](https://www.lookforit.xyz/free-tools/random-picker.html)
+
+## Articles (43 articles)
+
+Guides and comparisons on AI tools, including pricing, code ownership and how to choose a tool for a particular task.
+
+- [Best AI Website Builders 2026: Framer, Lovable and Durable](https://www.lookforit.xyz/articles/best-ai-website-builders-2026.html)
+- [AI Agents Explained 2026](https://www.lookforit.xyz/articles/ai-agents-explained-2026.html)
+- [Best AI Tools for Teachers 2026](https://www.lookforit.xyz/articles/best-ai-tools-for-teachers-2026.html)
+- [Best AI Tools for Small Business in 2026](https://www.lookforit.xyz/articles/best-ai-tools-for-small-business-2026.html)
+- [Best Free AI Tools in 2026](https://www.lookforit.xyz/articles/best-free-ai-tools-2026.html)
+- [AI Tools for Social Media Creators in 2026](https://www.lookforit.xyz/articles/ai-tools-for-social-media-creators-2026.html)
