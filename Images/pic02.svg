@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Claude Fable 5.2 model release overview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0faf9"/>
+      <stop offset="1" stop-color="#d9f2ef"/>
+    </linearGradient>
+    <linearGradient id="orb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="110" r="150" fill="#0d9488" opacity="0.08"/>
+  <circle cx="120" cy="540" r="120" fill="#7c3aed" opacity="0.07"/>
+  <!-- chat window -->
+  <rect x="330" y="90" width="540" height="450" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="330" y="90" width="540" height="64" rx="24" fill="#0f172a"/>
+  <circle cx="370" cy="122" r="7" fill="#f87171"/>
+  <circle cx="396" cy="122" r="7" fill="#fbbf24"/>
+  <circle cx="422" cy="122" r="7" fill="#34d399"/>
+  <rect x="470" y="112" width="220" height="20" rx="10" fill="#334155"/>
+  <!-- user bubble -->
+  <rect x="380" y="190" width="300" height="58" rx="16" fill="#ccfbf1"/>
+  <rect x="400" y="210" width="220" height="10" rx="5" fill="#0f766e"/>
+  <rect x="400" y="228" width="150" height="10" rx="5" fill="#5eead4"/>
+  <!-- AI bubble with orb -->
+  <rect x="380" y="280" width="440" height="120" rx="16" fill="#ede9fe"/>
+  <circle cx="425" cy="320" r="22" fill="url(#orb)"/>
+  <path d="M425 308 l4 8 8 4 -8 4 -4 8 -4 -8 -8 -4 8 -4z" fill="#ffffff"/>
+  <rect x="460" y="300" width="320" height="10" rx="5" fill="#6d28d9"/>
+  <rect x="460" y="320" width="280" height="10" rx="5" fill="#a78bfa"/>
+  <rect x="460" y="340" width="200" height="10" rx="5" fill="#c4b5fd"/>
+  <rect x="460" y="368" width="120" height="10" rx="5" fill="#ddd6fe"/>
+  <!-- input row -->
+  <rect x="380" y="440" width="440" height="56" rx="28" fill="#f1f5f9"/>
+  <rect x="404" y="462" width="260" height="10" rx="5" fill="#94a3b8"/>
+  <circle cx="776" cy="468" r="20" fill="#0d9488"/>
+  <path d="M768 468 h16 M776 460 v16" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <!-- sparkles -->
+  <path d="M900 200 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6z" fill="#f59e0b"/>
+  <path d="M270 360 l5 11 11 5 -11 5 -5 11 -5 -11 -11 -5 11 -5z" fill="#0d9488"/>
+</svg>
