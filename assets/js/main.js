@@ -359,3 +359,19 @@
   else lfConsentInit();
 
 })();
+// Reader Revenue Manager — Google Publisher Center, publication CAow7pTIDA
+(function () {
+  var s = document.createElement('script');
+  s.async = true;
+  s.type = 'application/javascript';
+  s.src = 'https://news.google.com/swg/js/v1/swg-basic.js';
+  document.head.appendChild(s);
+  (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+    basicSubscriptions.init({
+      type: "NewsArticle",
+      isPartOfType: ["Product"],
+      isPartOfProductId: "CAow7pTIDA:openaccess",
+      clientOptions: { theme: "light", lang: "en-GB" },
+    });
+  });
+})();
